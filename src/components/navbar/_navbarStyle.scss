@@ -1,0 +1,34 @@
+$space-base: 5px;
+
+$i: 0;
+
+@while $i <= 16 {
+    .mb-#{$i} {
+      margin-bottom: $i * $space-base;
+    }
+    .mt-#{$i} {
+      margin-top: $i * $space-base;
+    }
+    .mr-#{$i} {
+      margin-right: $i * $space-base;
+    }
+    .ml-#{$i} {
+      margin-left: $i * $space-base;
+    }
+    .pr-#{$i} {
+      padding-right: $i * $space-base;
+    }
+    .pl-#{$i} {
+      padding-left: $i * $space-base;
+    }
+    .pb-#{$i} {
+      padding-bottom: $i * $space-base;
+    }
+    .pt-#{$i} {
+      padding-top: $i * $space-base;
+    }
+    .pt-#{$i} {
+        height: $i * $space-base;
+      }
+    $i: $i + 1;
+}

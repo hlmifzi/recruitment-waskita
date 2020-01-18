@@ -1,0 +1,21 @@
+version: "3.6"
+
+services: 
+    wika_app:
+        container_name: waskita_dashboard_recruitment
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        labels: 
+            - traefik.enable=true
+            - traefik.backend=waskita_dashboard_recruitment
+            - traefik.http.routers.waskita_dashboard_recruitment.rule=Host(`wika.dedekrnwan.site`)
+            - traefik.http.services.waskita_dashboard_recruitment.loadbalancer.server.port=80
+            - traefik.docker.network=proxy
+            - traefik.http.routers.waskita_dashboard_recruitment.entrypoints=http
+        networks: 
+            - proxy
+networks: 
+  proxy:
+    external: 
+      name: proxy 
