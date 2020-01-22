@@ -20,8 +20,9 @@
     }
     .wrapper-content {
         padding: 24px;
-        width: 100%;
+        width: calc(100% + 72px);
         min-height: 100vh;
         background-color: aliceblue;
+        margin-left: -36px;
     }
 }
