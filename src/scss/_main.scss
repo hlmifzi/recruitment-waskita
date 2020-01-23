@@ -1,8 +1,10 @@
 @import "././helper/_mixin.scss";
+@import "./_color-variable.scss";
 @import "./helper/_helper.scss";
 @import "../pages/auth/_auth.scss";
 @import "../pages/recruitment/_recruitment.scss";
 @import "../pages/admin/admin.scss";
+
 
 
 button, input, textarea {
