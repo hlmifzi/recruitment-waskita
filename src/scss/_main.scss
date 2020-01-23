@@ -3,3 +3,7 @@
 @import "../pages/auth/_auth.scss";
 @import "../pages/recruitment/_recruitment.scss";
 
+
+button, input, textarea {
+    outline: none !important;
+}
