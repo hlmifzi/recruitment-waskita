@@ -5,7 +5,7 @@ import logo from '../../logo.svg'
 const MainNavbar = () => {
     return (
         <>
-            <Navbar bg="danger" variant="dark" className='h-12'>
+            <Navbar bg="primary" variant="dark" className='h-12'>
                 <img src={logo} className="logo-navbar" />
             </Navbar>
             {/* <Navbar bg="light" variant="dark" className='h-18'>

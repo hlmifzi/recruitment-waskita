@@ -10,7 +10,7 @@ import SignIn from './pages/auth/SignIn';
 function App() {
   return (
     <>
-      <Components.navbar />
+      <Components.header />
       <Dashboard />
       {/* <SignIn /> */}
     </>
