@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: $theme-color;
+    background-color: $theme-general-color;
 }
 .login-card {
     min-width: 300px;
@@ -28,13 +28,13 @@
         padding: 6px 0px;
         text-align: left;
         border: none;
-        border-bottom: 1px solid $theme-color;
+        border-bottom: 1px solid $theme-general-color;
         margin: 10px 0;
     }
     .btn-login {
         width: 180px;
         height: 30px;
-        background-color: $theme-color;
+        background-color: $theme-general-color;
         color: white;
         font-weight: 600;
         text-align: center;

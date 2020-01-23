@@ -26,3 +26,30 @@
         margin-left: -36px;
     }
 }
+
+// =================== Table Participants =====================
+.wrapper-table-participant {
+    padding: 12px;
+    font-size: 14px;
+}
+.table-participant {
+    width: 100%;
+    max-height: 100vh;
+    overflow: auto;
+    thead {
+        background: $navy-color;
+        color: white;
+        text-align: center;
+    }
+    tbody {
+        background: white;
+        text-align: center;    
+    }
+    th, td {
+        padding: 6px;
+    }
+}
+
+
+
+// ============================================================

@@ -11,8 +11,8 @@ function App() {
   return (
     <>
       <Components.navbar />
-      {/* <Dashboard /> */}
-      <SignIn />
+      <Dashboard />
+      {/* <SignIn /> */}
     </>
   );
 }
