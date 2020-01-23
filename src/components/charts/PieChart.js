@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactHighcharts from 'react-highcharts'
-import { Col, Row, Spinner } from 'reactstrap';
-import { CardWhiteComponent } from '../../../MyComponent/CardCustom/CardComponent'
+import { Col, Row, Spinner } from 'react-bootstrap';
 import HighchartsMore from 'highcharts-more'
 HighchartsMore(ReactHighcharts.Highcharts)
-
 
 const PropTypesParam = {
     data: PropTypes.array,
@@ -72,18 +70,14 @@ const PieChart = props => {
     }
 
     return (
-        <Col xs={12} sm={6} md={6}>
-            <CardWhiteComponent text={props.title}>
-                <Row>
-                    <Col xs={12} sm={12} md={12}>
-                        {props.isLoading ?
-                            <Spinner animation="border" variant="primary" className='mr-auto' style={{ margin: 'auto', color: 'blue' }} /> :
-                            <ReactHighcharts config={config} />
-                        }
-                    </Col>
-                </Row>
-            </CardWhiteComponent>
-        </Col>
+        <Row>
+            <Col xs={12} sm={12} md={12}>
+                {props.isLoading ?
+                    <Spinner animation="border" variant="primary" className='mr-auto' style={{ margin: 'auto', color: 'blue' }} /> :
+                    <ReactHighcharts config={config} />
+                }
+            </Col>
+        </Row>
     )
 }
 

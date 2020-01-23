@@ -1,13 +1,9 @@
 import MainNavbar from './navbar/MainNavbar'
-import BarChart from './charts/BarChart'
-import PieChart from './charts/PieChart'
+import Charts from './charts/Charts'
 
 const Components = {
     navbar: MainNavbar,
-    chart: {
-        barChart: BarChart,
-        pieChart: PieChart
-    }
+    charts: Charts
 }
 
 export default Components
