@@ -1,0 +1,28 @@
+.body-dashboard {
+    padding: 36px;
+    width: 100%;
+    min-height: 100vh;
+    .tab-wrapper {
+        width: 100%;
+        border-bottom: 1px solid black;
+    }
+    .btn-tab {
+        width: 250px;
+        height: 40px;
+        text-align: center;
+        border: 1px solid black;
+        font-weight: 600;
+        border-bottom: none;
+        &.active {
+            background-color: navy;
+            color: white;
+        }
+    }
+    .wrapper-content {
+        padding: 24px;
+        width: calc(100% + 72px);
+        min-height: 100vh;
+        background-color: aliceblue;
+        margin-left: -36px;
+    }
+}
