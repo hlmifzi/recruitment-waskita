@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import logo from '../../logo.svg'
 
 const PropTypesParams = {
     isClick: PropTypes.array,
@@ -11,9 +12,14 @@ const DefaultPropsParams = {
 
 const SignIn = props => {
     return (
-        <>
-
-        </>
+      <div className="body-login">
+        <div className="login-card">
+          <img src={logo} />
+          <input type="text" placeholder="Username" />
+          <input type="password" placeholder="Password" />
+          <button className="btn-login">Sign in</button>
+        </div>
+      </div>
     )
 }
 
