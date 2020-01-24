@@ -1,25 +1,25 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 const TableParticipant = props => {
-    const [active, setActive] = useState('statistik');
-    const [listParticipant, setListParticipant] = useState([]);
+  const [active, setActive] = useState('statistik');
+  const [listParticipant, setListParticipant] = useState([]);
 
-    const getData = async () => {
-     await axios.get("http://www.mocky.io/v2/5e299e803000004a45faf17d")
-        .then(data =>
-          setListParticipant(data.data.participants)
-        )
-    }
-    useEffect(() => {
-      getData()
-    },[])
+  const getData = async () => {
+    await axios.get("http://www.mocky.io/v2/5e299e803000004a45faf17d")
+      .then(data =>
+        setListParticipant(data.data.participants)
+      )
+  }
+  useEffect(() => {
+    getData()
+  }, [])
 
-    return (
-      <div className="wrapper-table-participant">
-        <table className="table-participant">
+  return (
+    <div className="wrapper-table-participant">
+      <table className="table-participant">
         <thead>
-            <tr>
+          <tr>
             <th>No.</th>
             <th>Nama Peserta</th>
             <th>Jenis Kelamin</th>
@@ -30,13 +30,13 @@ const TableParticipant = props => {
             <th>Tanggal Test</th>
             <th>Hasil</th>
             <th>Keterangan</th>
-            </tr>
+          </tr>
         </thead>
         <tbody>
-            {
-            listParticipant.length > 0 && 
+          {
+            listParticipant.length > 0 &&
             listParticipant.map((val, index) =>
-                <tr>
+              <tr>
                 <td>{index + 1}.</td>
                 <td>{val.nama}</td>
                 <td>{val.jenis_kelamin}</td>
@@ -47,13 +47,13 @@ const TableParticipant = props => {
                 <td>{val.tgl_test}</td>
                 <td className="td-url">{val.url}</td>
                 <td>Keterangan</td>
-                </tr>
+              </tr>
             )
-            }
+          }
         </tbody>
-        </table>
+      </table>
     </div>
-    )
+  )
 }
 
 export default TableParticipant

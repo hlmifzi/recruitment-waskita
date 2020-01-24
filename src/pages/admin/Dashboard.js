@@ -1,30 +1,30 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import Components from '../../components/Components'
+import TableParticipant from './TableParticipant'
 
 
 const PropTypesParams = {
-    isClick: PropTypes.array,
+  isClick: PropTypes.array,
 }
 
 const DefaultPropsParams = {
-    isClick: false,
+  isClick: false,
 }
 
 const Dashboard = props => {
-    const [active, setActive] = useState('statistik');
+  const [active, setActive] = useState('statistik');
 
-    return (
-      <div className="body-dashboard">
-        <div className="tab-wrapper">
-          <button className={`btn-tab ${active == 'statistik' ? 'active' : ''}`} onClick={() => setActive('statistik')}>Data Statistik</button>
-          <button className={`btn-tab ${active == 'peserta' ? 'active' : ''}`} onClick={() => setActive('peserta')}>Data Peserta</button>
-        </div>
-        <div className="wrapper-content">
-            { active == 'peserta' && <Components.table />}
-        </div>
+  return (
+    <div className="body-dashboard">
+      <div className="tab-wrapper">
+        <button className={`btn-tab ${active == 'statistik' ? 'active' : ''}`} onClick={() => setActive('statistik')}>Data Statistik</button>
+        <button className={`btn-tab ${active == 'peserta' ? 'active' : ''}`} onClick={() => setActive('peserta')}>Data Peserta</button>
       </div>
-    )
+      <div className="wrapper-content">
+        {active == 'peserta' && <TableParticipant />}
+      </div>
+    </div>
+  )
 }
 
 

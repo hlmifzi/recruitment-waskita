@@ -35,7 +35,6 @@ export const clientPost = async (endPoint, { body = "" }) => {
     }
 }
 
-
 export const clientDelete = async (endPoint, { params = "" }) => {
     axiosRetry(ROOT_API, { retries: 3 });
 
