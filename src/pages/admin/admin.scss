@@ -4,17 +4,17 @@
     min-height: 100vh;
     .tab-wrapper {
         width: 100%;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $black;
     }
     .btn-tab {
         width: 250px;
         height: 40px;
         text-align: center;
-        border: 1px solid black;
+        border: 1px solid $black;
         font-weight: 600;
         border-bottom: none;
         &.active {
-            background-color: $navy-color;
+            background-color: $background-primary;
             color: white;
         }
     }
@@ -22,7 +22,7 @@
         padding: 24px;
         width: calc(100% + 72px);
         min-height: 100vh;
-        background-color:$aliceblue-color;
+        background-color:$background-secondary;
         margin-left: -36px;
     }
 }
@@ -31,7 +31,7 @@
     width: 100%;
     height: 70px;
     margin-bottom: 24px;
-    background-color: $navy-color;
+    background-color: $background-primary;
     display: flex;
     justify-content: left;
     img {
@@ -50,19 +50,19 @@
     max-height: 100vh;
     overflow: auto;
     thead {
-        background: $navy-color;
-        color: white;
+        background: $background-primary;
+        color: $white;
         text-align: center;
     }
     tbody {
-        background: white;
+        background: $white;
         text-align: center;    
     }
     th, td {
         padding: 6px;
     }
     .td-url {
-        color: blue;
+        color: $link;
         text-decoration: underline;
         cursor: pointer;
     }
