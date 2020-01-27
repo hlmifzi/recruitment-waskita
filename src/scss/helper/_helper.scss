@@ -335,4 +335,11 @@
   .m-auto{
     margin: 0 auto 45px;
   }
+
+  @for $j from 1 to 13 {
+    .flex-#{$j} {
+      flex: $j;
+    }
+  }
+
   

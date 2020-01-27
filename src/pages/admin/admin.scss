@@ -71,3 +71,15 @@
 
 
 // ============================================================
+
+// =================== Participant Statistic =====================
+.container-highchart {
+    @include alignFlex(left);
+    .card {
+        @include centerFlex();
+        height: 250px;
+        margin: 12px;
+    }
+}
+
+// ============================================================
