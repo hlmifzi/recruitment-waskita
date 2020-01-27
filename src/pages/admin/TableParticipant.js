@@ -22,6 +22,7 @@ const TableParticipant = props => {
       { showModal && 
         <ModalResult
           closeModal={(bool) => setShowModal(bool)}
+          isShow={showModal}
         /> 
       }
       <div className="wrapper-table-participant">

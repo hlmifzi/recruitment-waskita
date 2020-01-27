@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import iconDownload from '../../assets/download.svg'
 
-const ModalResult = ({closeModal}) => {
+const ModalResult = ({closeModal, isShow}) => {
   const wrapperRef = useRef(null);
 
   const clickOutsideModal = event => {
@@ -17,11 +17,10 @@ const ModalResult = ({closeModal}) => {
       document.removeEventListener("click", clickOutsideModal, false);
     };
   }, [])
-
     
   return (
       <>
-        <div className="modal-result">
+        <div className={`modal-result ${isShow ? 'show' : ''}`}>
           <div className="modal-result-card" ref={wrapperRef}>
             <div className="modal-result-header">
               <p>Result</p>
