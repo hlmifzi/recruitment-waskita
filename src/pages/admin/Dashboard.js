@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import TableParticipant from './TableParticipant'
-import Charts from '../../components/charts/Charts'
+import ParticipantStatistic from './ParticipantStatistic'
 
 
 const PropTypesParams = {
@@ -22,22 +22,7 @@ const Dashboard = props => {
         <button className={`btn-tab ${active == 'peserta' ? 'active' : ''}`} onClick={() => setActive('peserta')}>Data Peserta</button>
       </div>
       <div className="wrapper-content">
-        <div className="container-highchart">
-          <div className="card flex-8">
-            <Charts.barChart />
-          </div>
-          <div className="card flex-4">
-            <Charts.barChart />
-          </div>
-        </div>
-        <div className="container-highchart">
-          <div className="card flex-6">
-            <Charts.barChart />
-          </div>
-          <div className="card flex-6">
-            <Charts.barChart />
-          </div>
-        </div>
+        {active == 'statistik' && <ParticipantStatistic />}
         {active == 'peserta' && <TableParticipant />}
       </div>
     </div>
