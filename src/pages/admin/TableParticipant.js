@@ -47,7 +47,7 @@ const TableParticipant = props => {
               listParticipant.map((val, index) =>
                 <tr>
                   <td>{index + 1}.</td>
-                  <td className="cursor-pointer" onClick={() => {setShowModal(true)}}>{val.nama}</td>
+                  <td className="cursor-pointer" onClick={() => {setShowModal(true); document.body.classList.add("scroll-locked")}}>{val.nama}</td>
                   <td>{val.jenis_kelamin}</td>
                   <td>{val.usia}</td>
                   <td>{val.universitas}</td>

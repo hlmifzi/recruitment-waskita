@@ -9,6 +9,7 @@ const ModalResult = ({closeModal, isShow}) => {
   const clickOutsideModal = event => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
       closeModal(false);
+      document.body.classList.remove("scroll-locked");
     }
   };
 
