@@ -44,10 +44,41 @@
     .modal-result-header .icon-download {
         height: 32px;
         width: 32px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include centerFlex();
         background-color: $light-blue;
         @include absolute(6px, 12px, null, null);
+    }
+    .personal-info {
+      padding: 24px 0;
+      border-bottom: 2px solid $border-lightgrey;
+      > img {
+        width: 280px;
+        height: 170px;
+        object-fit: cover;
+        margin-right: 16px;
+      }
+      .social-media-info {
+        @include alignFlex(center);
+        flex-direction: column;
+      }
+      .social-media-bar {
+        width: 100%;
+        height: 20px;
+        margin: 8px 0;
+        align-self: flex-start;
+      }
+       .twitter {
+        background-color: $twitter-color;
+      }
+       .instagram {
+        background-color: $instagram-color;
+      }
+       .facebook {
+        background-color: $facebook-color;
+      }
+    }
+    .wrapper-user-info p:first-child {
+      font-weight: bold;
+      font-size: 18px;
     }
 }

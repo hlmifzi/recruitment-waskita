@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import ModalResult from '../../components/modal/ModalResult'
+import Components from '../../components/Components'
 
 const TableParticipant = props => {
   const [listParticipant, setListParticipant] = useState([]);
@@ -20,7 +20,7 @@ const TableParticipant = props => {
   return (
     <>
       { showModal && 
-        <ModalResult
+        <Components.modalResult
           closeModal={(bool) => setShowModal(bool)}
           isShow={showModal}
         /> 
