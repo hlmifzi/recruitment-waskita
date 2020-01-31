@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Charts from '../../components/charts/Charts'
 import { useQuery } from '@apollo/react-hooks';
 
-import { GET_POKEMON } from '../../services/apolloClient/ClientApollo'
+import { getPokemon } from './graphql/ParticipantStatisticGraphql'
 
 const PropTypesParams = {
   isClick: PropTypes.array,
@@ -14,9 +14,9 @@ const DefaultPropsParams = {
 }
 
 const ParticipantStatistic = props => {
-  // const [dataDog, setDataDog] = useState([])
 
-  const { loading, error, data } = useQuery(GET_POKEMON);
+  const { loading, error, data } = useQuery(getPokemon);
+  console.log("TCL: data", data)
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
