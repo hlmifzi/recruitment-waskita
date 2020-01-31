@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import iconDownload from '../../assets/download.svg'
 import tempImg from '../../logo-waskita.png'
+import ReactToPdf from 'react-to-pdf'
 
 const ModalResult = ({closeModal, isShow}) => {
   const wrapperRef = useRef(null);
@@ -26,14 +27,18 @@ const ModalResult = ({closeModal, isShow}) => {
           <div className="modal-result-card" ref={wrapperRef}>
             <div className="modal-result-header">
               <p>Result</p>
-              <span className="icon-download img-rounded">
-                <img src={iconDownload} />
-              </span>
+              <ReactToPdf targetRef={wrapperRef} filename="div-blue.pdf">
+                {({toPdf}) =>  (
+                    <span className="icon-download img-rounded" onClick={toPdf}>
+                      <img src={iconDownload} />
+                    </span>
+                )}
+            </ReactToPdf>
             </div>
             <div className="modal-result-body">
               <div className="personal-info d-flex">
                 <div className="profile-info d-flex flex-8">
-                  <img src={tempImg} />
+                  <img className="profile-picture" src={tempImg} />
                   <div className="wrapper-user-info">
                     <p>Zoe Saldana</p>
                     <p className="mb-0">19 July 2019 (age 21)</p>
