@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Components from '../../components/Components'
+import { gql } from "apollo-boost";
+import ClientApollo from '../../services/apolloClient/ClientApollo'
+
 
 const TableParticipant = props => {
   const [listParticipant, setListParticipant] = useState([]);
@@ -13,17 +16,31 @@ const TableParticipant = props => {
       )
   }
 
+  const graphQlgetdata = () => {
+    ClientApollo.query({
+      query: gql`
+        {
+          rates(currency: "USD") {
+            currency
+          }
+        }
+      `
+    })
+      .then(result => console.log(result));
+  }
+
   useEffect(() => {
     getData()
+    graphQlgetdata()
   }, [])
 
   return (
     <>
-      { showModal && 
+      {showModal &&
         <Components.modalResult
           closeModal={(bool) => setShowModal(bool)}
           isShow={showModal}
-        /> 
+        />
       }
       <div className="wrapper-table-participant">
         <table className="table-participant">
@@ -47,7 +64,7 @@ const TableParticipant = props => {
               listParticipant.map((val, index) =>
                 <tr>
                   <td>{index + 1}.</td>
-                  <td className="cursor-pointer" onClick={() => {setShowModal(true); document.body.classList.add("scroll-locked")}}>{val.nama}</td>
+                  <td className="cursor-pointer" onClick={() => { setShowModal(true); document.body.classList.add("scroll-locked") }}>{val.nama}</td>
                   <td>{val.jenis_kelamin}</td>
                   <td>{val.usia}</td>
                   <td>{val.universitas}</td>
