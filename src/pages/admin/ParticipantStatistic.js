@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import Charts from '../../components/charts/Charts'
 import { useQuery } from '@apollo/react-hooks';
-
 import { getPokemon } from './graphql/ParticipantStatisticGraphql'
 
 const PropTypesParams = {
@@ -15,10 +14,9 @@ const DefaultPropsParams = {
 
 const ParticipantStatistic = props => {
 
-  const { loading, error, data } = useQuery(getPokemon);
-  console.log("TCL: data", data)
-  if (loading) return 'Loading...';
-  if (error) return `Error! ${error.message}`;
+  const { loading, error, data } = useQuery(getPokemon)
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
 
   return (
     <>
