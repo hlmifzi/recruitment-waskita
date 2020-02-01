@@ -25,9 +25,7 @@ const DefaultPropsParam = {
 
 const LineChart = props => {
     let config = {
-
         title: false,
-
         yAxis: {
             title: {
                 text: 'Number of Employees'
@@ -36,8 +34,10 @@ const LineChart = props => {
         xAxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
+        yAxis: {
+            offset: 30
+        },
         legend: false,
-
         plotOptions: {
             series: {
                 marker: {
@@ -52,7 +52,6 @@ const LineChart = props => {
                 }
             }
         },
-
         series: [{
             name: 'Installation',
             color: '#012C40',

@@ -26,7 +26,7 @@ const DonutChart = props => {
             plotBackgroundColor: null,
             plotBorderWidth: 0,
             plotShadow: false,
-            width: 350
+            marginLeft: 140
         },
         title: false,
         tooltip: {
@@ -47,20 +47,31 @@ const DonutChart = props => {
                         color: 'white'
                     }
                 },
-                startAngle: 0,
-                endAngle: 360,
+                startAngle: 30,
                 size: '100%',
-                showInLegend: true
+                showInLegend: true,
+                colors: [
+                    '#012C40',
+                    '#AE3356',
+                ],
             },
-
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            x: 20,
+            verticalAlign: 'top',
+            y: 150,
+            floating: true,
+            backgroundColor: '#FFFFFF'
         },
         series: [{
             type: 'pie',
             name: 'Jenis Kelamin',
-            innerSize: '50%',
+            innerSize: '70%',
             data: [
-                ['Laki-Laki', 58.9],
-                ['Perempuan', 13.29],
+                ['Laki-Laki', 65.9],
+                ['Perempuan', 35.29],
             ]
         }],
         credits: {
