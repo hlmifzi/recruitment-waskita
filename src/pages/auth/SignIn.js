@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import logo from '../../logo.svg'
-import { Link } from "@reach/router"
+import { useApolloClient } from "@apollo/react-hooks";
+
 
 const PropTypesParams = {
   isClick: PropTypes.array,
@@ -13,15 +14,20 @@ const DefaultPropsParams = {
 
 
 const SignIn = props => {
+  const client = useApolloClient();
+
+  const _handleSignIn = () => {
+    client.writeData({ data: { isLoggedIn: true } });
+  }
+
   return (
     <div className="body-login">
       <div className="login-card">
         <img src={logo} />
         <input type="text" placeholder="Username" />
         <input type="password" placeholder="Password" />
-        <Link to="/admin">
-          <button className="btn-login">Sign in</button>
-        </Link>
+        <button className="btn-login"
+          onClick={_handleSignIn}>Sign in</button>
       </div>
     </div >
   )

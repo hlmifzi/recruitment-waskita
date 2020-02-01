@@ -5,7 +5,6 @@ import { useQuery } from '@apollo/react-hooks';
 import { getJumlahPeserta } from './graphql/AdminGql'
 import { Row } from 'react-bootstrap';
 
-
 const ParticipantStatistic = () => {
 
   const [isLoadingJumlahPeserta, setIsLoadingJumlahPeserta] = useState(false)
