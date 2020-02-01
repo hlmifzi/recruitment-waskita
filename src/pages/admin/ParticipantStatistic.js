@@ -3,6 +3,7 @@ import { useState } from 'reinspect'
 import Components from '../../components/Components'
 import { useQuery } from '@apollo/react-hooks';
 import { getJumlahPeserta } from './graphql/AdminGql'
+import { Row } from 'react-bootstrap';
 
 
 const ParticipantStatistic = () => {
@@ -17,9 +18,12 @@ const ParticipantStatistic = () => {
   if (error) return `Error! ${error.message}`
 
   return (
-    <>
-      <Components.charts.lineChart isLoading={isLoadingJumlahPeserta} colMd={8} />
-    </>
+    <Row>
+      <Components.charts.lineChart title="Jumlah Peserta" isLoading={isLoadingJumlahPeserta} colMd={8} />
+      <Components.charts.donatChart title="Jenis Kelamin" isLoading={isLoadingJumlahPeserta} colMd={4} />
+      <Components.charts.barChart title="Universitas" isLoading={isLoadingJumlahPeserta} colMd={6} />
+      <Components.charts.barChart title="Usia" isLoading={isLoadingJumlahPeserta} colMd={6} />
+    </Row>
   )
 }
 

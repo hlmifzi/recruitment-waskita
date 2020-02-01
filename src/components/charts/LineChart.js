@@ -21,7 +21,6 @@ const DefaultPropsParam = {
     colSm: 12,
     colMd: 12,
     isLoading: true
-
 };
 
 const LineChart = props => {
@@ -34,21 +33,13 @@ const LineChart = props => {
                 text: 'Number of Employees'
             }
         },
-
         xAxis: {
-            accessibility: {
-                rangeDescription: 'Range: 2010 to 2017'
-            }
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
-
         legend: false,
 
         plotOptions: {
             series: {
-                label: {
-                    connectorAllowed: false
-                },
-                pointStart: 2010,
                 marker: {
                     enabled: false,
                     symbol: 'circle',
@@ -64,7 +55,8 @@ const LineChart = props => {
 
         series: [{
             name: 'Installation',
-            data: [21, 31, 36, 13, 40, 12, 32, 15]
+            color: '#012C40',
+            data: [21, 31, 36, 13, 40, 12, 32, 15, 15, 23, 53, 13]
         }],
 
         responsive: {
