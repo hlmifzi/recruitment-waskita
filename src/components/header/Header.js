@@ -6,6 +6,7 @@ const MainNavbar = () => {
         <>
             <div className="header-admin">
                 <img src={logo} />
+                <div class="pull-right text-white"> log out </div>
             </div>
         </>
     )

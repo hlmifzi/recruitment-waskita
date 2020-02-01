@@ -13,11 +13,12 @@ const DefaultPropsParams = {
 }
 
 
-const SignIn = props => {
+const SignIn = () => {
   const client = useApolloClient();
 
   const _handleSignIn = () => {
-    client.writeData({ data: { isLoggedIn: true } });
+    localStorage.setItem('token', true)
+    client.writeData({ data: { isLoggedIn: localStorage.getItem('token') } });
   }
 
   return (

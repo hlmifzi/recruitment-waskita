@@ -1,5 +1,5 @@
 const AdminQueryGql = {
-  JumlahPeserta: `{
+    JumlahPeserta: `{
         pokemon(name: "Pikachu") {
           id
           number

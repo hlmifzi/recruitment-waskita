@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useState } from 'reinspect'
 import Components from '../../components/Components'
 import { useQuery } from '@apollo/react-hooks';
 import { getJumlahPeserta } from './graphql/AdminGql'
@@ -7,22 +6,22 @@ import { Row } from 'react-bootstrap';
 
 const ParticipantStatistic = () => {
 
-  const [isLoadingJumlahPeserta, setIsLoadingJumlahPeserta] = useState(false)
-  const [isLoadingJenisKelamin, setIsLoadingJenisKelamin] = useState(false)
-  const [isLoadingUniversitas, setIsLoadingUniversitas] = useState(false)
-  const [isLoadingUsia, setIsLoadingUsia] = useState(false)
+  const { loading: isLoadingJumlahPeserta, error: err1, data: dataJumlahPeserta } = useQuery(getJumlahPeserta)
+  const { loading: isLoadingJenisKelamin, error: err2, data: dataJenisKelamin } = useQuery(getJumlahPeserta)
+  const { loading: isLoadingUniversitas, error: err3, data: dataUniversitas } = useQuery(getJumlahPeserta)
+  const { loading: isLoadingUsia, error: err4, data: dataUsia } = useQuery(getJumlahPeserta)
 
-  const { loading, error, data } = useQuery(getJumlahPeserta)
-  console.log("TCL: ParticipantStatistic -> data", data)
-  if (loading) return 'Loading...'
-  if (error) return `Error! ${error.message}`
+  if (err1) return `Error! ${err1.message}`
+  if (err2) return `Error! ${err2.message}`
+  if (err3) return `Error! ${err3.message}`
+  if (err4) return `Error! ${err4.message}`
 
   return (
     <Row>
-      <Components.charts.lineChart title="Jumlah Peserta" isLoading={isLoadingJumlahPeserta} colMd={8} />
-      <Components.charts.donatChart title="Jenis Kelamin" isLoading={isLoadingJumlahPeserta} colMd={4} />
-      <Components.charts.barChart title="Universitas" isLoading={isLoadingJumlahPeserta} colMd={6} />
-      <Components.charts.barChart title="Usia" isLoading={isLoadingJumlahPeserta} colMd={6} />
+      <Components.charts.lineChart title="Jumlah Peserta" isLoading={isLoadingJumlahPeserta} colMd={8} data={dataJumlahPeserta} />
+      <Components.charts.donatChart title="Jenis Kelamin" isLoading={isLoadingJenisKelamin} colMd={4} data={dataJenisKelamin} />
+      <Components.charts.barChart title="Universitas" isLoading={isLoadingUniversitas} colMd={6} data={dataUniversitas} />
+      <Components.charts.barChart title="Usia" isLoading={isLoadingUsia} colMd={6} data={dataUsia} />
     </Row>
   )
 }
