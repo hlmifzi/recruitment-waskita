@@ -61,7 +61,65 @@ const ModalResult = ({closeModal, isShow}) => {
                 </div>
               </div>
               <div className="personality-info">
-
+                <div className="wrapper-title">
+                  <h4>Personality</h4>
+                </div>
+                <div className="container-personality-bar">
+                  <p className="weakness flex-3">Konvensional, nyaman pada kebiasaan</p>
+                  <div className="outer-bar flex-6">
+                    <div className="inside-bar"></div>
+                    <p>65%</p>
+                  </div>
+                  <p className="title-bar"><span style={{fontSize:"28px"}}>o</span>peness</p>
+                  <p className="strength flex-3">Kreatif, imaginatif, rasa ingin tahu</p>
+                </div>
+                <div className="container-personality-bar">
+                  <p className="weakness flex-3">Spontan, impulsif, cenderung lalai dan kurang teliti</p>
+                  <div className="outer-bar flex-6">
+                    <div className="inside-bar"></div>
+                    <p>65%</p>
+                  </div>
+                  <p className="title-bar"><span style={{fontSize:"28px"}}>o</span>peness</p>
+                  <p className="strength flex-3">Teratur, disiplin, teliti, rapi, tekun</p>
+                </div>
+                <div className="container-personality-bar">
+                  <p className="weakness flex-3">Pemalu, lebih senang menyendiri, task oriented</p>
+                  <div className="outer-bar flex-6">
+                    <div className="inside-bar"></div>
+                    <p>65%</p>
+                  </div>
+                  <p className="title-bar"><span style={{fontSize:"28px"}}>o</span>peness</p>
+                  <p className="strength flex-3">Mudah bergaul, senang bicara, person oriented</p>
+                </div>
+                <div className="container-personality-bar">
+                  <p className="weakness flex-3">Kompetitif, mudah curiga, tidak ramah</p>
+                  <div className="outer-bar flex-6">
+                    <div className="inside-bar"></div>
+                    <p>65%</p>
+                  </div>
+                  <p className="title-bar"><span style={{fontSize:"28px"}}>o</span>peness</p>
+                  <p className="strength flex-3">Kooperatif, mudah percaya, suka membantu</p>
+                </div>
+                <div className="container-personality-bar">
+                  <p className="weakness flex-3">Tenang, stabil, percaya diri</p>
+                  <div className="outer-bar flex-6">
+                    <div className="inside-bar"></div>
+                    <p>65%</p>
+                  </div>
+                  <p className="title-bar"><span style={{fontSize:"28px"}}>o</span>peness</p>
+                  <p className="strength flex-3">Emosional, mudah stress, tidak percaya diri</p>
+                </div>
+                <div className="footer-info d-flex">
+                  <div className="grey-card flex-6">
+                    Keterangan : <br/>
+                    Personality dibagi menjadi dua kategori (kanan dan kiri), semakin besar angka yang diperoleh dan grafik menuju 
+                    kearah tertentu maka menunjukkan bahwa individu semakin memiliki kecendrungan terhadap penjelasan personality 
+                    pada kelompok kategori tersebut.
+                  </div>
+                  <div className="grey-card flex-6">
+                    Norm : <br/>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

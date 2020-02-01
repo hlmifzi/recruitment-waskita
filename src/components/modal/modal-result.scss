@@ -26,6 +26,7 @@
       background: #ffffff;
       width: 800px;
       min-height: 760px;
+      overflow-y: auto;
     }
     .modal-result-header {
       position: relative;
@@ -47,6 +48,11 @@
         @include centerFlex();
         background-color: $light-blue;
         @include absolute(6px, 12px, null, null);
+    }
+    .modal-result-body {
+      overflow: scroll;
+      height: 750px;
+      margin-bottom: 20px;
     }
     .personal-info {
       padding: 16px 0;
@@ -79,6 +85,69 @@
     }
     .wrapper-user-info p:first-child {
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
+    }
+    .personality-info {
+      margin-top: 12px;  
+      .wrapper-title {
+        padding: 0px 12px;
+        border-bottom: 2px solid $wine-red;
+        display: inline-block;
+      }
+      .wrapper-title h4 {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .container-personality-bar {
+        @include centerFlex();
+        margin: 12px 0;
+        padding-bottom: 20px;
+        position: relative;
+      }
+      .container-personality-bar .strength {
+        text-align: center;
+        color: $grass-green;
+        margin: 0;
+        font-size: 12px;
+      }
+      .container-personality-bar .weakness {
+        text-align: center;
+        color: $wine-red;
+        margin: 0;
+        font-size: 12px;
+      }
+      .outer-bar {
+        border: 1px solid $placeholder;
+        height: 44px;
+        margin: 0px 10px;
+        position: relative;
+      }
+      .outer-bar p {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .inside-bar {
+        height: 100%;
+        background: $grass-green;
+      }
+      .title-bar {
+        position: absolute;
+        bottom: -28px;
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .grey-card {
+        height: 90px;
+        padding: 6px;
+        background-color:$white-smoke;
+        border-radius: 3px;
+        font-size: 10px;
+        overflow: hidden;
+        margin: 4px;
+      }
     }
 }
