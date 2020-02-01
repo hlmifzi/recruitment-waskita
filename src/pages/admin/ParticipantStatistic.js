@@ -1,47 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import Charts from '../../components/charts/Charts'
+import React, { useEffect } from 'react'
+import { useState } from 'reinspect'
+import Components from '../../components/Components'
 import { useQuery } from '@apollo/react-hooks';
-import { getPokemon } from './graphql/ParticipantStatisticGraphql'
+import { getJumlahPeserta } from './graphql/AdminGql'
 
-const PropTypesParams = {
-  isClick: PropTypes.array,
-}
 
-const DefaultPropsParams = {
-  isClick: false,
-}
+const ParticipantStatistic = () => {
 
-const ParticipantStatistic = props => {
+  const [isLoadingJumlahPeserta, setIsLoadingJumlahPeserta] = useState(false)
+  const [isLoadingJenisKelamin, setIsLoadingJenisKelamin] = useState(false)
+  const [isLoadingUniversitas, setIsLoadingUniversitas] = useState(false)
+  const [isLoadingUsia, setIsLoadingUsia] = useState(false)
 
-  const { loading, error, data } = useQuery(getPokemon)
+  const { loading, error, data } = useQuery(getJumlahPeserta)
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
 
   return (
     <>
-      <div className="container-highchart">
-        <div className="card flex-8">
-          <Charts.barChart />
-        </div>
-        <div className="card flex-4">
-          <Charts.barChart />
-        </div>
-      </div>
-      <div className="container-highchart">
-        <div className="card flex-6">
-          <Charts.barChart />
-        </div>
-        <div className="card flex-6">
-          <Charts.barChart />
-        </div>
-      </div>
+      <Components.charts.lineChart isLoading={isLoadingJumlahPeserta} colMd={8} />
     </>
   )
 }
-
-
-ParticipantStatistic.propTypes = PropTypesParams
-ParticipantStatistic.defaultProps = DefaultPropsParams
 
 export default ParticipantStatistic
