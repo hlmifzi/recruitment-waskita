@@ -14,6 +14,7 @@ const ParticipantStatistic = () => {
   const [isLoadingUsia, setIsLoadingUsia] = useState(false)
 
   const { loading, error, data } = useQuery(getJumlahPeserta)
+  console.log("TCL: ParticipantStatistic -> data", data)
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
 
