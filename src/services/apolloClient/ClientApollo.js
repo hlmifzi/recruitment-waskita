@@ -1,5 +1,5 @@
 import ApolloClient from 'apollo-boost';
-import { resolvers, typeDefs } from "./resolvers";
+import { resolvers, typeDefs } from "../../pages/auth/graphql/AuthResolvers";
 import { InMemoryCache } from "apollo-cache-inmemory";
 
 const cache = new InMemoryCache()
@@ -14,7 +14,7 @@ const ClientApollo = new ApolloClient({
 
 cache.writeData({
   data: {
-    isLoggedIn: false,
+    isLoggedIn: localStorage.getItem("token"),
     cartItems: []
   }
 });

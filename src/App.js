@@ -15,7 +15,6 @@ const IS_LOGGED_IN = gql`
 
 function IsLoggedIn() {
   const { data } = useQuery(IS_LOGGED_IN);
-  console.log("TCL: IsLoggedIn -> data", data)
   return (
     <>
       {data.isLoggedIn ? <AuthenticatedRoutes /> : <UnAuthenticatedRoutes />}
