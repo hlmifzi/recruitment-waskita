@@ -5,6 +5,14 @@ import tempImg from '../../logo-waskita.png'
 import ReactToPdf from 'react-to-pdf'
 import Components from '../Components'
 
+//====== image ======
+import benchUmbrela from '../../assets/bench-umbrela.png'
+import gift from '../../assets/gift.png'
+import group from '../../assets/group.png'
+import handShake from '../../assets/hand-shake.png'
+import inspire from '../../assets/inspire.png'
+//===================
+
 const ModalResult = ({closeModal, isShow}) => {
   const wrapperRef = useRef(null);
   const tempData = {
@@ -130,6 +138,7 @@ const ModalResult = ({closeModal, isShow}) => {
                 <div className="wrapper-title">
                   <h4>Needs</h4>
                 </div>
+                <Components.charts.needsChart isLoading={false}/>
                 <div className="footer-info d-flex">
                   <div className="grey-card flex-6">
                     Keterangan : <br/>
@@ -144,6 +153,28 @@ const ModalResult = ({closeModal, isShow}) => {
               <div className="personality-info">
                 <div className="wrapper-title">
                   <h4>Work Value</h4>
+                </div>
+                <div className="work-value-assessment">
+                  <div>
+                    <img className="assessment-image" src={benchUmbrela} />
+                    <p>4</p>
+                  </div>
+                  <div>
+                    <img className="assessment-image" src={gift} />
+                    <p>3</p>
+                  </div>
+                  <div>
+                    <img className="assessment-image" src={group} />
+                    <p>1</p>
+                  </div>
+                  <div>
+                    <img className="assessment-image" src={handShake} />
+                    <p>6</p>
+                  </div>
+                  <div>
+                    <img className="assessment-image" src={inspire} />
+                    <p>5</p>
+                  </div>
                 </div>
                 <Components.charts.workValueChart isLoading={false} data={tempData}/>
                 <div className="footer-info d-flex">

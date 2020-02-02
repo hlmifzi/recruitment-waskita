@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import ReactHighcharts from 'react-highcharts'
 import { Col, Row, Spinner } from 'react-bootstrap';
 import HighchartsMore from 'highcharts-more'
+import Components from '../Components'
+
 HighchartsMore(ReactHighcharts.Highcharts)
 
 
@@ -25,71 +27,65 @@ const DefaultPropsParam = {
 
 const NeedChart = props => {
     let config = {
+
         chart: {
-            type: 'bar'
+            type: 'bar',
         },
-        title: {
-            text: null
-        },
+        title: false,
+
         xAxis: {
-            // categories: props.categories,
-            // title: {
-            //     text: null
-            // },
-            gridLineWidth: 1
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
-        yAxis: {
-            gridLineWidth: 0
-        },
+
+
+        legend: false,
+
         plotOptions: {
             bar: {
                 dataLabels: {
                     enabled: true,
-                    align: 'left'
+                    inside: true,
+                    align: 'left',
+                    x: 0,
+                    style: {
+                        fontWeight: 'bold',
+                        color: "#000000",
+                        stroke: false,
+                        textOutline: 0
+                    }
                 }
             }
         },
-        legend: {
-            enabled: false
-        },
-        credits: {
-            enabled: false
-        },
 
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f} %</b> of total ({point.qty} orang)<br/>'
-        },
 
-        series: [
-            {
-                name: props.title,
-                colorByPoint: true,
-                data: props.data,
-                point: {
-                    events: {
-                        click: function (event) {
-                            let endPoint = ''
-                            let url = props.type === 'durationOnOffice' ? `#/karyawan-filtered/${props.type}/${this.from}/${this.to}` : `#/karyawan-filtered/${props.type}/${this.name}`
-                            window.open(url);
-                        }
-                    }
-                },
-            }
-        ],
+        series: [{
+            name: 's1',
+            color: '#CCCCCC',
+            id: 's1',
+            grouping: false
+        }, {
+            linkedTo: 's1',
+            color: '#39B54A',
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+        }],
         credits: {
             enabled: false
         },
     }
+
     return (
-        <Row>
-            <Col>
-                {props.isLoading ?
-                    <Spinner animation="border" variant="primary" className='mr-auto' style={{ margin: 'auto', color: 'blue' }} /> :
-                    <ReactHighcharts style={{ width: '100%' }} config={config} />
-                }
-            </Col>
-        </Row>
+        <Col xs={12} sm={props.colSm} md={props.colMd} style={{ marginTop: '20px' }}>
+            <Components.card.CardWhiteComponent text={props.title}>
+                <Row>
+                    <Col>
+                        {props.isLoading ?
+                            <Spinner animation="border" variant="primary" className='mr-auto' style={{ margin: 'auto', color: 'blue' }} /> :
+                            <ReactHighcharts style={{ width: '100%' }} config={config} />
+                        }
+                    </Col>
+                </Row>
+            </Components.card.CardWhiteComponent>
+        </Col>
 
     )
 }
