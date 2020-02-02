@@ -3,9 +3,14 @@ import React, { useEffect, useState, useRef } from 'react'
 import iconDownload from '../../assets/download.svg'
 import tempImg from '../../logo-waskita.png'
 import ReactToPdf from 'react-to-pdf'
+import Components from '../Components'
 
 const ModalResult = ({closeModal, isShow}) => {
   const wrapperRef = useRef(null);
+  const tempData = {
+    categories: ["Leisure", "Extrinsic", "Intrinsic", "Altruisic", "Social"],
+    series: [4,2,2,3,4]
+  }
 
   const clickOutsideModal = event => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
@@ -115,6 +120,37 @@ const ModalResult = ({closeModal, isShow}) => {
                     Personality dibagi menjadi dua kategori (kanan dan kiri), semakin besar angka yang diperoleh dan grafik menuju 
                     kearah tertentu maka menunjukkan bahwa individu semakin memiliki kecendrungan terhadap penjelasan personality 
                     pada kelompok kategori tersebut.
+                  </div>
+                  <div className="grey-card flex-6">
+                    Norm : <br/>
+                  </div>
+                </div>
+              </div>
+              <div className="personality-info">
+                <div className="wrapper-title">
+                  <h4>Needs</h4>
+                </div>
+                <div className="footer-info d-flex">
+                  <div className="grey-card flex-6">
+                    Keterangan : <br/>
+                    Needs individu dibagi menjadi 15 kategori, semakin besar angka yang diperoleh maka menunjukkan bahwa individu 
+                    semakin memiliki kecendrungan needs sesuai dengan penjelasan setiap kategori ditabel sebelah kanan.
+                  </div>
+                  <div className="grey-card flex-6">
+                    Norm : <br/>
+                  </div>
+                </div>
+              </div>
+              <div className="personality-info">
+                <div className="wrapper-title">
+                  <h4>Work Value</h4>
+                </div>
+                <Components.charts.workValueChart isLoading={false} data={tempData}/>
+                <div className="footer-info d-flex">
+                  <div className="grey-card flex-6">
+                    Keterangan : <br/>
+                    Work value terbagi menjadi 5 kategori, nilai terbesar yang diperoleh individu menunjukkan bahwa nilai tersebut 
+                    menjadi hal yang paling penting untuk mendorongnya dapat bekerja secara optimal.
                   </div>
                   <div className="grey-card flex-6">
                     Norm : <br/>
