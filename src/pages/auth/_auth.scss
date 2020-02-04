@@ -5,6 +5,16 @@
     align-items: center;
     justify-content: center;
     background-color: $background-primary;
+    .btn-login {
+        width: 180px;
+        height: 30px;
+        background-color: $background-primary;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 4px;
+        margin-top: 60px;
+    }
 }
 .login-card {
     min-width: 300px;
@@ -18,9 +28,10 @@
     flex-direction: column;
     padding: 24px 48px;
     img {
-        width: 100px;
+        width: 140px;
         height: 100px;
         margin-bottom: 24px;
+        object-fit: contain;
     }
     input {
         height: 40px;
@@ -28,17 +39,59 @@
         padding: 6px 0px;
         text-align: left;
         border: none;
-        border-bottom: 1px solid $background-primary;
+        border-bottom: 1px solid $navy-color;
         margin: 10px 0;
     }
-    .btn-login {
-        width: 180px;
-        height: 30px;
-        background-color: $background-primary;
-        color: white;
-        font-weight: 600;
-        text-align: center;
-        border-radius: 4px;
-        margin-top: 60px;
+    input::placeholder {
+        color: $placeholder;
+    }
+    p{
+        color: $placeholder;
+    }
+    em {
+        color: $navy-color;
+        cursor: pointer;
+    }
+}
+.register-container {
+    width: 800px;
+    height: auto;
+    background-color: $white;
+    border-radius: 4px;
+    margin: 42px 0;
+    position: relative;
+    .register-header {
+        display: flex;
+        justify-content: center;
+        height: 100px;
+        img {
+            width: 180px;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .register-body {
+        background-color: $white-smoke;
+        padding: 24px 46px;
+        padding-bottom: 82px;
+        > div {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+        }
+        p {
+            margin-bottom: 0;
+        }
+        input {
+            height: 38px;
+            border: 1px solid $border-lightgrey;
+            border-radius: 3px;
+            padding: 0 12px;
+        }
+    }
+    .register-footer {
+        @include absolute(null, 16px, 24px, null);
+        @include alignFlex(center);
+        flex-direction: column;
     }
 }

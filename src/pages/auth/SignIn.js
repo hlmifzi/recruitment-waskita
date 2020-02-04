@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import logo from '../../logo.svg'
+import logo from '../../logo-waskita.png'
 import { useApolloClient } from "@apollo/react-hooks";
 
 
@@ -13,7 +13,7 @@ const DefaultPropsParams = {
 }
 
 
-const SignIn = () => {
+const SignIn = (props) => {
   const client = useApolloClient();
 
   const _handleSignIn = () => {
@@ -28,7 +28,9 @@ const SignIn = () => {
         <input type="text" placeholder="Username" />
         <input type="password" placeholder="Password" />
         <button className="btn-login"
-          onClick={_handleSignIn}>Sign in</button>
+          onClick={_handleSignIn}>Sign in
+        </button>
+        <p className="mb-0 mt-2">Don't have an account? <em onClick={() => props.navigate("/sign-up")}>Sign In</em></p>
       </div>
     </div >
   )
