@@ -18,7 +18,13 @@ const Dashboard = props => {
 
   return (
     <div className="body-dashboard">
+      {/* Recruitment */}
       <Components.progressNavbar />
+      <Components.recruitmentCard >
+        <div>Ini untuk diganti2</div>
+      </Components.recruitmentCard>
+
+      {/* Recruitment Admin */}
       <div className="tab-wrapper">
         <button className={`btn-tab ${active == 'statistik' ? 'active' : ''}`} onClick={() => setActive('statistik')}>Data Statistik</button>
         <button className={`btn-tab ${active == 'peserta' ? 'active' : ''}`} onClick={() => setActive('peserta')}>Data Peserta</button>
