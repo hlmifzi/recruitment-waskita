@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import logo from '../../logo-waskita.png'
 
-const PropTypesParams = {
-  isClick: PropTypes.array,
+const Interfaces = {
+  children: PropTypes.element.isRequired,
 }
 
-const DefaultPropsParams = {
-  isClick: false,
+const DefaultValue = {
+  children: <></>,
 }
 
-const RecruitmentCard = props => {
+const RecruitmentCard = ({ children }) => {
 
   return (
     <>
@@ -22,7 +22,7 @@ const RecruitmentCard = props => {
           <p>Step {1} of 5</p>
         </div>
         <div className="body-recruitment-card">
-          {props.children}
+          {children}
         </div>
         <button className="btn-next">Next</button>
       </div>
@@ -31,7 +31,7 @@ const RecruitmentCard = props => {
 }
 
 
-RecruitmentCard.propTypes = PropTypesParams
-RecruitmentCard.defaultProps = DefaultPropsParams
+RecruitmentCard.propTypes = Interfaces
+RecruitmentCard.defaultProps = DefaultValue
 
 export default RecruitmentCard
