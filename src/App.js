@@ -16,10 +16,7 @@ const IS_LOGGED_IN = gql`
   }`
 
 function IsLoggedIn() {
-  const { data } = useQuery(IS_LOGGED_IN);
-  console.log("TCL: IsLoggedIn -> data", data)
-  console.log(data.isLoggedIn)
-  console.log(data.isAdmin)
+  const { data } = useQuery(IS_LOGGED_IN)
   return (
     <>
       {data.isLoggedIn ? (
