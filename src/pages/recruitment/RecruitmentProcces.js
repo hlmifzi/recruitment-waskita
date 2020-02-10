@@ -8,7 +8,7 @@ const RecruitmentProcces = props => {
         <div className="body-dashboard">
             <Components.progressNavbar />
             <Components.recruitmentCard >
-                <div>Ini untuk diganti2</div>
+                <Components.facebookInfo />
             </Components.recruitmentCard>
 
         </div>

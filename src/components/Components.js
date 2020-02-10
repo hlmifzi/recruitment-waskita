@@ -5,6 +5,7 @@ import ModalResult from './modal/ModalResult'
 import CardComponent from './CardCustom/CardComponent'
 import ProgressNavbar from './navbar/ProgressNavbar'
 import RecruitmentCard from './CardCustom/RecruitmentCard'
+import FacebookInfo from './recruitment/FacebookInfo'
 
 const Components = {
     navbar: MainNavbar,
@@ -14,6 +15,7 @@ const Components = {
     card: CardComponent,
     progressNavbar: ProgressNavbar,
     recruitmentCard: RecruitmentCard,
+    facebookInfo: FacebookInfo
 }
 
 export default Components

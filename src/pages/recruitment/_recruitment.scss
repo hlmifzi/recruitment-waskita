@@ -54,7 +54,7 @@
 }
 .wrapper-recruitment-card {
     width: 100%;
-    min-height: 600px;
+    height: 500px;
     border: 1px solid $light-blue;
     position: relative;
     .header-recruitment-card {
@@ -83,3 +83,27 @@
         @include absolute(null, 12px, 12px, null)
     }
 }
+
+// ================ FACEBOOK COMPONENT ==================
+.wrapper-facebook-info {
+    padding: 24px;
+    @include centerFlex();
+    width: 100%;
+    height: 100%;
+    .icon-wrapper {
+        width: 44px;
+        height: 34px;
+        border-radius: 4px;
+        @include centerFlex();
+    }
+    .tag-header {
+        height: 34px;
+        border-radius: 4px;
+        @include centerFlex();
+        margin: 0;
+        padding: 0 24px;
+    }
+}
+
+
+// ======================================================

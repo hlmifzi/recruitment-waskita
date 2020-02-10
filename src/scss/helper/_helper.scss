@@ -180,34 +180,34 @@
   
   @while $i <= 1000 {
     .mb-#{$i} {
-      margin-bottom: $i * $space-base;
+      margin-bottom: $i + px;
     }
     .mt-#{$i} {
-      margin-top: $i * $space-base;
+      margin-top: $i + px;
     }
     .mr-#{$i} {
-      margin-right: $i * $space-base;
+      margin-right: $i + px;
     }
     .ml-#{$i} {
-      margin-left: $i * $space-base;
+      margin-left: $i + px;
     }
     .pr-#{$i} {
-      padding-right: $i * $space-base;
+      padding-right: $i + px;
     }
     .pl-#{$i} {
-      padding-left: $i * $space-base;
+      padding-left: $i + px;
     }
     .pb-#{$i} {
-      padding-bottom: $i * $space-base;
+      padding-bottom: $i + px;
     }
     .pt-#{$i} {
-      padding-top: $i * $space-base;
+      padding-top: $i + px;
     }
     .h-#{$i} {
-      height: $i * $space-base;
+      height: $i + px;
     }
     .w-#{$i} {
-      width: $i * $space-base;
+      width: $i + px;
     }
     $i: $i + 1;
   }
@@ -349,4 +349,19 @@
     overflow: hidden;
   }
 
+  .twitter-color {
+    background-color: #33CCFF;
+    color: $white;
+  }
+
+  .facebook-color {
+    background-color: #3C5A99;
+    color: $white;
+  }
+
+  .instagram-color {
+    background-color: #662D91;
+    color: $white;
+  }
+  
   
