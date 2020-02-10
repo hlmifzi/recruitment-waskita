@@ -1,23 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
-const PropTypesParams = {
-    isClick: PropTypes.array,
-}
-
-const DefaultPropsParams = {
-    isClick: false,
-}
+import Components from '../../components/Components'
+import RecruitmentProcces from './RecruitmentProcces'
 
 const Recruitment = props => {
     return (
         <>
-
+            <Components.header />
+            <RecruitmentProcces />
         </>
     )
 }
-
-Recruitment.propTypes = PropTypesParams
-Recruitment.defaultProps = DefaultPropsParams
 
 export default Recruitment

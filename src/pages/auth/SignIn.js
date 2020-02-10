@@ -18,7 +18,22 @@ const SignIn = (props) => {
 
   const _handleSignIn = () => {
     localStorage.setItem('token', true)
-    client.writeData({ data: { isLoggedIn: localStorage.getItem('token') } });
+    client.writeData({
+      data: {
+        isLoggedIn: localStorage.getItem('token'),
+        isAdmin: true
+      }
+    });
+  }
+
+  const _handleSignInRecruitment = () => {
+    localStorage.setItem('token', true)
+    client.writeData({
+      data: {
+        isLoggedIn: localStorage.getItem('token'),
+        isAdmin: false
+      }
+    });
   }
 
   return (
@@ -29,6 +44,9 @@ const SignIn = (props) => {
         <input type="password" placeholder="Password" />
         <button className="btn-login"
           onClick={_handleSignIn}>Sign in
+        </button>
+        <button className="btn-login"
+          onClick={_handleSignInRecruitment}>Sign in Recruitment
         </button>
         <p className="mb-0 mt-2">Don't have an account? <em onClick={() => props.navigate("/sign-up")}>Sign In</em></p>
       </div>

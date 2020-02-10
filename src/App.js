@@ -4,6 +4,7 @@ import './scss/_main.scss'
 import { ApolloProvider, useQuery } from '@apollo/react-hooks'
 import ClientApollo from './services/apolloClient/ClientApollo'
 import AuthenticatedRoutes from './routes/AuthenticatedRoutes'
+import AuthenticatedRoutesRecruitment from './routes/AuthenticatedRoutesRecruitment'
 import UnAuthenticatedRoutes from './routes/UnAuthenticatedRoutes'
 import gql from "graphql-tag";
 
@@ -11,13 +12,21 @@ import gql from "graphql-tag";
 const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
     isLoggedIn @client
+    isAdmin @client
   }`
 
 function IsLoggedIn() {
   const { data } = useQuery(IS_LOGGED_IN);
+  console.log("TCL: IsLoggedIn -> data", data)
+  console.log(data.isLoggedIn)
+  console.log(data.isAdmin)
   return (
     <>
-      {data.isLoggedIn ? <AuthenticatedRoutes /> : <UnAuthenticatedRoutes />}
+      {data.isLoggedIn ? (
+        data.isAdmin ?
+          <AuthenticatedRoutes /> :
+          <AuthenticatedRoutesRecruitment />
+      ) : <UnAuthenticatedRoutes />}
     </>
   )
 }
