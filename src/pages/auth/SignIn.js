@@ -1,19 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import logo from '../../logo-waskita.png'
 import { useApolloClient } from "@apollo/react-hooks";
 
 
-const PropTypesParams = {
-  isClick: PropTypes.array,
-}
 
-const DefaultPropsParams = {
-  isClick: false,
-}
-
-
-const SignIn = (props) => {
+const SignIn = ({ navigate }) => {
   const client = useApolloClient();
 
   const _handleSignIn = () => {
@@ -48,14 +39,10 @@ const SignIn = (props) => {
         <button className="btn-login"
           onClick={_handleSignInRecruitment}>Sign in Recruitment
         </button>
-        <p className="mb-0 mt-2">Don't have an account? <em onClick={() => props.navigate("/sign-up")}>Sign In</em></p>
+        <p className="mb-0 mt-2">Don't have an account? <em onClick={() => navigate("/sign-up")}>Sign Up</em></p>
       </div>
     </div >
   )
 }
-
-
-SignIn.propTypes = PropTypesParams
-SignIn.defaultProps = DefaultPropsParams
 
 export default SignIn
