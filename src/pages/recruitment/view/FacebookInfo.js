@@ -13,16 +13,14 @@ const DefaultValue = {
 const FacebookInfo = () => {
 
   return (
-    <>
-      <div className="wrapper-facebook-info">
-        <div className="d-flex">
-          <div className="icon-wrapper facebook-color mr-16">
-            <img src={facebookTransparentIcon} />
-          </div>
-          <label className="tag-header facebook-color">Download Facebook Information</label>
+    <div className="wrapper-facebook-info">
+      <div className="d-flex">
+        <div className="icon-wrapper facebook-color mr-16">
+          <img src={facebookTransparentIcon} />
         </div>
+        <label className="tag-header facebook-color">Download Facebook Information</label>
       </div>
-    </>
+    </div>
   )
 }
 
