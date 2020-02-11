@@ -14,8 +14,7 @@ const Components = {
     modalResult: ModalResult,
     card: CardComponent,
     progressNavbar: ProgressNavbar,
-    recruitmentCard: RecruitmentCard,
-    facebookInfo: FacebookInfo
+    recruitmentCard: RecruitmentCard
 }
 
 export default Components

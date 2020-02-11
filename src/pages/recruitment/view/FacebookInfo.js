@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import fileIcon from '../../assets/recruitment/file.svg'
-import folderIcon from '../../assets/recruitment/folder.svg'
-import folderDownloadIcon from '../../assets/recruitment/folder-download.svg'
-import desktopIcon from '../../assets/recruitment/desktop.svg'
-import settingIcon from '../../assets/recruitment/setting.svg'
-import facebookIcon from '../../assets/recruitment/facebook-circle.svg'
-import facebookTransparentIcon from '../../assets/recruitment/facebook-transparent.svg'
+import facebookTransparentIcon from '../../../assets/recruitment/facebook-transparent.svg'
 
 const Interfaces = {
   children: PropTypes.element.isRequired,

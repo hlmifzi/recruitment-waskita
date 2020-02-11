@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Components from '../../components/Components'
+import FacebookInfo from './view/FacebookInfo'
 
 
 const RecruitmentProcces = props => {
@@ -8,7 +9,7 @@ const RecruitmentProcces = props => {
         <div className="body-dashboard">
             <Components.progressNavbar />
             <Components.recruitmentCard >
-                <Components.facebookInfo />
+                <FacebookInfo />
             </Components.recruitmentCard>
 
         </div>
