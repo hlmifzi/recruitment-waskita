@@ -10,7 +10,7 @@ const DefaultValue = {
   children: <></>,
 }
 
-const RecruitmentCard = ({ children }) => {
+const RecruitmentCard = ({ children, nextStep }) => {
 
   return (
     <>
@@ -24,7 +24,7 @@ const RecruitmentCard = ({ children }) => {
         <div className="body-recruitment-card">
           {children}
         </div>
-        <button className="btn-next">Next</button>
+        <button className="btn-next" onClick={() => nextStep()}>Next</button>
       </div>
     </>
   )
