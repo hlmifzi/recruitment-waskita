@@ -25,31 +25,31 @@ const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
   }
 
   useEffect(() => {
-    
-  },[])
+
+  }, [])
 
   return (
     <>
       <div className="upload-document-container">
-        { !uploadStatus ?
+        {!uploadStatus ?
           <>
             <h4>Upload your {uploadFor} Information</h4>
-            <img src={icon}/>
-            <input 
+            <img src={icon} />
+            <input
               type="file"
               id="document-upload"
               onChange={(e) => chooseFile(e.currentTarget.files)}
             />
             <span>Drag and drop, or <label htmlFor="document-upload">browse</label> your files</span>
-          </> 
-        :
+          </>
+          :
           <>
             <div className="wrapper-upload-success d-flex">
-              <img src={paperIcon}/>
+              <img src={paperIcon} />
               <h3>Succeed !!</h3>
-              <p>You have successfully uploaded Facebook information.</p>
+              <p>You have successfully uploaded {uploadFor} information.</p>
             </div>
-            <img className="redo-icon" onClick={() => reUpload()} src={redoIcon}/>
+            <img className="redo-icon" onClick={() => reUpload()} src={redoIcon} />
           </>
         }
       </div>
