@@ -6,14 +6,56 @@ import ClientApollo from '../../services/apolloClient/ClientApollo'
 
 
 const TableParticipant = props => {
-  const [listParticipant, setListParticipant] = useState([]);
+  const [listParticipant, setListParticipant] = useState([
+    {
+      "nama": "Hazim",
+      "jenis_kelamin": "Laki-laki",
+      "usia": 23,
+      "universitas": "IPB",
+      "no_ktp": "3273201234560001",
+      "email": "hazim@email.com",
+      "tgl_test": "01-10-2020",
+      "url": "blablabla"
+    },
+    {
+      "nama": "Rachim",
+      "jenis_kelamin": "Laki-laki",
+      "usia": 20,
+      "universitas": "IPB",
+      "no_ktp": "3273201234560002",
+      "email": "rachim@email.com",
+      "tgl_test": "10-10-2020",
+      "url": "blablabla"
+    },
+    {
+      "nama": "Irsal",
+      "jenis_kelamin": "Laki-laki",
+      "usia": 22,
+      "universitas": "ITB",
+      "no_ktp": "3273201234560003",
+      "email": "irsal@email.com",
+      "tgl_test": "20-10-2020",
+      "url": "blablabla"
+    },
+    {
+      "nama": "Helmi",
+      "jenis_kelamin": "Laki-laki",
+      "usia": 90,
+      "universitas": "UI",
+      "no_ktp": "3273201234560004",
+      "email": "helmi@email.com",
+      "tgl_test": "01-10-2020",
+      "url": "blablabla"
+    }
+  ]
+  );
   const [showModal, setShowModal] = useState(false);
 
   const getData = async () => {
-    await axios.get("http://www.mocky.io/v2/5e299e803000004a45faf17d")
-      .then(data =>
-        setListParticipant(data.data.participants)
-      )
+    // const { data } = await axios.get("http://www.mocky.io/v2/5e299e803000004a45faf17d")
+
+    // setListParticipant(data.participants)
+
   }
 
   const graphQlgetdata = () => {
