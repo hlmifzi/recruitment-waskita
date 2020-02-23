@@ -3,7 +3,9 @@ import Components from '../../components/Components'
 import FacebookInfo from './view/FacebookInfo'
 import InstagramInfo from './view/InstagramInfo'
 import TwitterInfo from './view/TwitterInfo'
+import CtsComponent from './view/CtsComponent'
 import iconBell from '../../assets/recruitment/bell-with-attention.svg'
+import UploadDocument from './view/UploadDocument'
 
 
 const RecruitmentProcces = props => {
@@ -12,6 +14,7 @@ const RecruitmentProcces = props => {
   const [showModal, setShowModal] = useState(false)
   const [currentInstruction, setInstruction] = useState(1)
   const [currentStep, setStep] = useState(1)
+  const [uploadStatus, setUploadStatus] = useState(false)
   const wrapperRef = useRef()
 
   const nextStep = () => {
@@ -42,6 +45,13 @@ const RecruitmentProcces = props => {
     document.body.classList.remove("scroll-locked")
   }
 
+  const uploadFile = (file) => {
+    console.log(file)
+    if(file){
+      setUploadStatus(true)
+    }
+  }
+
   useEffect(() => {
     document.addEventListener("click", clickOutsideModal, false);
     return () => {
@@ -67,6 +77,24 @@ const RecruitmentProcces = props => {
             {(!hasDownload && currentInstruction == 1) && <FacebookInfo />}
             {(!hasDownload && currentInstruction == 2) && <InstagramInfo />}
             {(!hasDownload && currentInstruction == 3) && <TwitterInfo />}
+            {(hasDownload && currentStep == 1) &&
+              <CtsComponent nextStep={() => nextStep()}/>
+            }
+            {(hasDownload && currentStep == 2) &&
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="facebook" uploadFile={(file) => uploadFile(file)} />
+            }
+            {(hasDownload && currentStep == 3) &&
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="twitter" uploadFile={(file) => uploadFile(file)} />
+            }
+            {(hasDownload && currentStep == 4) &&
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="instagram" uploadFile={(file) => uploadFile(file)} />
+            }
+            {(hasDownload && currentStep == 5) &&
+              <CtsComponent nextStep={() => nextStep()} hasUpload={true}/>
+            }
+            {(hasDownload && currentStep == 6) &&
+              <CtsComponent finish={true}/>
+            }
           </>
         }
       </Components.recruitmentCard>

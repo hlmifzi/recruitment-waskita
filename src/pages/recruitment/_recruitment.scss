@@ -201,3 +201,105 @@
         }
     }
 }
+
+.cts-online-container {
+    @include centerFlex();
+    flex-direction: column;
+    min-height: 60vh;
+    img {
+        width: 165px;
+        height: 165px;
+        margin: 45px 0px;
+    }
+    button {
+        padding: 8px 12px;
+        height: 40px;
+        background-color: $light-blue;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 4px;
+        min-width: 250px;
+    }
+    h3 {
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+    .wrapper-done {
+        @include alignFlex(center);     
+        margin: 6px 0px;
+        img {
+            margin: 0;
+            height: 26px;
+            width: 26px;
+        }
+        p {
+            font-size: 14px;
+            margin: 0;
+            margin-left: 20px;
+        }
+        button {
+            min-width: 250px;
+        }
+    }
+}
+
+.upload-document-container {
+    margin: 24px;
+    min-height: 50vh;
+    border: 1px dashed $border-blue;
+    @include centerFlex();
+    flex-direction: column;
+    position: relative
+    ;
+    h4 {
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+    h3, p {
+        color: $cyan-blue;
+    }
+    p {
+        font-size: 16px;
+    }
+    img {
+        height: 74px;
+        width: 74px;
+        margin: 46px 0px;
+    }
+    input {
+        display: none;
+    }
+    span, label {
+        font-size: 16px;
+    }
+    span {
+        color: $text-grey;
+    }
+    label {
+        color: $link;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+    
+    .wrapper-upload-success {
+        flex-direction: column;
+        position: relative;
+        padding-left: 88px;
+        img {
+            margin: 0;
+            @include absolute(null, null, null, 0px)
+        }
+    }
+    .redo-icon {
+        margin: 0;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        @include absolute(12px, 12px, null, null);
+    }
+}
