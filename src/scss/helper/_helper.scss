@@ -363,5 +363,15 @@
     background-color: #662D91;
     color: $white;
   }
+
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.flex-direction-row {
+  flex-direction: row !important;
+}
+
   
   
