@@ -12,43 +12,46 @@ const DefaultPropsParams = {
   isClick: false,
 }
 
-const ProgressNavbar = props => {
-  const [active, setActive] = useState('statistik');
+const ProgressNavbar = ({ currentStep }) => {
+  const [active, setActive] = useState(1);
+  useEffect(() => {
+    setActive(currentStep)
 
+  }, [currentStep])
   return (
     <>
       <div className="wrapper-progress-tab d-flex">
         <div className="progress-tab">
-          <div style={{backgroundColor: "#1F9CD7"}}>
-            <img src={downloadIcon}/>
+          <div className={`${active >= 1 && 'color-1F9CD7'}`}>
+            <img src={downloadIcon} />
           </div>
-          <span className="progress-bar" style={{backgroundColor: "#1F9CD7"}}></span>
+          <span className={`progress-bar ${active >= 1 && 'color-1F9CD7'}`}></span>
           <p className="text-center">How to download your Social Media</p>
         </div>
         <div className="progress-tab">
-          <div>
-            <img src={ctsIcon}/>
+          <div className={`${active >= 2 && 'color-1F9CD7'}`}>
+            <img src={ctsIcon} />
           </div>
-          <span className="progress-bar"></span>
-          <p className="text-center">CTS - Online Test <br/> 1 - 2</p>
+          <span className={`progress-bar ${active >= 2 && 'color-1F9CD7'}`}></span>
+          <p className="text-center">CTS - Online Test <br /> 1 - 2</p>
         </div>
         <div className="progress-tab">
-          <div>
-            <img src={downloadIcon}/>
+          <div className={`${active >= 5 && 'color-1F9CD7'}`}>
+            <img src={downloadIcon} />
           </div>
-          <span className="progress-bar"></span>
-          <p className="text-center">Upload your <br/> Social Media Information</p>
+          <span className={`progress-bar ${active >= 5 && 'color-1F9CD7'}`}></span>
+          <p className="text-center">Upload your <br /> Social Media Information</p>
         </div>
         <div className="progress-tab">
-          <div>
-            <img src={ctsIcon}/>
+          <div className={`${active >= 6 && 'color-1F9CD7'}`}>
+            <img src={ctsIcon} />
           </div>
-          <span className="progress-bar"></span>
-          <p className="text-center">CTS - Online Test <br/> 3</p>
+          <span className={`progress-bar ${active >= 6 && 'color-1F9CD7'}`}></span>
+          <p className="text-center">CTS - Online Test <br /> 3</p>
         </div>
         <div className="progress-tab">
-          <div>
-            <img src={finish}/>
+          <div className={`${active >= 6 && 'color-1F9CD7'}`}>
+            <img src={finish} />
           </div>
           <p className="text-center">Finish</p>
         </div>

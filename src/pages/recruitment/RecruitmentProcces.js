@@ -25,7 +25,7 @@ const RecruitmentProcces = props => {
       setTimeout(() => {
         setShowModal(true)
         document.body.classList.add("scroll-locked")
-      },100)
+      }, 100)
     }
     else {
       setInstruction(currentInstruction + 1)
@@ -47,7 +47,7 @@ const RecruitmentProcces = props => {
 
   const uploadFile = (file) => {
     console.log(file)
-    if(file){
+    if (file) {
       setUploadStatus(true)
     }
   }
@@ -70,7 +70,7 @@ const RecruitmentProcces = props => {
           </div>
         </div>
       }
-      <Components.progressNavbar />
+      <Components.progressNavbar currentStep={currentStep} />
       <Components.recruitmentCard nextStep={() => nextStep()}>
         {
           <>
@@ -78,7 +78,7 @@ const RecruitmentProcces = props => {
             {(!hasDownload && currentInstruction == 2) && <InstagramInfo />}
             {(!hasDownload && currentInstruction == 3) && <TwitterInfo />}
             {(hasDownload && currentStep == 1) &&
-              <CtsComponent nextStep={() => nextStep()}/>
+              <CtsComponent nextStep={() => nextStep()} />
             }
             {(hasDownload && currentStep == 2) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="facebook" uploadFile={(file) => uploadFile(file)} />
@@ -90,10 +90,10 @@ const RecruitmentProcces = props => {
               <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="instagram" uploadFile={(file) => uploadFile(file)} />
             }
             {(hasDownload && currentStep == 5) &&
-              <CtsComponent nextStep={() => nextStep()} hasUpload={true}/>
+              <CtsComponent nextStep={() => nextStep()} hasUpload={true} />
             }
             {(hasDownload && currentStep == 6) &&
-              <CtsComponent finish={true}/>
+              <CtsComponent finish={true} />
             }
           </>
         }
