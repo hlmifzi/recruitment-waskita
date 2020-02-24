@@ -303,3 +303,30 @@
         @include absolute(12px, 12px, null, null);
     }
 }
+
+
+.my-profile-container{
+    top: 94px;
+    left: 33px;
+    width: 59px;
+    height: 24px;
+    width: 100%;
+    padding-left: 32px;
+    padding-right: 32px;
+    .title-my-profile{
+        padding-top: 10px;
+        text-align: left;
+        letter-spacing: 0;
+        color: #000000;
+        opacity: 1;
+        .my-profile-line{
+            padding-bottom: 30px;
+            font-size:  24px ;
+            font-family:  Roboto;
+            border-bottom: 2px solid $cyan-blue;
+        }
+    }
+    .body-container{
+       padding:50px
+    }
+}

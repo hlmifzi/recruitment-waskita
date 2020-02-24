@@ -23,7 +23,6 @@ export const useGeneralForm = () => {
         })
     }
 
-
     const _handleOnChangeToogleSwitch = e => {
         const { id } = e.target
         immerSetState(draft => {
@@ -36,7 +35,6 @@ export const useGeneralForm = () => {
             draft[name] = value
         })
     }
-
 
     return {
         state,
