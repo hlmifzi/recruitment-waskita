@@ -15,7 +15,7 @@ const TableParticipant = props => {
       "no_ktp": "3273201234560001",
       "email": "hazim@email.com",
       "tgl_test": "01-10-2020",
-      "url": "blablabla"
+      "url": "Download Hasil"
     },
     {
       "nama": "Rachim",
@@ -25,7 +25,7 @@ const TableParticipant = props => {
       "no_ktp": "3273201234560002",
       "email": "rachim@email.com",
       "tgl_test": "10-10-2020",
-      "url": "blablabla"
+      "url": "Download Hasil"
     },
     {
       "nama": "Irsal",
@@ -35,7 +35,7 @@ const TableParticipant = props => {
       "no_ktp": "3273201234560003",
       "email": "irsal@email.com",
       "tgl_test": "20-10-2020",
-      "url": "blablabla"
+      "url": "Download Hasil"
     },
     {
       "nama": "Helmi",
@@ -45,7 +45,7 @@ const TableParticipant = props => {
       "no_ktp": "3273201234560004",
       "email": "helmi@email.com",
       "tgl_test": "01-10-2020",
-      "url": "blablabla"
+      "url": "Download Hasil"
     }
   ]
   );
@@ -113,7 +113,7 @@ const TableParticipant = props => {
                   <td>{val.no_ktp}</td>
                   <td>{val.email}</td>
                   <td>{val.tgl_test}</td>
-                  <td className="td-url">{val.url}</td>
+                  <td className="td-url" onClick={() => { setShowModal(true); document.body.classList.add("scroll-locked") }}>{val.url}</td>
                   <td>Keterangan</td>
                 </tr>
               )
