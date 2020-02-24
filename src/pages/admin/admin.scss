@@ -34,9 +34,50 @@
     background-color: $background-primary;
     display: flex;
     justify-content: left;
+    position: relative;
     img {
         object-fit: contain;
         width: 124px;
+    }
+    .wrapper-img-profile {
+        @include absolute(8px, 36px, null, null);
+        background-color: $white;
+        border-radius: 50%;
+        padding: 10px;
+        z-index: 10;
+        cursor: pointer;
+        img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+        .user-toggle-box {
+            @include absolute(null, 0px, null, null);
+            margin-top: 26px;
+            width: 100px;
+            background: $light-blue;
+            box-shadow: 0 1px 6px 0 rgba(49,53,59,0.12);
+            padding: 12px;
+            border-radius: 4px;
+            p {
+                color: $white;
+                cursor: pointer;
+                margin: 0;
+                transition: 0.2s;
+                &:hover {
+                    font-weight: bold;
+                }
+            }
+        }
+        .triangle {
+            width: 0;
+            height: 0;
+            border: 10px solid $light-blue;
+            border-top: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-left: 10px solid transparent;
+            @include absolute(-20px, 15px, null, null);
+        }
     }
 }
 
