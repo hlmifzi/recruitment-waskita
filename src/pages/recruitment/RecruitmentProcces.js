@@ -71,7 +71,7 @@ const RecruitmentProcces = props => {
         </div>
       }
       <Components.progressNavbar currentStep={currentStep} />
-      <Components.recruitmentCard nextStep={() => nextStep()}>
+      <Components.recruitmentCard nextStep={() => nextStep()} currentStep={currentStep}>
         {
           <>
             {(!hasDownload && currentInstruction == 1) && <FacebookInfo />}
