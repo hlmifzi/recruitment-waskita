@@ -62,7 +62,7 @@ const ProgressNavbar = ({ currentStep }) => {
           <div className={`${active >= 6 && 'color-1F9CD7'}`}>
             <img src={finish} />
           </div>
-          {active >= 6 && <img src={iconDone} className="width-24" />}
+          {active >= 6 && <img src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
 
           <p className="text-center">Finish</p>
         </div>
