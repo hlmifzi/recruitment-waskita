@@ -155,54 +155,54 @@ const SignUp = (props) => {
           <div>
             <p className="flex-4 h-text-right mr-26">Social Media yang sering Anda pakai?</p>
             <div className="flex-8">
-            <div className="container-social-media">
-              <div className="flex-3"></div>
-              <div className="flex-3">1</div>
-              <div className="flex-3">2</div>
-              <div className="flex-3">3</div>
-            </div>
-            <div className="container-social-media">
-            <div className="flex-3">
-                <img src={facebookBadge}/>
+              <div className="container-social-media">
+                <div className="flex-3"></div>
+                <div className="flex-3">1</div>
+                <div className="flex-3">2</div>
+                <div className="flex-3">3</div>
               </div>
-              <div className="flex-3">
-                <input type="radio" name="facebook" />
+              <div className="container-social-media">
+                <div className="flex-3">
+                  <img className="mt-30" src={facebookBadge} />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="facebook" />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="facebook" />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="facebook" />
+                </div>
               </div>
-              <div className="flex-3">
-              <input type="radio" name="facebook" />
+              <div className="container-social-media">
+                <div className="flex-3">
+                  <img className="mt-30" src={twitterBadge} />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="twitter" />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="twitter" />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="twitter" />
+                </div>
               </div>
-              <div className="flex-3">
-                <input type="radio" name="facebook" />
+              <div className="container-social-media">
+                <div className="flex-3">
+                  <img className="mt-30" src={instagramBadge} />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="instagram" />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="instagram" />
+                </div>
+                <div className="flex-3">
+                  <input type="radio" name="instagram" />
+                </div>
               </div>
-            </div>
-            <div className="container-social-media">
-            <div className="flex-3">
-                <img src={twitterBadge}/>
-              </div>
-              <div className="flex-3">
-                <input type="radio" name="twitter" />
-              </div>
-              <div className="flex-3">
-              <input type="radio" name="twitter" />
-              </div>
-              <div className="flex-3">
-                <input type="radio" name="twitter" />
-              </div>
-            </div>
-            <div className="container-social-media">
-            <div className="flex-3">
-                <img src={instagramBadge}/>
-              </div>
-              <div className="flex-3">
-                <input type="radio" name="instagram" />
-              </div>
-              <div className="flex-3">
-              <input type="radio" name="instagram" />
-              </div>
-              <div className="flex-3">
-                <input type="radio" name="instagram" />
-              </div>
-            </div>
             </div>
           </div>
           <div>
