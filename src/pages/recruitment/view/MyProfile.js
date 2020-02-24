@@ -42,7 +42,7 @@ const MyProfile = props => {
                             <label>No.Hp</label>
                             <input className="ml-90" type="text" />
                         </div>
-                        <div style={{ float: 'right', marginRight: '200px' }}>
+                        <div style={{ float: 'right', marginRight: '130px' }}>
                             <button className="btn-save-profile">Simpan</button>
                         </div>
                     </div>
