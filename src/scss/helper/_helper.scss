@@ -180,36 +180,63 @@
   
   @while $i <= 1000 {
     .mb-#{$i} {
-      margin-bottom: $i + px;
+      margin-bottom: $i + px !important;
     }
     .mt-#{$i} {
-      margin-top: $i + px;
+      margin-top: $i + px !important;
     }
     .mr-#{$i} {
-      margin-right: $i + px;
+      margin-right: $i + px !important;
     }
     .ml-#{$i} {
-      margin-left: $i + px;
+      margin-left: $i + px !important;
     }
     .pr-#{$i} {
-      padding-right: $i + px;
+      padding-right: $i + px !important;
     }
     .pl-#{$i} {
-      padding-left: $i + px;
+      padding-left: $i + px !important;
     }
     .pb-#{$i} {
-      padding-bottom: $i + px;
+      padding-bottom: $i + px !important;
     }
     .pt-#{$i} {
-      padding-top: $i + px;
+      padding-top: $i + px !important;
     }
     .h-#{$i} {
-      height: $i + px;
+      height: $i + px !important;
     }
     .w-#{$i} {
-      width: $i + px;
+      width: $i + px !important;
     }
     $i: $i + 1;
+  }
+
+  @for $j from -100 through 0 {
+    .minus-mb#{$j} {
+      margin-bottom: $j + px;
+    }
+    .minus-mt#{$j} {
+      margin-top: $j + px;
+    }
+    .minus-mr#{$j} {
+      margin-right: $j + px;
+    }
+    .minus-ml#{$j} {
+      margin-left: $j + px;
+    }
+    .minus-pr#{$j} {
+      padding-right: $j + px;
+    }
+    .minus-pl#{$j} {
+      padding-left: $j + px;
+    }
+    .minus-pb#{$j} {
+      padding-bottom: $j + px;
+    }
+    .minus-pt#{$j} {
+      padding-top: $j + px;
+    }
   }
   
   .text-center {
@@ -377,5 +404,9 @@
   flex-direction: row !important;
 }
 
-  
+.flex-content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}  
   

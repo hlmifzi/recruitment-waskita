@@ -73,7 +73,7 @@
     .register-body {
         background-color: $white-smoke;
         padding: 24px 46px;
-        padding-bottom: 82px;
+        padding-bottom: 100px;
         > div {
             display: flex;
             align-items: center;
@@ -93,5 +93,81 @@
         @include absolute(null, 16px, 24px, null);
         @include alignFlex(center);
         flex-direction: column;
+        p {
+          font-style: italic;
+          color: $placeholder;
+        }
+        em {
+          color: $navy-color;
+          font-weight: bold;
+          cursor: pointer;
+        }
+    }
+    .label {
+      position: relative;
+      padding-left: 24px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .label input {
+      display: none;
+    }
+    .checkmark {
+      @include absolute(2px, null, null, 0px);
+      border-radius: 3px;
+      height: 20px;
+      width: 20px;
+      background-color: $white;
+      border: 1px solid $border-lightgrey;
+    }
+  
+    .label:hover input ~ .checkmark {
+      border-radius: 3px;
+      top: 2px;
+      left: 0px;
+      opacity: 0.5;
+    }
+    .label input:checked ~ .checkmark {
+      border-radius: 3px;
+      top: 2px;
+      left: 0px;
+      background-color: $background-primary;
+    }
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    .label input:checked ~ .checkmark:after {
+      display: block;
+    }
+    .label .checkmark:after {
+      left: 6px;
+      width: 8px;
+      height: 14px;
+      border: solid $white;
+      border-width: 0 2px 2px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    .container-social-media {
+      max-width: 150px;
+      @include alignFlex(left);
+      img {
+        width: 16px;
+        height: 16px;
+        margin-top: 10px;
+      }
+    }
+    .btn-sign-up {
+      width: 180px;
+      height: 40px;
+      background-color: $light-blue;
+      color: white;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 4px;
+      margin-top: 60px;
     }
 }
