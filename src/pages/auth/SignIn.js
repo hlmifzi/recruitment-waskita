@@ -9,9 +9,11 @@ const SignIn = ({ navigate }) => {
   const client = useApolloClient();
 
   const _handleSignIn = () => {
+    console.log("TCL: SignIn -> userName", userName)
 
     let isAdmin = false
-    if (userName === 'admin') isAdmin = true
+    if (userName == 'admin') isAdmin = true
+
     localStorage.setItem('token', true)
     client.writeData({
       data: {
@@ -26,7 +28,7 @@ const SignIn = ({ navigate }) => {
       <div className="login-card">
         <img src={logo} />
         <input type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Username" />
-        <input type="password" onChange={(e) => setUserName(e.target.value)} placeholder="Password" />
+        <input type="password" placeholder="Password" />
         <button className="btn-login"
           onClick={_handleSignIn}>Sign in
         </button>

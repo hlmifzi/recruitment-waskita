@@ -409,4 +409,16 @@
   align-items: center;
   justify-content: center;
 }  
+.position-absolute{
+  position:absolute;
+}
+
+
+@for $i from 0 to 1000 {
+  .width-#{$i} {
+    width: $i + px !important;
+  }
+}
+
+  
   

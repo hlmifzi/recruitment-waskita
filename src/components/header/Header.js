@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import logo from '../../logo-waskita.png';
 import { useApolloClient } from "@apollo/react-hooks";
 import logoUser from '../../assets/recruitment/user-profile.svg';
+import { Link } from "@reach/router";
 
-const MainNavbar = () => {
+const MainNavbar = ({ history }) => {
     const [openToggleBox, setOpenToggleBox] = useState(false);
     const wrapperRef = useRef()
 
@@ -30,15 +31,19 @@ const MainNavbar = () => {
     return (
         <>
             <div className="header-admin">
-                <img src={logo} />
+                <Link to="/">
+                    <img src={logo} />
+                </Link>
                 <div ref={wrapperRef} className="wrapper-img-profile" onClick={() => setOpenToggleBox(true)} >
-                    <img src={logoUser}/>
-                    { openToggleBox && 
-                    <div className="user-toggle-box">
-                        <div className="triangle"></div>
-                        <p>Profile</p>
-                        <p onClick={_handleSignout}>Logout</p>
-                    </div> }
+                    <img src={logoUser} />
+                    {openToggleBox &&
+                        <div className="user-toggle-box">
+                            <div className="triangle"></div>
+                            <Link to="/my-profile">
+                                <p>Profile</p>
+                            </Link>
+                            <p onClick={_handleSignout}>Logout</p>
+                        </div>}
                 </div>
             </div>
         </>
