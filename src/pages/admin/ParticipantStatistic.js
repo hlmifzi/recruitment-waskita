@@ -1,10 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import Components from '../../components/Components'
 import { useQuery } from '@apollo/react-hooks';
 import { getJumlahPeserta } from './graphql/AdminGql'
 import { Row } from 'react-bootstrap';
 
 const ParticipantStatistic = () => {
+
+  const [isLoadingUniversitas, setIsLoadingUniversitas] = useState(false)
+  const [isLoadingUsia, setIsLoadingUsia] = useState(false)
+  const [dataUniversitas, setDataUniversitas] = useState(['UI', 'ITB', 'ITS', 'UNPAD', 'UNJ', 'Binus', 'UGM', 'Trisakti', 'UPH', 'UMN'])
+  const [dataUsia, setDataUsia] = useState(['22', '23', '24', '25', '26', ' 27', '28', '29', '30'])
 
   const { loading: isLoadingJumlahPeserta, error: err1, data: dataJumlahPeserta } = useQuery(getJumlahPeserta)
   const { loading: isLoadingJenisKelamin, error: err2, data: dataJenisKelamin } = useQuery(getJumlahPeserta)
@@ -15,10 +20,6 @@ const ParticipantStatistic = () => {
   if (err2) return `Error! ${err2.message}`
   // if (err3) return `Error! ${err3.message}`
   // if (err4) return `Error! ${err4.message}`
-  const isLoadingUniversitas = true
-  const isLoadingUsia = true
-  const dataUniversitas = ['UI', 'ITB', 'ITS', 'UNPAD', 'UNJ', 'Binus Univ', 'UGM', 'Trisakti Univ', 'UPH', 'UMN']
-  const dataUsia = ['22', '23', '24', '25', '26', ' 27', '28', '29', '30']
 
 
   return (
