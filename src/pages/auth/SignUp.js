@@ -163,7 +163,7 @@ const SignUp = (props) => {
               </div>
               <div className="container-social-media">
                 <div className="flex-3">
-                  <img className="mt-30" src={facebookBadge} />
+                  <img src={facebookBadge} />
                 </div>
                 <div className="flex-3">
                   <input type="radio" name="facebook" />
@@ -177,7 +177,7 @@ const SignUp = (props) => {
               </div>
               <div className="container-social-media">
                 <div className="flex-3">
-                  <img className="mt-30" src={twitterBadge} />
+                  <img src={twitterBadge} />
                 </div>
                 <div className="flex-3">
                   <input type="radio" name="twitter" />
@@ -191,7 +191,7 @@ const SignUp = (props) => {
               </div>
               <div className="container-social-media">
                 <div className="flex-3">
-                  <img className="mt-30" src={instagramBadge} />
+                  <img src={instagramBadge} />
                 </div>
                 <div className="flex-3">
                   <input type="radio" name="instagram" />

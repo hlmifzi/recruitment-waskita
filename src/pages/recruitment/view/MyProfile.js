@@ -24,23 +24,23 @@ const MyProfile = props => {
                     <div className="flex-5 flex-direction-column">
                         <div >
                             <label>Nama Lengkap</label>
-                            <input className="ml-30 width-533" type="text" />
+                            <input className="ml-30 width-350 mt-20" type="text" />
                         </div>
                         <div>
                             <label>Tanggal Lahir</label>
-                            <input className="ml-40 width-533" type="date" />
+                            <input className="ml-40 width-350 mt-20" type="date" />
                         </div>
                         <div>
-                            <label>Email</label>git
-                            <input className="ml-100 width-533" type="text" />
+                            <label>Email</label>
+                            <input className="ml-100 width-350 mt-20" type="text" />
                         </div>
                         <div>
                             <label>Universitas</label>
-                            <input className="ml-60 width-533" type="text" />
+                            <input className="ml-60 width-350 mt-20" type="text" />
                         </div>
                         <div>
                             <label>No.Hp</label>
-                            <input className="ml-90 width-533" type="text" />
+                            <input className="ml-90 width-350 mt-20" type="text" />
                         </div>
                         <div style={{ float: 'right', marginRight: '130px' }}>
                             <button className="btn-save-profile">Simpan</button>
