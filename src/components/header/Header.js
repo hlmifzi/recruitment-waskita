@@ -31,7 +31,9 @@ const MainNavbar = ({ history }) => {
     return (
         <>
             <div className="header-admin">
-                <img src={logo} />
+                <Link to="/">
+                    <img src={logo} />
+                </Link>
                 <div ref={wrapperRef} className="wrapper-img-profile" onClick={() => setOpenToggleBox(true)} >
                     <img src={logoUser} />
                     {openToggleBox &&
