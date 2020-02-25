@@ -24,7 +24,7 @@ const SignIn = ({ navigate }) => {
       client.writeData({
         data: {
           isLoggedIn: localStorage.getItem('token'),
-          isAdmin: isAdmin == 1 ? true : false
+          isAdmin: isAdmin
         }
       });
     } else {
@@ -34,20 +34,19 @@ const SignIn = ({ navigate }) => {
   }
 
   return (
-    <div className="body-login">
-      <div className="login-card">
-
-        <img src={logo} />
-        <form onSubmit={_handleSignIn}>
+    <form onSubmit={_handleSignIn}>
+      <div className="body-login">
+        <div className="login-card">
+          <img src={logo} />
           <input type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Username" />
           <input type="password" placeholder="Password" />
           <button className="btn-login"
             onClick={_handleSignIn}>Sign in
           </button>
-        </form>
-        <p className="mb-0 mt-2">Don't have an account? <em onClick={() => navigate("/sign-up")}>Sign Up</em></p>
+          <p className="mb-0 mt-2">Don't have an account? <em onClick={() => navigate("/sign-up")}>Sign Up</em></p>
+        </div>
       </div>
-    </div >
+    </form>
   )
 }
 

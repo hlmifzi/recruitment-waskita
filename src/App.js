@@ -20,7 +20,7 @@ function IsLoggedIn() {
   return (
     <>
       {data.isLoggedIn ? (
-        data.isAdmin ?
+        data.isAdmin == 1 ?
           <AuthenticatedRoutes /> :
           <AuthenticatedRoutesRecruitment />
       ) : <UnAuthenticatedRoutes />}

@@ -10,7 +10,9 @@ const DefaultValue = {
   children: <></>,
 }
 
-const RecruitmentCard = ({ children, nextStep, currentStep }) => {
+const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDownload }) => {
+  console.log("TCL: RecruitmentCard -> hasDownload", hasDownload)
+  console.log("TCL: RecruitmentCard -> hasDownload", uploadStatus)
   const onClickNext = currentStep == 6 ? false : true
   return (
     <>
@@ -24,9 +26,11 @@ const RecruitmentCard = ({ children, nextStep, currentStep }) => {
         <div className="body-recruitment-card">
           {children}
         </div>
+        {console.log(currentStep)}
         {
           onClickNext &&
-          <button className="btn-next" onClick={() => nextStep()}>Next</button>
+          <button className="btn-next" onClick={() => nextStep()}>{(currentStep == 2 || currentStep == 3 || currentStep == 4)
+            ? 'Upload' : 'Next'}</button>
         }
       </div>
     </>
