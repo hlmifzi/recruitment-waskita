@@ -23,15 +23,6 @@ const SignUp = (props) => {
 
   const client = useApolloClient();
 
-  const _handleSignInRecruitment = () => {
-    localStorage.setItem('token', true)
-    client.writeData({
-      data: {
-        isLoggedIn: localStorage.getItem('token'),
-        isAdmin: false
-      }
-    });
-  }
 
   return (
     <div className="body-login">
@@ -70,6 +61,33 @@ const SignUp = (props) => {
                   <Dropdown.Item href="#/action-1">1</Dropdown.Item>
                   <Dropdown.Item href="#/action-2">2</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">3</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">4</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">5</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">6</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">7</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">8</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">9</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">10</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">11</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">12</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">13</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">14</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">15</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">16</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">17</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">18</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">19</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">20</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">21</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">22</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">23</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">24</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">25</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">26</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">27</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">28</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">29</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">30</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown className={"mr-10"}>
@@ -80,6 +98,15 @@ const SignUp = (props) => {
                   <Dropdown.Item href="#/action-1">January</Dropdown.Item>
                   <Dropdown.Item href="#/action-2">February</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">March</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">April</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">May</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">June</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">July</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Ausgust</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">September</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">October</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">November</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">December</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown className={"mr-10"}>
@@ -87,9 +114,19 @@ const SignUp = (props) => {
                   Year
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
+                  <Dropdown.Item href="#/action-2">1991</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">1992</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">1993</Dropdown.Item>
+                  <Dropdown.Item href="#/action-1">1994</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">1995</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">1996</Dropdown.Item>
                   <Dropdown.Item href="#/action-1">1997</Dropdown.Item>
                   <Dropdown.Item href="#/action-2">1998</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">1999</Dropdown.Item>
+                  <Dropdown.Item href="#/action-1">2000</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">2001</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">2002</Dropdown.Item>
+                  <Dropdown.Item href="#/action-1">2003</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -103,8 +140,11 @@ const SignUp = (props) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item href="#/action-1">Islam</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Kristen</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Kristen Protestan</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Kristen Katolik</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Hindu</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">Buddha</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Kong Hu Cu</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -230,7 +270,7 @@ const SignUp = (props) => {
           </div>
         </div>
         <div className="register-footer">
-          <button className="btn-sign-up mt-0" onClick={_handleSignInRecruitment}>
+          <button className="btn-sign-up mt-0" onClick={() => props.navigate("/start")}>
             Sign Up
           </button>
           <p className="mb-0 mt-8">Already have an account? <em onClick={() => props.navigate("/")}>Sign In</em></p>

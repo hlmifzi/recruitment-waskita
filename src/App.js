@@ -7,7 +7,7 @@ import AuthenticatedRoutes from './routes/AuthenticatedRoutes'
 import AuthenticatedRoutesRecruitment from './routes/AuthenticatedRoutesRecruitment'
 import UnAuthenticatedRoutes from './routes/UnAuthenticatedRoutes'
 import gql from "graphql-tag";
-
+import 'react-toastify/dist/ReactToastify.css';
 
 const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
@@ -20,7 +20,7 @@ function IsLoggedIn() {
   return (
     <>
       {data.isLoggedIn ? (
-        data.isAdmin ?
+        data.isAdmin == 1 ?
           <AuthenticatedRoutes /> :
           <AuthenticatedRoutesRecruitment />
       ) : <UnAuthenticatedRoutes />}

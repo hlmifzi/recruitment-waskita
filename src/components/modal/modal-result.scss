@@ -116,6 +116,12 @@
         margin: 0;
         font-size: 12px;
       }
+      .container-personality-bar .netral {
+        text-align: center;
+        color: $black;
+        margin: 0;
+        font-size: 12px;
+      }
       .outer-bar {
         border: 1px solid $placeholder;
         height: 44px;
@@ -146,6 +152,14 @@
         background-color:$white-smoke;
         border-radius: 3px;
         font-size: 10px;
+        overflow: hidden;
+        margin: 4px;
+      }
+      .grey-card-cart {
+        padding: 6px;
+        background-color:$white-smoke;
+        border-radius: 3px;
+        font-size: 8px;
         overflow: hidden;
         margin: 4px;
       }

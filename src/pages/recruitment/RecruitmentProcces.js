@@ -71,7 +71,11 @@ const RecruitmentProcces = props => {
         </div>
       }
       <Components.progressNavbar currentStep={currentStep} />
-      <Components.recruitmentCard nextStep={() => nextStep()} currentStep={currentStep}>
+      <Components.recruitmentCard nextStep={() => {
+        setUploadStatus(false)
+        nextStep()
+      }} currentStep={currentStep}
+        uploadStatus={uploadStatus}>
         {
           <>
             {(!hasDownload && currentInstruction == 1) && <FacebookInfo />}
