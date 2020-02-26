@@ -45,7 +45,8 @@ const ModalResult = ({ closeModal, isShow }) => {
             <p>Result</p>
             <ReactToPdf targetRef={wrapperRef} filename="div-blue.pdf">
               {({ toPdf }) => (
-                <span className="icon-download img-rounded" onClick={toPdf}>
+                // <span className="icon-download img-rounded" onClick={toPdf}>
+                <span className="icon-download img-rounded">
                   <img src={iconDownload} />
                 </span>
               )}
