@@ -141,7 +141,11 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="wrapper-title">
                 <h4>Needs</h4>
               </div>
-              <Components.charts.needsChart isLoading={false} />
+              <div>
+                <Components.charts.needsChart isLoading={false} />
+
+
+              </div>
               <div className="footer-info d-flex">
                 <div className="grey-card flex-6">
                   Keterangan : <br />
@@ -193,7 +197,7 @@ const ModalResult = ({ closeModal, isShow }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   )
 }

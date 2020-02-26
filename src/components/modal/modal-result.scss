@@ -155,6 +155,14 @@
         overflow: hidden;
         margin: 4px;
       }
+      .grey-card-cart {
+        padding: 6px;
+        background-color:$white-smoke;
+        border-radius: 3px;
+        font-size: 8px;
+        overflow: hidden;
+        margin: 4px;
+      }
       .work-value-assessment {
         @include centerFlex();
         margin-top: 24px;    
