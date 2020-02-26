@@ -25,8 +25,8 @@
       padding: 0px 32px;
       background: #ffffff;
       width: 800px;
-      min-height: 760px;
-      overflow-y: auto;
+      height: 725px;
+      overflow: hidden;
     }
     .modal-result-header {
       position: relative;
@@ -51,7 +51,7 @@
     }
     .modal-result-body {
       overflow: scroll;
-      height: 750px;
+      height: 650px;
       margin-bottom: 20px;
     }
     .personal-info {

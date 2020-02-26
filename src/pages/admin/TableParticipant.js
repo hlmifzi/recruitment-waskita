@@ -3,7 +3,7 @@ import axios from 'axios'
 import Components from '../../components/Components'
 import { gql } from "apollo-boost";
 import ClientApollo from '../../services/apolloClient/ClientApollo'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 
@@ -97,7 +97,7 @@ const TableParticipant = props => {
               <th>Asal Universitas</th>
               <th>No. KTP</th>
               <th>Email</th>
-              <th>Tanggal Test <FontAwesomeIcon icon="coffee" /></th>
+              <th>Tanggal Test </th>
               <th>Hasil</th>
               <th>Keterangan</th>
             </tr>
