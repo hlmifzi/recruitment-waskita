@@ -66,14 +66,17 @@ const ModalResult = ({ closeModal, isShow }) => {
               </div>
               <div className="social-media-info flex-4">
                 <p>Tingkat Partisipasi Sosial Media : 80%</p>
-                <span className="social-media-bar twitter">
-                  <img style={{ width: '25px' }} src={twitterBadge} />
+                <span className="social-media-bar twitter" style={{width: `${80}%`}}>
+                  <img src={twitterBadge} />
+                  <p className="score">{80}%</p>
                 </span>
-                <span className="social-media-bar facebook">
-                  <img style={{ width: '25px' }} src={facebookBadge} />
+                <span className="social-media-bar facebook" style={{width: `${50}%`}}>
+                  <img src={facebookBadge} />
+                  <p className="score">{50}%</p>
                 </span>
-                <span className="social-media-bar instagram">
-                  <img style={{ width: '25px' }} src={instagramBadge} />
+                <span className="social-media-bar instagram" style={{width: `${30}%`}}>
+                  <img src={instagramBadge} />
+                  <p className="score">{30}%</p>
                 </span>
               </div>
             </div>
@@ -84,7 +87,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="netral flex-3">Konvensional, nyaman pada kebiasaan</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar"></div>
+                  <div className="inside-bar" style={{width:"67%"}}></div>
                   <p>67%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>o</span>peness</p>
@@ -93,7 +96,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="weakness flex-3">Spontan, impulsif, cenderung lalai dan kurang teliti</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar"></div>
+                  <div className="inside-bar" style={{width:"40%"}}></div>
                   <p>40%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness</p>
@@ -102,8 +105,8 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="netral flex-3">Pemalu, lebih senang menyendiri, task oriented</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar"></div>
-                  <p>65%</p>
+                  <div className="inside-bar" style={{width:"85%"}}></div>
+                  <p>85%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion</p>
                 <p className="strength flex-3">Mudah bergaul, senang bicara, person oriented</p>
@@ -111,7 +114,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="weakness flex-3">Kompetitif, mudah curiga, tidak ramah</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar"></div>
+                  <div className="inside-bar" style={{width:"15%"}}></div>
                   <p>15%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness</p>
@@ -120,8 +123,8 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="netral flex-3">Tenang, stabil, percaya diri</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar"></div>
-                  <p>65%</p>
+                  <div className="inside-bar" style={{width:"58%"}}></div>
+                  <p>58%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism</p>
                 <p className="strength flex-3">Emosional, mudah stress, tidak percaya diri</p>
