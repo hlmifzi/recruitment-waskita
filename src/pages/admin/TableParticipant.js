@@ -3,6 +3,8 @@ import axios from 'axios'
 import Components from '../../components/Components'
 import { gql } from "apollo-boost";
 import ClientApollo from '../../services/apolloClient/ClientApollo'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 
 const TableParticipant = props => {
   const [listParticipant, setListParticipant] = useState([
@@ -90,11 +92,11 @@ const TableParticipant = props => {
               <th>No.</th>
               <th>Nama Peserta</th>
               <th>Jenis Kelamin</th>
-              <th>Usia</th>
+              <th>Usia <FontAwesomeIcon icon={faAngleDown}/></th>
               <th>Asal Universitas</th>
               <th>No. KTP</th>
               <th>Email</th>
-              <th>Tanggal Test</th>
+              <th>Tanggal Test <FontAwesomeIcon icon={faAngleDown}/></th>
               <th>Hasil</th>
               <th>Keterangan</th>
             </tr>
