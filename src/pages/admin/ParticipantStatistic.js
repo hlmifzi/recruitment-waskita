@@ -25,7 +25,7 @@ const ParticipantStatistic = () => {
   return (
     <Row>
       <Components.charts.lineChart title="Jumlah Peserta" isLoading={isLoadingJumlahPeserta} colMd={12} data={dataJumlahPeserta} />
-      {/* <Components.charts.donatChart title="Jenis Kelamin" isLoading={isLoadingJenisKelamin} colMd={4} data={dataJenisKelamin} /> */}
+      <Components.charts.donatChart title="Jenis Kelamin" isLoading={isLoadingJenisKelamin} colMd={4} data={dataJenisKelamin} />
       <Components.charts.barChart title="Universitas" isLoading={isLoadingUniversitas} colMd={6} data={dataUniversitas} />
       <Components.charts.barChart title="Usia" isLoading={isLoadingUsia} colMd={6} data={dataUsia} />
     </Row>
