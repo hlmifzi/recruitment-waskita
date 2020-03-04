@@ -1,37 +1,61 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import logo from '../../logo-waskita.png'
-import { useApolloClient } from "@apollo/react-hooks";
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import swal from '../../components/notification/swal'
 import Toast from '../../components/notification/toast'
+import gql from 'graphql-tag';
+
+const LOGIN = gql`
+  mutation login($email:String!, $password:String!) {
+    userLogin(email:$email, password:$password) {
+      ok
+      user {
+        role
+      }
+    }
+  }
+`;
 
 
 const SignIn = ({ navigate }) => {
   const [userName, setUserName] = useState("")
+  const [password, setPassword] = useState("")
   const client = useApolloClient();
+  const [userLogin] = useMutation(LOGIN);
 
-  const _handleSignIn = () => {
+  const getQueryVariable = () => ({
+    "email": userName,
+    "password": password
+  })
+  const _handleSignIn = async (e) => {
+    e.preventDefault();
+    const { data } = await userLogin(({
+      variables: getQueryVariable()
+    }))
 
+    const userRole = data.userLogin.user.role
     let isAdmin = false
-    if (userName == 'admin') isAdmin = 1;
-    if (userName == 'candidate') isAdmin = 2;
+    if (userRole == 'WASKITA') isAdmin = 1;
+    if (userRole == 'CANDIDATE') isAdmin = 2;
 
-    //   swal.failed('Wrong username')
-    if (userName == 'admin') Toast.info(`Welcome to Hiring Apps admin`)
-    if (userName == 'candidate') Toast.info(`Welcome to Hiring Apps Candidate`)
-    console.log("TCL: isAdmin", isAdmin)
+    if (userRole == 'WASKITA') Toast.info(`Welcome to Hiring Apps ${userName}`)
+    if (userRole == 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${userName}`)
+
     if (isAdmin) {
       localStorage.setItem('token', true)
+      localStorage.setItem('isAdmin', isAdmin)
+      console.log("SignIn -> isAdmin", isAdmin)
       client.writeData({
         data: {
           isLoggedIn: localStorage.getItem('token'),
-          isAdmin: isAdmin
+          isAdmin: localStorage.getItem('isAdmin')
         }
       });
     } else {
       swal.failed('Wrong username')
     }
-
   }
+
 
   return (
     <form onSubmit={_handleSignIn}>
@@ -39,7 +63,7 @@ const SignIn = ({ navigate }) => {
         <div className="login-card">
           <img src={logo} />
           <input type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Username" />
-          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
           <button className="btn-login"
             onClick={_handleSignIn}>Sign in
           </button>

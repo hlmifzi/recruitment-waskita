@@ -14,9 +14,8 @@ const ClientApollo = new ApolloClient({
 
 cache.writeData({
   data: {
-    isLoggedIn: localStorage.getItem("token"),
-    isAdmin: false,
-    cartItems: []
+    isLoggedIn: localStorage.getItem("token") || false,
+    isAdmin: localStorage.getItem("isAdmin"),
   }
 });
 

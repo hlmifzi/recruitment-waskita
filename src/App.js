@@ -17,13 +17,15 @@ const IS_LOGGED_IN = gql`
 
 function IsLoggedIn() {
   const { data } = useQuery(IS_LOGGED_IN)
+  console.log("IsLoggedIn -> data", data)
   return (
     <>
       {data.isLoggedIn ? (
-        data.isAdmin == 1 ?
+        data.isAdmin === '1' ?
           <AuthenticatedRoutes /> :
           <AuthenticatedRoutesRecruitment />
-      ) : <UnAuthenticatedRoutes />}
+      ) :
+        <UnAuthenticatedRoutes />}
     </>
   )
 }
