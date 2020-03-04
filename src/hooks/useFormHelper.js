@@ -13,7 +13,6 @@ function useFormHelper() {
     })
   }
 
-
   const _handleOnChangeSelect = (value, name) => {
     immerSetState(draft => {
       draft[name] = value
