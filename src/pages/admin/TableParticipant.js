@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { getCandidateList } from './graphql/AdminGql'
 
-const TableParticipant = props => {
+const TableParticipant = () => {
   const [showModal, setShowModal] = useState(false);
 
   const { loading, error: err1, data: listParticipant } = useQuery(getCandidateList)

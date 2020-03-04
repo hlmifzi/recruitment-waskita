@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import logo from '../../logo-waskita.png'
 import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import swal from '../../components/notification/swal'
@@ -29,31 +29,38 @@ const SignIn = ({ navigate }) => {
   })
   const _handleSignIn = async (e) => {
     e.preventDefault();
-    const { data } = await userLogin(({
+    const { data, errors } = await userLogin(({
       variables: getQueryVariable()
     }))
 
-    const userRole = data.userLogin.user.role
-    let isAdmin = false
-    if (userRole == 'WASKITA') isAdmin = 1;
-    if (userRole == 'CANDIDATE') isAdmin = 2;
+    if (errors) return swal.failed('Wrong username')
 
-    if (userRole == 'WASKITA') Toast.info(`Welcome to Hiring Apps ${userName}`)
-    if (userRole == 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${userName}`)
 
-    if (isAdmin) {
-      localStorage.setItem('token', true)
-      localStorage.setItem('isAdmin', isAdmin)
-      console.log("SignIn -> isAdmin", isAdmin)
-      client.writeData({
-        data: {
-          isLoggedIn: localStorage.getItem('token'),
-          isAdmin: localStorage.getItem('isAdmin')
-        }
-      });
-    } else {
-      swal.failed('Wrong username')
+    console.log("SignIn -> data.userLogin.ok", data.userLogin.ok)
+    if (data.userLogin.ok) {
+      let isAdmin = false
+      const userRole = data.userLogin.user.role
+      if (userRole == 'WASKITA') isAdmin = 1;
+      if (userRole == 'CANDIDATE') isAdmin = 2;
+
+      if (userRole == 'WASKITA') Toast.info(`Welcome to Hiring Apps ${userName}`)
+      if (userRole == 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${userName}`)
+
+      if (isAdmin) {
+        localStorage.setItem('token', true)
+        localStorage.setItem('isAdmin', isAdmin)
+        client.writeData({
+          data: {
+            isLoggedIn: localStorage.getItem('token'),
+            isAdmin: localStorage.getItem('isAdmin')
+          }
+        });
+      } else {
+        swal.failed('Wrong username')
+      }
     }
+
+
   }
 
 

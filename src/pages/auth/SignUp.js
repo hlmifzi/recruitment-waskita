@@ -3,41 +3,119 @@ import logo from '../../logo-waskita.png'
 import facebookBadge from '../../assets/recruitment/facebook-badge.svg'
 import instagramBadge from '../../assets/recruitment/instagram-badge.svg'
 import twitterBadge from '../../assets/recruitment/twitter-badge.svg'
-import { useApolloClient } from "@apollo/react-hooks"
 import { Dropdown } from 'react-bootstrap'
 import useFormHelper from '../../hooks/useFormHelper'
+import gql from 'graphql-tag';
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
+import swal from '../../components/notification/swal'
+import Toast from '../../components/notification/toast'
+
+
+const SIGN_UP = gql`
+  mutation signUp($newCandidate:CandidateInput!) {
+    candidateCreate(newCandidate:$newCandidate) {
+      candidate {
+        id
+      }
+      ok
+      errors {
+        field
+      }
+    }
+  }
+`;
+
+
+const LOGIN = gql`
+  mutation login($email:String!, $password:String!) {
+    userLogin(email:$email, password:$password) {
+      ok
+      user {
+        role
+      }
+    }
+  }
+`;
 
 const SignUp = ({ navigate }) => {
-  const client = useApolloClient();
   const { state, _handleOnChangeInput, _handleOnChangeSelect } = useFormHelper()
+  const client = useApolloClient();
+  const [candidateCreate] = useMutation(SIGN_UP);
+  const [userLogin] = useMutation(LOGIN);
+  const days = [1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+  const Months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
+  const Years = [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003]
 
   const getQuerySignUp = () => ({
     newCandidate: {
       name: state.name,
       gender: state.gender,
-      dob: `${state.dobYear}-${state.dobMonth}-${state.dobDay}`,
+      dob: `${state.dobYear}-${state.dobMonth.length == 1 ? `0${state.dobMonth}` : state.dobMonth}-${state.dobDay.length == 1 ? `0${state.dobDay}` : state.dobDay}`,
       religion: state.religion,
       tribe: state.tribe,
-      university: state.university,
+      // university: state.university,
+      university: 1,
       major: state.major,
       email: state.email,
       password: state.password,
       noHp: state.noHp,
       noKtp: state.noKtp,
-      haveSocmed: state.haveSocmed,
-      freqSocmedFb: state.freqSocmedFb,
-      freqSocmedTw: state.freqSocmedTw,
-      freqSocmedIg: state.freqSocmedIg,
+      haveSocmed: !!state.haveSocmed,
+      freqSocmedFb: parseInt(state.freqSocmedFb),
+      freqSocmedTw: parseInt(state.freqSocmedTw),
+      freqSocmedIg: parseInt(state.freqSocmedIg),
       useSocmed: state.useSocmed,
-      termSocmedUpload: state.termSocmedUpload,
-      termSocmedPsikotes: state.termSocmedPsikotes,
-      termSocmedPrivacy: state.termSocmedPrivacy
+      termSocmedUpload: !!state.termSocmedUpload,
+      termSocmedPsikotes: !!state.termSocmedPsikotes,
+      termSocmedPrivacy: !!state.termSocmedPrivacy
     }
   })
 
-  const _handleSignUp = () => {
-    const query = getQuerySignUp()
-    console.log(state)
+  const getQueryVariableLogin = () => ({
+    email: state.email,
+    password: state.password
+  })
+
+  const _handleLogin = async () => {
+
+    const { data, errors } = await userLogin(({
+      variables: getQueryVariableLogin()
+    }))
+
+    if (errors) return swal.failed('Wrong username')
+
+    if (data.userLogin.ok) {
+      let isAdmin = false
+      const userRole = data.userLogin.user.role
+      if (userRole == 'WASKITA') isAdmin = 1;
+      if (userRole == 'CANDIDATE') isAdmin = 2;
+
+      if (userRole == 'WASKITA') Toast.info(`Welcome to Hiring Apps ${state.email}`)
+      if (userRole == 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${state.email}`)
+
+      if (isAdmin) {
+        localStorage.setItem('token', true)
+        localStorage.setItem('isAdmin', isAdmin)
+        client.writeData({
+          data: {
+            isLoggedIn: localStorage.getItem('token'),
+            isAdmin: localStorage.getItem('isAdmin')
+          }
+        });
+      } else {
+        swal.failed('Wrong username')
+      }
+    }
+  }
+
+  const _handleSignUp = async () => {
+    const { data } = await candidateCreate(({
+      variables: getQuerySignUp()
+    }))
+
+    if (data.candidateCreate.ok) {
+      _handleLogin()
+    }
   }
 
   return (
@@ -70,80 +148,40 @@ const SignUp = ({ navigate }) => {
           <div>
             <p className="flex-4 h-text-right mr-26">Tanggal Lahir</p>
             <div className="flex-8 d-flex">
-              <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'dobMonth')} >
+              <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'dobDay')} >
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  {state.dobMonth || 'Day'}
+                  {state.dobDay || 'Day'}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/1">1</Dropdown.Item>
-                  <Dropdown.Item href="#/2">2</Dropdown.Item>
-                  <Dropdown.Item href="#/3">3</Dropdown.Item>
-                  <Dropdown.Item href="#/4">4</Dropdown.Item>
-                  <Dropdown.Item href="#/5">5</Dropdown.Item>
-                  <Dropdown.Item href="#/6">6</Dropdown.Item>
-                  <Dropdown.Item href="#/7">7</Dropdown.Item>
-                  <Dropdown.Item href="#/8">8</Dropdown.Item>
-                  <Dropdown.Item href="#/9">9</Dropdown.Item>
-                  <Dropdown.Item href="#/10">10</Dropdown.Item>
-                  <Dropdown.Item href="#/11">11</Dropdown.Item>
-                  <Dropdown.Item href="#/12">12</Dropdown.Item>
-                  <Dropdown.Item href="#/13">13</Dropdown.Item>
-                  <Dropdown.Item href="#/14">14</Dropdown.Item>
-                  <Dropdown.Item href="#/15">15</Dropdown.Item>
-                  <Dropdown.Item href="#/16">16</Dropdown.Item>
-                  <Dropdown.Item href="#/17">17</Dropdown.Item>
-                  <Dropdown.Item href="#/18">18</Dropdown.Item>
-                  <Dropdown.Item href="#/19">19</Dropdown.Item>
-                  <Dropdown.Item href="#/20">20</Dropdown.Item>
-                  <Dropdown.Item href="#/21">21</Dropdown.Item>
-                  <Dropdown.Item href="#/22">22</Dropdown.Item>
-                  <Dropdown.Item href="#/23">23</Dropdown.Item>
-                  <Dropdown.Item href="#/24">24</Dropdown.Item>
-                  <Dropdown.Item href="#/25">25</Dropdown.Item>
-                  <Dropdown.Item href="#/26">26</Dropdown.Item>
-                  <Dropdown.Item href="#/27">27</Dropdown.Item>
-                  <Dropdown.Item href="#/28">28</Dropdown.Item>
-                  <Dropdown.Item href="#/29">29</Dropdown.Item>
-                  <Dropdown.Item href="#/30">30</Dropdown.Item>
+                  {
+                    days.map((v, i) => (
+                      <Dropdown.Item key={i} eventKey={v}>{v}</Dropdown.Item>
+                    ))
+                  }
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown className={"mr-10"} onSelect={(e) => _handleOnChangeSelect(e, 'dobMonth')} >
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  Month
+                  {state.dobMonth || 'Month'}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">January</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">February</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">March</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">April</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">May</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">June</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">July</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Ausgust</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">September</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">October</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">November</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">December</Dropdown.Item>
+                  {
+                    Months.map((v, i) => (
+                      <Dropdown.Item key={i} eventKey={i + 1}>{v}</Dropdown.Item>
+                    ))
+                  }
                 </Dropdown.Menu>
               </Dropdown>
-              <Dropdown className={"mr-10"}>
-                <Dropdown.Toggle variant="light" id="dropdown-basic" onSelect={(e) => _handleOnChangeSelect(e, 'dobYear')} >
-                  Year
+              <Dropdown className={"mr-10"} onSelect={(e) => _handleOnChangeSelect(e, 'dobYear')} >
+                <Dropdown.Toggle variant="light" id="dropdown-basic">
+                  {state.dobYear || 'Year'}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-2">1991</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">1992</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">1993</Dropdown.Item>
-                  <Dropdown.Item href="#/action-1">1994</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">1995</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">1996</Dropdown.Item>
-                  <Dropdown.Item href="#/action-1">1997</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">1998</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">1999</Dropdown.Item>
-                  <Dropdown.Item href="#/action-1">2000</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">2001</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">2002</Dropdown.Item>
-                  <Dropdown.Item href="#/action-1">2003</Dropdown.Item>
+                  {
+                    Years.map((v, i) => (
+                      <Dropdown.Item key={i} eventKey={v}>{v}</Dropdown.Item>
+                    ))
+                  }
                 </Dropdown.Menu>
               </Dropdown>
             </div>
@@ -153,15 +191,15 @@ const SignUp = ({ navigate }) => {
             <div className="flex-8">
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'religion')}>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  Agama
+                  {state.religion || 'Agama'}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Islam</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Kristen Protestan</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Kristen Katolik</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Hindu</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Buddha</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Kong Hu Cu</Dropdown.Item>
+                  <Dropdown.Item eventKey="ISLAM">ISLAM</Dropdown.Item>
+                  <Dropdown.Item eventKey="KRISTEN PROTESTAN">KRISTEN PROTESTAN</Dropdown.Item>
+                  <Dropdown.Item eventKey="KRISTEN KATOLIK">KRISTEN KATOLIK</Dropdown.Item>
+                  <Dropdown.Item eventKey="HINDU">HINDU</Dropdown.Item>
+                  <Dropdown.Item eventKey="BUDDHA">BUDDHA</Dropdown.Item>
+                  <Dropdown.Item eventKey="KONG HU CU">KONG HU CU</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
