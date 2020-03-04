@@ -6,7 +6,7 @@ const cache = new InMemoryCache()
 
 const ClientApollo = new ApolloClient({
   cache,
-  uri: 'https://graphql-pokemon.now.sh/',
+  uri: 'http://178.128.103.128:8000/graphql/',
   typeDefs,
   resolvers
 });
