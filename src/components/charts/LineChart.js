@@ -8,19 +8,21 @@ HighchartsMore(ReactHighcharts.Highcharts)
 
 
 const PropTypesParam = {
-    data: PropTypes.array,
+    data: PropTypes.object,
     title: PropTypes.string,
     colSm: PropTypes.number,
     colMd: PropTypes.number,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    error: PropTypes.string
 }
 
 const DefaultPropsParam = {
-    data: [],
+    data: {categories:[], series:[]},
     title: 'Tidak Ada Title',
     colSm: 12,
     colMd: 12,
-    isLoading: true
+    isLoading: true,
+    error: ''
 };
 
 const LineChart = props => {
@@ -28,14 +30,12 @@ const LineChart = props => {
         title: false,
         yAxis: {
             title: {
-                text: 'Number of Employees'
-            }
+                text: props.title
+            },
+            offset: 30
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yAxis: {
-            offset: 30
+            categories: props.data.categories
         },
         legend: false,
         plotOptions: {
@@ -55,7 +55,7 @@ const LineChart = props => {
         series: [{
             name: 'Installation',
             color: '#012C40',
-            data: [21, 31, 36, 13, 40, 12, 32, 15, 15, 23, 53, 13]
+            data: props.data.series
         }],
 
         responsive: {

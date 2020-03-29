@@ -15,7 +15,6 @@ const PropTypesParam = {
 
 const DefaultPropsParam = {
     data: [],
-    data: '',
     type: '',
 };
 
@@ -41,7 +40,7 @@ const DonutChart = props => {
             pie: {
                 dataLabels: {
                     enabled: true,
-                    distance: -50,
+                    distance: -65,
                     style: {
                         fontWeight: 'bold',
                         color: 'white'
@@ -67,12 +66,9 @@ const DonutChart = props => {
         },
         series: [{
             type: 'pie',
-            name: 'Jenis Kelamin',
+            name: props.title,
             innerSize: '70%',
-            data: [
-                ['Laki-Laki', 65.9],
-                ['Perempuan', 35.29],
-            ]
+            data: props.data
         }],
         credits: {
             enabled: false

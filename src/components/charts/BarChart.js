@@ -9,7 +9,7 @@ HighchartsMore(ReactHighcharts.Highcharts)
 
 
 const PropTypesParam = {
-    data: PropTypes.array,
+    data: PropTypes.object,
     title: PropTypes.string,
     colSm: PropTypes.number,
     colMd: PropTypes.number,
@@ -17,8 +17,7 @@ const PropTypesParam = {
 }
 
 const DefaultPropsParam = {
-    data: [],
-    data: '',
+    data: { categories: [], series: [] },
     colSm: 12,
     colMd: 12,
     isLoading: true
@@ -34,22 +33,31 @@ const BarChart = props => {
         title: false,
 
         xAxis: {
-            categories: props.data
+            categories: props.data.categories
         },
-
-
+        tooltip: {
+            formatter: function () {
+                return props.title+' '+this.x + ': ' + this.y ;
+            }
+        },
+        yAxis: {
+            title: {
+                text: props.title
+            },
+            offset: 30
+        },
         legend: false,
 
 
         series: [{
             name: 's1',
-            color: '#012C40',
+            color: 'red',
             id: 's1',
             grouping: false
         }, {
             linkedTo: 's1',
             color: '#012C40',
-            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4]
+            data:  props.data.series
         }],
         credits: {
             enabled: false
