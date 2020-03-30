@@ -37,7 +37,7 @@ const BarChart = props => {
         },
         tooltip: {
             formatter: function () {
-                return props.title+' '+this.x + ': ' + this.y ;
+                return `${props.title} ${this.x}: ${this.y}`;
             }
         },
         yAxis: {

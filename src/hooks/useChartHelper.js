@@ -1,4 +1,3 @@
-// import { useState } from "react";
 
 const useChartHelper = {
     lineChart: (data, dataKey, key) =>{
