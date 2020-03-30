@@ -14,7 +14,32 @@ const AdminQueryGql = {
         createdAt
       }
     }
-  }`
+  }`,
+  statisticCandidateByMonth: `{
+    statisticCandidateByMonth {
+      month
+      monthValue
+    }
+  }`,
+  statisticCandidateByGender: `{
+    statisticCandidateByGender {
+      gender
+      genderValue
+    }
+  }`,
+  statisticCandidateByAge: `{
+  statisticCandidateByAge {
+    age
+    ageValue
+  }
+}`,
+  statisticCandidateByUniversity: `{
+  statisticCandidateByUniversity {
+    university
+    universityValue
+  }
+}`
+
 }
 
 

@@ -1,20 +1,31 @@
 import React, { useState } from 'react'
 import Components from '../../components/Components'
 import { useQuery } from '@apollo/react-hooks';
-import { getJumlahPeserta } from './graphql/AdminGql'
+import { 
+  getJumlahPeserta, 
+  getJenisKelamin,
+  getUniversitas,
+  getUsia } from './graphql/AdminGql'
 import { Row } from 'react-bootstrap';
+import useChartHelper from '../../hooks/useChartHelper';
 
 const ParticipantStatistic = () => {
 
-  const [isLoadingUniversitas, setIsLoadingUniversitas] = useState(false)
-  const [isLoadingUsia, setIsLoadingUsia] = useState(false)
-  const [dataUniversitas, setDataUniversitas] = useState(['UI', 'ITB', 'ITS', 'UNPAD', 'UNJ', 'Binus', 'UGM', 'Trisakti', 'UPH', 'UMN'])
-  const [dataUsia, setDataUsia] = useState(['22', '23', '24', '25', '26', ' 27', '28', '29', '30'])
+  let { loading: isLoadingJmlPeserta, error: errJmlPeserta, data: dataJmlPeserta = {}} = useQuery(getJumlahPeserta)
+  if (!isLoadingJmlPeserta) 
+  dataJmlPeserta = useChartHelper.lineChart(dataJmlPeserta, "statisticCandidateByMonth", "month");
 
-  // const { loading: isLoadingJumlahPeserta, error: err1, data: dataJumlahPeserta } = useQuery(getJumlahPeserta)
-  // const { loading: isLoadingJenisKelamin, error: err2, data: dataJenisKelamin } = useQuery(getJumlahPeserta)
-  // const { loading: isLoadingUniversitas, error: err3, data: dataUniversitas } = useQuery(getJumlahPeserta)
-  // const { loading: isLoadingUsia, error: err4, data: dataUsia } = useQuery(getJumlahPeserta)
+  let { loading: isLoadingJenisKelamin, error: errJenisKelamin, data: dataJenisKelamin=[] } = useQuery(getJenisKelamin)
+  if (!isLoadingJenisKelamin) 
+  dataJenisKelamin = useChartHelper.donutChart(dataJenisKelamin, "statisticCandidateByGender", "gender");
+  
+  let { loading: isLoadingUniversitas, error: errUniversitas, data: dataUniversitas = {}  } = useQuery(getUniversitas)
+  if (!isLoadingUniversitas)
+  dataUniversitas = useChartHelper.barChart(dataUniversitas, "statisticCandidateByUniversity", "university");
+ 
+  let { loading: isLoadingUsia, error: errUsia, data: dataUsia = {} } = useQuery(getUsia)
+  if (!isLoadingUsia)
+    dataUsia = useChartHelper.barChart(dataUsia, "statisticCandidateByAge", "age");
 
   // if (err1) return `Error! ${err1.message}`
   // if (err2) return `Error! ${err2.message}`
@@ -24,8 +35,8 @@ const ParticipantStatistic = () => {
 
   return (
     <Row>
-      <Components.charts.lineChart title="Jumlah Peserta" isLoading={false} colMd={8} />
-      <Components.charts.donatChart title="Jenis Kelamin" colMd={4} />
+      <Components.charts.lineChart isLoading={isLoadingJmlPeserta} title="Jumlah Peserta" colMd={8} data={dataJmlPeserta} />
+      <Components.charts.donatChart title="Jenis Kelamin" loading={isLoadingJenisKelamin} colMd={4} data={dataJenisKelamin} />
       <Components.charts.barChart title="Universitas" isLoading={isLoadingUniversitas} colMd={6} data={dataUniversitas} />
       <Components.charts.barChart title="Usia" isLoading={isLoadingUsia} colMd={6} data={dataUsia} />
     </Row>
