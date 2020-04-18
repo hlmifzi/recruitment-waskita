@@ -24,16 +24,13 @@ const RecruitmentProcces = props => {
   const wrapperRef = useRef()
 
   const FILE = gql`
-    mutation statistic($candidateId: String!, $socmedId: String!, $socmedFilename: String! ) {
-      candidateSocmedUpload(input:{candidateId: $candidateId, socmedId: $socmedId, socmedFilename: $socmedFilename }) {
-        candidate {
-          id
+    mutation statistic($input: CandidateSocmedFileMutationInput!) {
+      candidateSocmedUpload(input: $input) {
+        input {
+          candidateId
+          socmedId
+          socmedFilename
         }
-        socmed {
-          socialMedia
-        }
-        socmedFile
-        socmedFilename
         ok
       }
     }
