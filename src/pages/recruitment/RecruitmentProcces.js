@@ -6,16 +6,41 @@ import TwitterInfo from './view/TwitterInfo'
 import CtsComponent from './view/CtsComponent'
 import iconBell from '../../assets/recruitment/bell-with-attention.svg'
 import UploadDocument from './view/UploadDocument'
-
+import useFormHelper from '../../hooks/useFormHelper'
+import gql from 'graphql-tag';
+import { useApolloClient, useMutation } from "@apollo/react-hooks"
+import swal from '../../components/notification/swal'
 
 const RecruitmentProcces = props => {
-
+ 
+  const { state } = useFormHelper()
   const [hasDownload, setHasDownload] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [currentInstruction, setInstruction] = useState(1)
   const [currentStep, setStep] = useState(1)
   const [uploadStatus, setUploadStatus] = useState(false)
+  const [file, setFile] = useState(null)
+  const [uploadFor, setUploadFor] = useState('')
   const wrapperRef = useRef()
+
+  const FILE = gql`
+    mutation statistic($candidateId: String!, $socmedId: String!, $socmedFilename: String! ) {
+      candidateSocmedUpload(input:{candidateId: $candidateId, socmedId: $socmedId, socmedFilename: $socmedFilename }) {
+        candidate {
+          id
+        }
+        socmed {
+          socialMedia
+        }
+        socmedFile
+        socmedFilename
+        ok
+      }
+    }
+  `;
+
+  const [uploadFiles] = useMutation(FILE);
+
 
   const nextStep = () => {
     if (hasDownload) {
@@ -45,13 +70,31 @@ const RecruitmentProcces = props => {
     document.body.classList.remove("scroll-locked")
   }
 
-  const uploadFile = (file) => {
-    console.log(file)
+  const getQueryFiles = () => ({
+    input:{
+      candidateId: '1',
+      socmedId: '1',
+      socmedFilename: "test"
+    }
+  })
+
+  const uploadFile = async (file, uploadFileFor) => {
     if (file) {
-      setUploadStatus(true)
+      setUploadFor(uploadFileFor)
+      let dataFile = new FormData();
+      dataFile.append('socmedFile', file[0])
+      
+
+      const { data } = await uploadFiles(({
+        variables: getQueryFiles()
+      }))
+      if(data){
+        setUploadStatus(true)
+      }
     }
   }
 
+  console.log(getQueryFiles)
   useEffect(() => {
     document.addEventListener("click", clickOutsideModal, false);
     return () => {
@@ -85,13 +128,13 @@ const RecruitmentProcces = props => {
               <CtsComponent nextStep={() => nextStep()} />
             }
             {(hasDownload && currentStep == 2) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="facebook" uploadFile={(file) => uploadFile(file)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="FACEBOOK" uploadFile={(file) => uploadFile(file)} />
             }
             {(hasDownload && currentStep == 3) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="twitter" uploadFile={(file) => uploadFile(file)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="TWITTER" uploadFile={(file) => uploadFile(file)} />
             }
             {(hasDownload && currentStep == 4) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="instagram" uploadFile={(file) => uploadFile(file)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="INSTAGRAM" uploadFile={(file) => uploadFile(file)} />
             }
             {(hasDownload && currentStep == 5) &&
               <CtsComponent nextStep={() => nextStep()} hasUpload={true} />

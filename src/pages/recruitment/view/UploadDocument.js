@@ -5,6 +5,7 @@ import twitterFormIcon from '../../../assets/recruitment/twitter-form.svg'
 import instagramFormIcon from '../../../assets/recruitment/instagram-form.svg'
 import paperIcon from '../../../assets/recruitment/paper.svg'
 import redoIcon from '../../../assets/recruitment/redo.svg'
+import { FileDrop } from 'react-file-drop'
 
 const Interfaces = {
   children: PropTypes.element.isRequired,
@@ -12,13 +13,13 @@ const Interfaces = {
 
 const DefaultValue = {
   children: <></>,
-  uploadFor: "facebook",
+  uploadFor: "FACEBOOK",
   uploadStatus: false
 }
 
 const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
 
-  const icon = uploadFor == "facebook" ? facebookFormIcon : uploadFor == "twitter" ? twitterFormIcon : instagramFormIcon
+  const icon = uploadFor == "FACEBOOK" ? facebookFormIcon : uploadFor == "TWITTER" ? twitterFormIcon : instagramFormIcon
 
   const chooseFile = (data) => {
     uploadFile(data)
@@ -29,7 +30,7 @@ const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
   }, [])
 
   return (
-    <>
+    <FileDrop onDrop={(files) => !uploadStatus && chooseFile(files, uploadFor)}>
       <div className="upload-document-container">
         {!uploadStatus ?
           <>
@@ -38,7 +39,7 @@ const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
             <input
               type="file"
               id="document-upload"
-              onChange={(e) => chooseFile(e.currentTarget.files)}
+              onChange={(e) => chooseFile(e.currentTarget.files, uploadFor)}
             />
             <span>Drag and drop, or <label htmlFor="document-upload">browse</label> your files</span>
           </>
@@ -53,7 +54,7 @@ const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
           </>
         }
       </div>
-    </>
+    </FileDrop>
   )
 }
 
