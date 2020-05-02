@@ -7,9 +7,11 @@ import CtsComponent from './view/CtsComponent'
 import iconBell from '../../assets/recruitment/bell-with-attention.svg'
 import UploadDocument from './view/UploadDocument'
 import useFormHelper from '../../hooks/useFormHelper'
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 import { useApolloClient, useMutation } from "@apollo/react-hooks"
 import swal from '../../components/notification/swal'
+import Axios from 'axios'
+
 
 const RecruitmentProcces = props => {
  
@@ -82,19 +84,17 @@ const RecruitmentProcces = props => {
     if (file) {
       setUploadFor(uploadFileFor)
       let dataFile = new FormData();
-      dataFile.append('socmedFile', file[0])
+      dataFile.append('social_media_file', file[0])
+      dataFile.append('social_media_filename', file[0].name)
+      dataFile.append('candidate', 1)
+      dataFile.append('social_media', 1)
       
+      Axios.post('http://waskita-hiring.org:8000/upload/socmed-data/', dataFile)
+      setUploadStatus(true)
 
-      const { data } = await uploadFiles(({
-        variables: getQueryFiles()
-      }))
-      if(data){
-        setUploadStatus(true)
-      }
     }
   }
 
-  console.log(getQueryFiles)
   useEffect(() => {
     document.addEventListener("click", clickOutsideModal, false);
     return () => {
