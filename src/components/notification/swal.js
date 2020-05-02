@@ -16,6 +16,13 @@ const Swal = {
             title: 'Oops...',
             text: 'Wrong Password !',
         })
+    ),
+    uploadFailed: () => (
+        swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Upload File gagal !',
+        })
     )
 }
 

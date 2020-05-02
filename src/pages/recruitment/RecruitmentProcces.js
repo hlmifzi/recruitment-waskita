@@ -72,25 +72,26 @@ const RecruitmentProcces = props => {
     document.body.classList.remove("scroll-locked")
   }
 
-  const getQueryFiles = () => ({
-    input:{
-      candidateId: '1',
-      socmedId: '1',
-      socmedFilename: "test"
-    }
-  })
-
   const uploadFile = async (file, uploadFileFor) => {
+    let socmedId = uploadFileFor == 'INSTAGRAM' ? 1 : uploadFileFor == 'FACEBOOK' ? 3 : 2
     if (file) {
       setUploadFor(uploadFileFor)
       let dataFile = new FormData();
       dataFile.append('social_media_file', file[0])
       dataFile.append('social_media_filename', file[0].name)
       dataFile.append('candidate', 1)
-      dataFile.append('social_media', 1)
+      dataFile.append('social_media', socmedId)
       
       Axios.post('http://waskita-hiring.org:8000/upload/socmed-data/', dataFile)
-      setUploadStatus(true)
+      .then(res => {
+        if(res.status == 200){
+          setUploadStatus(true)
+        } else {
+          swal.uploadFailed()
+        }
+      }).catch(res => {
+        swal.uploadFailed()
+      })
 
     }
   }
@@ -128,13 +129,13 @@ const RecruitmentProcces = props => {
               <CtsComponent nextStep={() => nextStep()} />
             }
             {(hasDownload && currentStep == 2) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="FACEBOOK" uploadFile={(file) => uploadFile(file)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="FACEBOOK" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
             {(hasDownload && currentStep == 3) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="TWITTER" uploadFile={(file) => uploadFile(file)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
             {(hasDownload && currentStep == 4) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="INSTAGRAM" uploadFile={(file) => uploadFile(file)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
             {(hasDownload && currentStep == 5) &&
               <CtsComponent nextStep={() => nextStep()} hasUpload={true} />

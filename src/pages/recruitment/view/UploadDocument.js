@@ -21,16 +21,12 @@ const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
 
   const icon = uploadFor == "FACEBOOK" ? facebookFormIcon : uploadFor == "TWITTER" ? twitterFormIcon : instagramFormIcon
 
-  const chooseFile = (data) => {
-    uploadFile(data)
-  }
-
   useEffect(() => {
 
   }, [])
 
   return (
-    <FileDrop onDrop={(files) => !uploadStatus && chooseFile(files, uploadFor)}>
+    <FileDrop onDrop={(files) => !uploadStatus && uploadFile(files, uploadFor)}>
       <div className="upload-document-container">
         {!uploadStatus ?
           <>
@@ -39,7 +35,7 @@ const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
             <input
               type="file"
               id="document-upload"
-              onChange={(e) => chooseFile(e.currentTarget.files, uploadFor)}
+              onChange={(e) => uploadFile(e.currentTarget.files, uploadFor)}
             />
             <span>Drag and drop, or <label htmlFor="document-upload">browse</label> your files</span>
           </>
