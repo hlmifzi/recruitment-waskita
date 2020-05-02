@@ -50,7 +50,7 @@ const SignUp = ({ navigate }) => {
     newCandidate: {
       name: state.name,
       gender: state.gender,
-      dob: `${state.dobYear}-${state.dobMonth.length == 1 ? `0${state.dobMonth}` : state.dobMonth}-${state.dobDay.length == 1 ? `0${state.dobDay}` : state.dobDay}`,
+      dob: `${state.dobYear}-${state.dobMonth.length === 1 ? `0${state.dobMonth}` : state.dobMonth}-${state.dobDay.length === 1 ? `0${state.dobDay}` : state.dobDay}`,
       religion: state.religion,
       tribe: state.tribe,
       // university: state.university,
@@ -87,11 +87,11 @@ const SignUp = ({ navigate }) => {
     if (data.userLogin.ok) {
       let isAdmin = false
       const userRole = data.userLogin.user.role
-      if (userRole == 'WASKITA') isAdmin = 1;
-      if (userRole == 'CANDIDATE') isAdmin = 2;
+      if (userRole === 'WASKITA') isAdmin = 1;
+      if (userRole === 'CANDIDATE') isAdmin = 2;
 
-      if (userRole == 'WASKITA') Toast.info(`Welcome to Hiring Apps ${state.email}`)
-      if (userRole == 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${state.email}`)
+      if (userRole === 'WASKITA') Toast.info(`Welcome to Hiring Apps ${state.email}`)
+      if (userRole === 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${state.email}`)
 
       if (isAdmin) {
         localStorage.setItem('token', true)
@@ -122,7 +122,7 @@ const SignUp = ({ navigate }) => {
     <div className="body-login">
       <div className="register-container">
         <div className="register-header">
-          <img src={logo} />
+          <img alt="picture" src={logo} />
         </div>
 
         <div className="register-body">
@@ -258,7 +258,7 @@ const SignUp = ({ navigate }) => {
               </div>
               <div className="container-social-media">
                 <div className="flex-3">
-                  <img src={facebookBadge} />
+                  <img alt="picture1" src={facebookBadge} />
                 </div>
                 <div className="flex-3">
                   <input type="radio" name="freqSocmedFb" value={1} onClick={_handleOnChangeInput} />
@@ -272,7 +272,7 @@ const SignUp = ({ navigate }) => {
               </div>
               <div className="container-social-media">
                 <div className="flex-3">
-                  <img src={twitterBadge} />
+                  <img alt="picture2" src={twitterBadge} />
                 </div>
                 <div className="flex-3">
                   <input type="radio" name="freqSocmedTw" value={1} onClick={_handleOnChangeInput} />
@@ -286,7 +286,7 @@ const SignUp = ({ navigate }) => {
               </div>
               <div className="container-social-media">
                 <div className="flex-3">
-                  <img src={instagramBadge} />
+                  <img alt="picture3" src={instagramBadge} />
                 </div>
                 <div className="flex-3">
                   <input type="radio" name="freqSocmedIg" value={1} onClick={_handleOnChangeInput} />

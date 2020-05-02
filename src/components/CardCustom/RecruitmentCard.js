@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import logo from '../../logo-waskita.png'
 
 const Interfaces = {
   children: PropTypes.element.isRequired,
@@ -11,9 +10,7 @@ const DefaultValue = {
 }
 
 const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDownload }) => {
-  console.log("TCL: RecruitmentCard -> hasDownload", hasDownload)
-  console.log("TCL: RecruitmentCard -> hasDownload", uploadStatus)
-  const onClickNext = currentStep == 6 ? false : true
+  const onClickNext = currentStep === 6 ? false : true
   return (
     <>
       <div className="wrapper-recruitment-card">
@@ -29,7 +26,7 @@ const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDow
         {console.log(currentStep)}
         {
           onClickNext &&
-          <button className="btn-next" onClick={() => nextStep()}>{(currentStep == 2 || currentStep == 3 || currentStep == 4)
+          <button className="btn-next" onClick={() => nextStep()}>{(currentStep === 2 || currentStep === 3 || currentStep === 4)
             ? 'Upload' : 'Next'}</button>
         }
       </div>

@@ -1,36 +1,37 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Components from '../../components/Components'
 import { useQuery } from '@apollo/react-hooks';
-import { 
-  getJumlahPeserta, 
+import {
+  getJumlahPeserta,
   getJenisKelamin,
   getUniversitas,
-  getUsia } from './graphql/AdminGql'
+  getUsia
+} from './graphql/AdminGql'
 import { Row } from 'react-bootstrap';
 import useChartHelper from '../../hooks/useChartHelper';
 
 const ParticipantStatistic = () => {
 
-  let { loading: isLoadingJmlPeserta, error: errJmlPeserta, data: dataJmlPeserta = {}} = useQuery(getJumlahPeserta)
-  if (!isLoadingJmlPeserta) 
-  dataJmlPeserta = useChartHelper.lineChart(dataJmlPeserta, "statisticCandidateByMonth", "month");
+  let { loading: isLoadingJmlPeserta, error: errJmlPeserta, data: dataJmlPeserta = {} } = useQuery(getJumlahPeserta)
+  if (!isLoadingJmlPeserta)
+    dataJmlPeserta = useChartHelper.lineChart(dataJmlPeserta, "statisticCandidateByMonth", "month");
 
-  let { loading: isLoadingJenisKelamin, error: errJenisKelamin, data: dataJenisKelamin=[] } = useQuery(getJenisKelamin)
-  if (!isLoadingJenisKelamin) 
-  dataJenisKelamin = useChartHelper.donutChart(dataJenisKelamin, "statisticCandidateByGender", "gender");
-  
-  let { loading: isLoadingUniversitas, error: errUniversitas, data: dataUniversitas = {}  } = useQuery(getUniversitas)
+  let { loading: isLoadingJenisKelamin, error: errJenisKelamin, data: dataJenisKelamin = [] } = useQuery(getJenisKelamin)
+  if (!isLoadingJenisKelamin)
+    dataJenisKelamin = useChartHelper.donutChart(dataJenisKelamin, "statisticCandidateByGender", "gender");
+
+  let { loading: isLoadingUniversitas, error: errUniversitas, data: dataUniversitas = {} } = useQuery(getUniversitas)
   if (!isLoadingUniversitas)
-  dataUniversitas = useChartHelper.barChart(dataUniversitas, "statisticCandidateByUniversity", "university");
- 
+    dataUniversitas = useChartHelper.barChart(dataUniversitas, "statisticCandidateByUniversity", "university");
+
   let { loading: isLoadingUsia, error: errUsia, data: dataUsia = {} } = useQuery(getUsia)
   if (!isLoadingUsia)
     dataUsia = useChartHelper.barChart(dataUsia, "statisticCandidateByAge", "age");
 
-  // if (err1) return `Error! ${err1.message}`
-  // if (err2) return `Error! ${err2.message}`
-  // if (err3) return `Error! ${err3.message}`
-  // if (err4) return `Error! ${err4.message}`
+  if (errJmlPeserta) return `Error! ${errJmlPeserta.message}`
+  if (errJenisKelamin) return `Error! ${errJenisKelamin.message}`
+  if (errUniversitas) return `Error! ${errUniversitas.message}`
+  if (errUsia) return `Error! ${errUsia.message}`
 
 
   return (

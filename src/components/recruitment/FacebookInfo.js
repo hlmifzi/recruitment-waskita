@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import fileIcon from '../../assets/recruitment/file.svg'
 import folderIcon from '../../assets/recruitment/folder.svg'
@@ -23,7 +23,7 @@ const FacebookInfo = () => {
       <div className="wrapper-facebook-info">
         <div className="d-flex">
           <div className="icon-wrapper facebook-color mr-16">
-            <img src={facebookTransparentIcon} />
+            <img alt="picture" src={facebookTransparentIcon} />
           </div>
           <label className="tag-header facebook-color">Download Facebook Information</label>
         </div>
@@ -32,28 +32,28 @@ const FacebookInfo = () => {
             <div className="label-step"><span className="mr-6">1</span>Click</div>
             <p className="text-center"><strong>Facebook Account</strong></p>
             <div className="wrapper-image-circle">
-              <img src={facebookIcon} />
+              <img alt="picture2" src={facebookIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-6">2</span>Click</div>
             <p className="text-center"><strong>Settings</strong></p>
             <div className="wrapper-image-circle">
-              <img src={settingIcon} />
+              <img alt="picture3" src={settingIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-6">3</span>Click</div>
             <p className="text-center"><strong>Your Facebook Information</strong></p>
             <div className="wrapper-image-circle">
-              <img src={desktopIcon} />
+              <img alt="picture4" src={desktopIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-6">4</span>Click</div>
             <p className="text-center"><strong>Download Your Information</strong></p>
             <div className="wrapper-image-circle">
-              <img src={folderIcon} />
+              <img alt="picture5" src={folderIcon} />
             </div>
             <span className="dummy-border-dashed dummy-border-left">
               <i className="fa fa-chevron-up" />
@@ -75,7 +75,7 @@ const FacebookInfo = () => {
             <div className="label-step"><span className="mr-6">5</span>Click</div>
             <p className="text-center"><strong>Create File</strong></p>
             <div className="wrapper-image-circle">
-              <img src={fileIcon} />
+              <img alt="picture6" src={fileIcon} />
             </div>
             <span className="dummy-border-dashed dummy-border-right">
               <i className="fa fa-chevron-up" />
@@ -85,7 +85,7 @@ const FacebookInfo = () => {
             <div className="label-step"><span className="mr-6">6</span>Click</div>
             <p className="text-center"><strong>Download</strong></p>
             <div className="wrapper-image-circle">
-              <img src={folderDownloadIcon} />
+              <img alt="picture7" src={folderDownloadIcon} />
             </div>
           </div>
         </div>

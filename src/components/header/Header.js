@@ -32,10 +32,10 @@ const MainNavbar = ({ history }) => {
         <>
             <div className="header-admin">
                 <Link to="/">
-                    <img src={logo} />
+                    <img alt="picture" src={logo} />
                 </Link>
                 <div ref={wrapperRef} className="wrapper-img-profile" onClick={() => setOpenToggleBox(true)} >
-                    <img src={logoUser} />
+                    <img alt="picture2" src={logoUser} />
                     {openToggleBox &&
                         <div className="user-toggle-box">
                             <div className="triangle"></div>

@@ -1,7 +1,6 @@
 import React from 'react'
 import Components from '../../../components/Components'
 import MyProfilePicture from '../../../assets/recruitment/my-profile.png'
-import PropTypes from 'prop-types'
 
 const MyProfile = props => {
     return (

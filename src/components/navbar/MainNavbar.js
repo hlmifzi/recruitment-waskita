@@ -1,12 +1,12 @@
 import React from 'react';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import logo from '../../logo.svg'
 
 const MainNavbar = () => {
     return (
         <>
             <Navbar bg="primary" variant="dark" className='h-12'>
-                <img src={logo} className="logo-navbar" />
+                <img alt="picture" src={logo} className="logo-navbar" />
             </Navbar>
             {/* <Navbar bg="light" variant="dark" className='h-18'>
                 <Navbar.Brand href="#home" style={{ color: '#dc3545' }}>Datengaja</Navbar.Brand>

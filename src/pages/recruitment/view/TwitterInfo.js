@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import desktopChatIcon from '../../../assets/recruitment/desktop-chat.svg'
 import settingIcon from '../../../assets/recruitment/setting.svg'
@@ -23,7 +23,7 @@ const TwitterInfo = () => {
       <div className="wrapper-facebook-info">
         <div className="d-flex">
           <div className="icon-wrapper twitter-color mr-16">
-            <img src={twitterTransparentIcon} />
+            <img alt="picture" src={twitterTransparentIcon} />
           </div>
           <label className="tag-header twitter-color">Download Twitter Information</label>
         </div>
@@ -32,42 +32,42 @@ const TwitterInfo = () => {
             <div className="label-step"><span className="mr-6">1</span>Log in to your</div>
             <p className="text-center"><strong>Twitter Account</strong></p>
             <div className="wrapper-image-circle">
-              <img src={twitterIcon} />
+              <img alt="picture1" src={twitterIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-6">2</span>Click</div>
             <p className="text-center"><strong>Settings</strong></p>
             <div className="wrapper-image-circle">
-              <img src={settingIcon} />
+              <img alt="picture2" src={settingIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-6">3</span>Click</div>
             <p className="text-center"><strong>Account</strong></p>
             <div className="wrapper-image-circle">
-              <img src={userIcon} />
+              <img alt="picture3" src={userIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-6">4</span>Click</div>
             <p className="text-center"><strong>Your Twitter Data</strong></p>
             <div className="wrapper-image-circle">
-              <img src={folderIcon} />
+              <img alt="picture4" src={folderIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-6">5</span>Click</div>
             <p className="text-center"><strong>Request Archive Twitter</strong></p>
             <div className="wrapper-image-circle">
-              <img src={desktopChatIcon} />
+              <img alt="picture5" src={desktopChatIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-6">6</span>Click</div>
             <p className="text-center"><strong>Download Archive</strong></p>
             <div className="wrapper-image-circle">
-              <img src={folderDownloadIcon} />
+              <img alt="picture6" src={folderDownloadIcon} />
             </div>
           </div>
         </div>

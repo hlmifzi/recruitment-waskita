@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/_main.scss'
 import { ApolloProvider, useQuery } from '@apollo/react-hooks'
@@ -17,7 +17,6 @@ const IS_LOGGED_IN = gql`
 
 function IsLoggedIn() {
   const { data } = useQuery(IS_LOGGED_IN)
-  console.log("IsLoggedIn -> data", data)
   return (
     <>
       {data.isLoggedIn ? (

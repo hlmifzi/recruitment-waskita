@@ -25,44 +25,44 @@ const ProgressNavbar = ({ currentStep }) => {
       <div className="wrapper-progress-tab d-flex">
         <div className="progress-tab">
           <div className={`${active > 1 && 'color-1F9CD7'}`}>
-            <img src={downloadIcon} />
+            <img alt="picture" src={downloadIcon} />
           </div>
           <span className={`progress-bar ${active > 1 && 'color-1F9CD7'}`}></span>
-          {active > 1 && <img src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
+          {active > 1 && <img alt="picture1" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
           <p className="text-center">How to download your Social Media</p>
         </div>
         <div className="progress-tab">
           <div className={`${active >= 2 && 'color-1F9CD7'}`}>
-            <img src={ctsIcon} />
+            <img alt="picture2" src={ctsIcon} />
           </div>
           <span className={`progress-bar ${active >= 2 && 'color-1F9CD7'}`}></span>
-          {active >= 2 && <img src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
+          {active >= 2 && <img alt="picture3" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
 
           <p className="text-center">CTS - Online Test <br /> 1 - 2</p>
         </div>
         <div className="progress-tab">
           <div className={`${active >= 5 && 'color-1F9CD7'}`}>
-            <img src={downloadIcon} />
+            <img alt="picture4" src={downloadIcon} />
           </div>
           <span className={`progress-bar ${active >= 5 && 'color-1F9CD7'}`}></span>
-          {active >= 5 && <img src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
+          {active >= 5 && <img alt="picture5" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
 
           <p className="text-center">Upload your <br /> Social Media Information</p>
         </div>
         <div className="progress-tab">
           <div className={`${active >= 6 && 'color-1F9CD7'}`}>
-            <img src={ctsIcon} />
+            <img alt="picture6" src={ctsIcon} />
           </div>
           <span className={`progress-bar ${active >= 6 && 'color-1F9CD7'}`}></span>
-          {active >= 6 && <img src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
+          {active >= 6 && <img alt="picture7" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
 
           <p className="text-center">CTS - Online Test <br /> 3</p>
         </div>
         <div className="progress-tab">
           <div className={`${active >= 6 && 'color-1F9CD7'}`}>
-            <img src={finish} />
+            <img alt="picture8" src={finish} />
           </div>
-          {active >= 6 && <img src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
+          {active >= 6 && <img alt="picture9" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
 
           <p className="text-center">Finish</p>
         </div>

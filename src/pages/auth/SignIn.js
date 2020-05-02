@@ -11,6 +11,7 @@ const LOGIN = gql`
       ok
       user {
         role
+        id
       }
     }
   }
@@ -20,13 +21,15 @@ const LOGIN = gql`
 const SignIn = ({ navigate }) => {
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
+
   const client = useApolloClient();
-  const [userLogin] = useMutation(LOGIN);
+  const [userLogin] = useMutation(LOGIN)
 
   const getQueryVariable = () => ({
     "email": userName,
     "password": password
   })
+
   const _handleSignIn = async (e) => {
     e.preventDefault();
     const { data, errors } = await userLogin(({
@@ -35,24 +38,25 @@ const SignIn = ({ navigate }) => {
 
     if (errors) return swal.failed('Wrong username')
 
-
-    console.log("SignIn -> data.userLogin.ok", data.userLogin.ok)
     if (data.userLogin.ok) {
       let isAdmin = false
       const userRole = data.userLogin.user.role
-      if (userRole == 'WASKITA') isAdmin = 1;
-      if (userRole == 'CANDIDATE') isAdmin = 2;
+      const userId = data.userLogin.user.id
+      if (userRole === 'WASKITA') isAdmin = 1;
+      if (userRole === 'CANDIDATE') isAdmin = 2;
 
-      if (userRole == 'WASKITA') Toast.info(`Welcome to Hiring Apps ${userName}`)
-      if (userRole == 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${userName}`)
+      if (userRole === 'WASKITA') Toast.info(`Welcome to Hiring Apps ${userName}`)
+      if (userRole === 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${userName}`)
 
       if (isAdmin) {
         localStorage.setItem('token', true)
         localStorage.setItem('isAdmin', isAdmin)
+        localStorage.setItem('userId', userId)
         client.writeData({
           data: {
             isLoggedIn: localStorage.getItem('token'),
-            isAdmin: localStorage.getItem('isAdmin')
+            isAdmin: localStorage.getItem('isAdmin'),
+            userId: localStorage.getItem('userId')
           }
         });
       } else {
@@ -68,7 +72,7 @@ const SignIn = ({ navigate }) => {
     <form onSubmit={_handleSignIn}>
       <div className="body-login">
         <div className="login-card">
-          <img src={logo} />
+          <img alt="picture" src={logo} />
           <input type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Username" />
           <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
           <button className="btn-login"

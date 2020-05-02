@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import ReactHighcharts from 'react-highcharts'
 import { Col, Row, Spinner } from 'react-bootstrap';
 import HighchartsMore from 'highcharts-more'
-import Components from '../Components'
 import { useState } from 'reinspect';
 
 HighchartsMore(ReactHighcharts.Highcharts)
@@ -101,10 +100,10 @@ const tempData = [
         title: "Agression",
         score: 15,
         description: "Kebutuhan untuk melawan, membalas rasa sakit, atau menghukum orang lain, menunjukkan kekerasan"
-    },        
+    },
 ]
 
-const BarComponent = ({title, score, description}) => {
+const BarComponent = ({ title, score, description }) => {
 
     const barColor = () => {
         let color = score > 50 ? "green" : score <= 20 ? "red" : "grey";
@@ -117,12 +116,12 @@ const BarComponent = ({title, score, description}) => {
             <p className="score"><strong>{score}</strong></p>
             <div className="border-chart">
                 <div className="wrapper-bar">
-                    <div className={`bar ${barColor()}`} style={{width:`${score}%`}}></div>
+                    <div className={`bar ${barColor()}`} style={{ width: `${score}%` }}></div>
                 </div>
                 <div className="grey-card-cart ">
                     <p>{description}</p>
                 </div>
-            </div> 
+            </div>
         </div>
     )
 }
@@ -133,13 +132,13 @@ const NeedChart = props => {
 
     return (
         <div className="need-chart-container">
-            { data.length > 0 && data.map(value => 
-                    <BarComponent
-                        title={value.title}
-                        score={value.score}
-                        description={value.description}
-                    />
-                )
+            {data.length > 0 && data.map(value =>
+                <BarComponent
+                    title={value.title}
+                    score={value.score}
+                    description={value.description}
+                />
+            )
             }
         </div>
 

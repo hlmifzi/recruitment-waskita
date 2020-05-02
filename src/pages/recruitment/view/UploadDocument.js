@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import facebookFormIcon from '../../../assets/recruitment/facebook-form.svg'
 import twitterFormIcon from '../../../assets/recruitment/twitter-form.svg'
@@ -19,7 +19,7 @@ const DefaultValue = {
 
 const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
 
-  const icon = uploadFor == "FACEBOOK" ? facebookFormIcon : uploadFor == "TWITTER" ? twitterFormIcon : instagramFormIcon
+  const icon = uploadFor === "FACEBOOK" ? facebookFormIcon : uploadFor === "TWITTER" ? twitterFormIcon : instagramFormIcon
 
   useEffect(() => {
 

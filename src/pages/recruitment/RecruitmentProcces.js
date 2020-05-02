@@ -6,16 +6,13 @@ import TwitterInfo from './view/TwitterInfo'
 import CtsComponent from './view/CtsComponent'
 import iconBell from '../../assets/recruitment/bell-with-attention.svg'
 import UploadDocument from './view/UploadDocument'
-import useFormHelper from '../../hooks/useFormHelper'
 import gql from 'graphql-tag'
-import { useApolloClient, useMutation } from "@apollo/react-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import swal from '../../components/notification/swal'
 import Axios from 'axios'
-
-
+import { developmentHost, productionHost } from '../../services/main/MainServices'
 const RecruitmentProcces = props => {
- 
-  const { state } = useFormHelper()
+
   const [hasDownload, setHasDownload] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [currentInstruction, setInstruction] = useState(1)
@@ -48,7 +45,7 @@ const RecruitmentProcces = props => {
     if (hasDownload) {
       setStep(currentStep + 1)
     }
-    else if (currentInstruction == 3) {
+    else if (currentInstruction === 3) {
       setTimeout(() => {
         setShowModal(true)
         document.body.classList.add("scroll-locked")
@@ -73,26 +70,21 @@ const RecruitmentProcces = props => {
   }
 
   const uploadFile = async (file, uploadFileFor) => {
-    let socmedId = uploadFileFor == 'INSTAGRAM' ? 1 : uploadFileFor == 'FACEBOOK' ? 3 : 2
+    let socmedId = uploadFileFor === 'INSTAGRAM' ? 1 : uploadFileFor === 'FACEBOOK' ? 3 : 2
     if (file) {
       setUploadFor(uploadFileFor)
       let dataFile = new FormData();
       dataFile.append('social_media_file', file[0])
       dataFile.append('social_media_filename', file[0].name)
-      dataFile.append('candidate', 1)
+      dataFile.append('candidate', localStorage.getItem('userId'))
       dataFile.append('social_media', socmedId)
-      
-      Axios.post('http://waskita-hiring.org:8000/upload/socmed-data/', dataFile)
-      .then(res => {
-        if(res.status == 200){
-          setUploadStatus(true)
-        } else {
-          swal.uploadFailed()
-        }
-      }).catch(res => {
-        swal.uploadFailed()
-      })
 
+      const { status } = await Axios.post(`${process.env.NODE_ENV === "development" ? developmentHost : productionHost}/upload/socmed-data/`, dataFile)
+      if (status === 200) {
+        setUploadStatus(true)
+      } else {
+        swal.uploadFailed()
+      }
     }
   }
 
@@ -122,25 +114,25 @@ const RecruitmentProcces = props => {
         uploadStatus={uploadStatus}>
         {
           <>
-            {(!hasDownload && currentInstruction == 1) && <FacebookInfo />}
-            {(!hasDownload && currentInstruction == 2) && <InstagramInfo />}
-            {(!hasDownload && currentInstruction == 3) && <TwitterInfo />}
-            {(hasDownload && currentStep == 1) &&
+            {(!hasDownload && currentInstruction === 1) && <FacebookInfo />}
+            {(!hasDownload && currentInstruction === 2) && <InstagramInfo />}
+            {(!hasDownload && currentInstruction === 3) && <TwitterInfo />}
+            {(hasDownload && currentStep === 1) &&
               <CtsComponent nextStep={() => nextStep()} />
             }
-            {(hasDownload && currentStep == 2) &&
+            {(hasDownload && currentStep === 2) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="FACEBOOK" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
-            {(hasDownload && currentStep == 3) &&
+            {(hasDownload && currentStep === 3) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
-            {(hasDownload && currentStep == 4) &&
+            {(hasDownload && currentStep === 4) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} uploadStatus={uploadStatus} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
-            {(hasDownload && currentStep == 5) &&
+            {(hasDownload && currentStep === 5) &&
               <CtsComponent nextStep={() => nextStep()} hasUpload={true} />
             }
-            {(hasDownload && currentStep == 6) &&
+            {(hasDownload && currentStep === 6) &&
               <CtsComponent finish={true} />
             }
           </>

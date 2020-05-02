@@ -47,7 +47,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               {({ toPdf }) => (
                 // <span className="icon-download img-rounded" onClick={toPdf}>
                 <span className="icon-download img-rounded">
-                  <img src={iconDownload} />
+                  <img alt="picture" src={iconDownload} />
                 </span>
               )}
             </ReactToPdf>
@@ -55,7 +55,7 @@ const ModalResult = ({ closeModal, isShow }) => {
           <div className="modal-result-body">
             <div className="personal-info d-flex">
               <div className="profile-info d-flex flex-8">
-                <img className="profile-picture" src={tempImg} />
+                <img alt="picture1" className="profile-picture" src={tempImg} />
                 <div className="wrapper-user-info">
                   <p>Zoe Saldana</p>
                   <p className="mb-0">19 July 2019 (age 21)</p>
@@ -66,16 +66,16 @@ const ModalResult = ({ closeModal, isShow }) => {
               </div>
               <div className="social-media-info flex-4">
                 <p>Tingkat Partisipasi Sosial Media : 80%</p>
-                <span className="social-media-bar twitter" style={{width: `${80}%`}}>
-                  <img src={twitterBadge} />
+                <span className="social-media-bar twitter" style={{ width: `${80}%` }}>
+                  <img alt="picture2" src={twitterBadge} />
                   <p className="score">{80}%</p>
                 </span>
-                <span className="social-media-bar facebook" style={{width: `${50}%`}}>
-                  <img src={facebookBadge} />
+                <span className="social-media-bar facebook" style={{ width: `${50}%` }}>
+                  <img alt="picture3" src={facebookBadge} />
                   <p className="score">{50}%</p>
                 </span>
-                <span className="social-media-bar instagram" style={{width: `${30}%`}}>
-                  <img src={instagramBadge} />
+                <span className="social-media-bar instagram" style={{ width: `${30}%` }}>
+                  <img alt="picture4" src={instagramBadge} />
                   <p className="score">{30}%</p>
                 </span>
               </div>
@@ -87,7 +87,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="netral flex-3">Konvensional, nyaman pada kebiasaan</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar" style={{width:"67%"}}></div>
+                  <div className="inside-bar" style={{ width: "67%" }}></div>
                   <p>67%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>o</span>peness</p>
@@ -96,7 +96,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="weakness flex-3">Spontan, impulsif, cenderung lalai dan kurang teliti</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar" style={{width:"40%"}}></div>
+                  <div className="inside-bar" style={{ width: "40%" }}></div>
                   <p>40%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness</p>
@@ -105,7 +105,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="netral flex-3">Pemalu, lebih senang menyendiri, task oriented</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar" style={{width:"85%"}}></div>
+                  <div className="inside-bar" style={{ width: "85%" }}></div>
                   <p>85%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion</p>
@@ -114,7 +114,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="weakness flex-3">Kompetitif, mudah curiga, tidak ramah</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar" style={{width:"15%"}}></div>
+                  <div className="inside-bar" style={{ width: "15%" }}></div>
                   <p>15%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness</p>
@@ -123,7 +123,7 @@ const ModalResult = ({ closeModal, isShow }) => {
               <div className="container-personality-bar">
                 <p className="netral flex-3">Tenang, stabil, percaya diri</p>
                 <div className="outer-bar flex-6">
-                  <div className="inside-bar" style={{width:"58%"}}></div>
+                  <div className="inside-bar" style={{ width: "58%" }}></div>
                   <p>58%</p>
                 </div>
                 <p className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism</p>
@@ -167,23 +167,23 @@ const ModalResult = ({ closeModal, isShow }) => {
               </div>
               <div className="work-value-assessment">
                 <div>
-                  <img className="assessment-image" src={benchUmbrela} />
+                  <img alt="picture5" className="assessment-image" src={benchUmbrela} />
                   <p>4</p>
                 </div>
                 <div>
-                  <img className="assessment-image" src={gift} />
+                  <img alt="picture6" className="assessment-image" src={gift} />
                   <p>3</p>
                 </div>
                 <div>
-                  <img className="assessment-image" src={group} />
+                  <img alt="picture" className="assessment-image" src={group} />
                   <p>1</p>
                 </div>
                 <div>
-                  <img className="assessment-image" src={handShake} />
+                  <img alt="picture7" className="assessment-image" src={handShake} />
                   <p>6</p>
                 </div>
                 <div>
-                  <img className="assessment-image" src={inspire} />
+                  <img alt="picture8" className="assessment-image" src={inspire} />
                   <p>5</p>
                 </div>
               </div>

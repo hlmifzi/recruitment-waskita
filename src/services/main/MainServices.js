@@ -2,10 +2,11 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import cookie from 'react-cookies'
 
-const urlBackend = 'http://api.dedekrnwan.site/'
+export const developmentHost = 'http://178.128.103.128:8000'
+export const productionHost = 'http://178.128.103.128:8000'
 
 const ROOT_API = axios.create({
-    baseURL: urlBackend,
+    baseURL: `${process.env.NODE_ENV === "development" ? developmentHost : productionHost}`,
     headers: {
         'Authorization': `Bearer ${cookie.load('JWT')}`,
         'Content-Type': 'application/json',
