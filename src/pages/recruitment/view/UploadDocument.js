@@ -6,6 +6,7 @@ import instagramFormIcon from '../../../assets/recruitment/instagram-form.svg'
 import paperIcon from '../../../assets/recruitment/paper.svg'
 import redoIcon from '../../../assets/recruitment/redo.svg'
 import { FileDrop } from 'react-file-drop'
+import { ClockLoader } from 'react-spinners'
 
 const Interfaces = {
   children: PropTypes.element.isRequired,
@@ -14,10 +15,11 @@ const Interfaces = {
 const DefaultValue = {
   children: <></>,
   uploadFor: "FACEBOOK",
-  uploadStatus: false
+  uploadStatus: false,
+  isLoading: false
 }
 
-const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
+const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload, isLoading }) => {
 
   const icon = uploadFor === "FACEBOOK" ? facebookFormIcon : uploadFor === "TWITTER" ? twitterFormIcon : instagramFormIcon
 
@@ -28,26 +30,32 @@ const UploadDocument = ({ uploadFor, uploadFile, uploadStatus, reUpload }) => {
   return (
     <FileDrop onDrop={(files) => !uploadStatus && uploadFile(files, uploadFor)}>
       <div className="upload-document-container">
-        {!uploadStatus ?
+        { !isLoading ?
           <>
-            <h4>Upload your {uploadFor} Information</h4>
-            <img src={icon} />
-            <input
-              type="file"
-              id="document-upload"
-              onChange={(e) => uploadFile(e.currentTarget.files, uploadFor)}
-            />
-            <span>Drag and drop, or <label htmlFor="document-upload">browse</label> your files</span>
+            {!uploadStatus ?
+              <>
+                <h4>Upload your {uploadFor} Information</h4>
+                <img src={icon} />
+                <input
+                  type="file"
+                  id="document-upload"
+                  onChange={(e) => uploadFile(e.currentTarget.files, uploadFor)}
+                />
+                <span>Drag and drop, or <label htmlFor="document-upload">browse</label> your files</span>
+              </>
+              :
+              <>
+                <div className="wrapper-upload-success d-flex">
+                  <img src={paperIcon} />
+                  <h3>Succeed !!</h3>
+                  <p>You have successfully uploaded {uploadFor} information.</p>
+                </div>
+                <img className="redo-icon" onClick={() => reUpload()} src={redoIcon} />
+              </>
+            }
           </>
           :
-          <>
-            <div className="wrapper-upload-success d-flex">
-              <img src={paperIcon} />
-              <h3>Succeed !!</h3>
-              <p>You have successfully uploaded {uploadFor} information.</p>
-            </div>
-            <img className="redo-icon" onClick={() => reUpload()} src={redoIcon} />
-          </>
+          <ClockLoader color={"#2980B9"}/>
         }
       </div>
     </FileDrop>

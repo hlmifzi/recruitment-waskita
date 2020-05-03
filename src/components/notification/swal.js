@@ -23,6 +23,13 @@ const Swal = {
             title: 'Oops...',
             text: 'Upload File gagal !',
         })
+    ),
+    finishAllStep: () => (
+        swal.fire({
+            type: 'success',
+            title: 'Selamat proses recruitment selesai...',
+            text: 'Dokumen anda sudah lengkap !',
+        })
     )
 }
 

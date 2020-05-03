@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import iconSetting from '../../../assets/recruitment/form-and-setting.svg'
 import iconDone from '../../../assets/recruitment/done-green.svg'
+import swal from '../../../components/notification/swal'
 
 const Interfaces = {
   children: PropTypes.element.isRequired,
@@ -13,7 +14,13 @@ const DefaultValue = {
   finish: false
 }
 
-const CtsComponent = ({ nextStep, hasUpload, finish }) => {
+const CtsComponent = ({ nextStep, hasUpload, finish, history }) => {
+  const finishRegister = () => {
+    swal.finishAllStep()
+    setTimeout(() => {
+      window.location.replace(`my-profile`)
+    }, 2000)
+  }
 
   return (
     <>
@@ -35,7 +42,7 @@ const CtsComponent = ({ nextStep, hasUpload, finish }) => {
             <img alt="picture3" src={iconDone} />
             <p>CTS - Online Test 1 - 3</p>
           </span>
-          <button className="mt-30">Finish</button>
+          <button className="mt-30" onClick={() => finishRegister()}>Finish</button>
         </div>
       }
     </>

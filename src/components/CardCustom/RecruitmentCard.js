@@ -7,10 +7,14 @@ const Interfaces = {
 
 const DefaultValue = {
   children: <></>,
+  disabled: false
 }
 
-const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDownload }) => {
+const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDownload, disabled }) => {
   const onClickNext = currentStep === 6 ? false : true
+  if(currentStep > 5){
+    currentStep = 5
+  }
   return (
     <>
       <div className="wrapper-recruitment-card">
@@ -18,16 +22,16 @@ const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDow
           <h5>
             <strong>Download File</strong>
           </h5>
-          <p>Step {1} of 5</p>
+          <p>Step {currentStep} of 5</p>
         </div>
         <div className="body-recruitment-card">
           {children}
         </div>
-        {console.log(currentStep)}
         {
           onClickNext &&
-          <button className="btn-next" onClick={() => nextStep()}>{(currentStep === 2 || currentStep === 3 || currentStep === 4)
-            ? 'Upload' : 'Next'}</button>
+          <button className={`btn-next ${disabled ? 'disabled' : ''}`} onClick={() => nextStep()} disabled={disabled}>
+            {'Next'}
+          </button>
         }
       </div>
     </>

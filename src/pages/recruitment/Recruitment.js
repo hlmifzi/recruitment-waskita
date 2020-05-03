@@ -6,7 +6,7 @@ const Recruitment = props => {
     return (
         <>
             <Components.header />
-            <RecruitmentProcces />
+            <RecruitmentProcces {...props}/>
         </>
     )
 }
