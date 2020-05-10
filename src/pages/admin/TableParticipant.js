@@ -7,6 +7,7 @@ import { getCandidateList } from './graphql/AdminGql'
 
 const TableParticipant = () => {
   const [showModal, setShowModal] = useState(false);
+  const [candidateId, setCandidateId] = useState(null);
 
   const { loading, error: err1, data: listParticipant } = useQuery(getCandidateList)
   if (err1) return `Error! ${err1.message}`
@@ -17,6 +18,7 @@ const TableParticipant = () => {
         <Components.modalResult
           closeModal={(bool) => setShowModal(bool)}
           isShow={showModal}
+          id={candidateId}
         />
       }
       <div className="wrapper-table-participant">
@@ -39,9 +41,9 @@ const TableParticipant = () => {
             {loading ? 'Loading ...' :
               listParticipant.candidateList.results.length > 0 &&
               listParticipant.candidateList.results.map((val, index) =>
-                <tr>
+                <tr className="cursor-pointer" onClick={() => { setShowModal(true); setCandidateId(val.id); document.body.classList.add("scroll-locked") }}>
                   <td>{index + 1}.</td>
-                  <td className="cursor-pointer" onClick={() => { setShowModal(true); document.body.classList.add("scroll-locked") }}>{val.name}</td>
+                  <td>{val.name}</td>
                   <td>{val.gender === 'LK' ? 'Laki-laki' : 'Perempuan'}</td>
                   <td>{val.age}</td>
                   <td>{val.university.university}</td>
