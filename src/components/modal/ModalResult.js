@@ -78,9 +78,19 @@ const ModalResult = ({ closeModal, isShow, id}) => {
   });
 
   const wrapperRef = useRef(null);
-  const tempData = {
-    categories: ["Leisure", "Extrinsic", "Intrinsic", "Altruisic", "Social"],
-    series: [4, 2, 2, 3, 4]
+  
+  const getWorkValueData = (data) => {
+    const tableData = {
+      categories: [],
+      series: [],
+      color: []
+    }
+    data.map(value => {
+      tableData.categories.push(value.workValue)
+      tableData.series.push(value.workValueValue)
+      tableData.color.push(value.workValueColor)
+    })
+    return tableData
   }
 
   const clickOutsideModal = event => {
@@ -97,7 +107,6 @@ const ModalResult = ({ closeModal, isShow, id}) => {
     };
   }, [])
 
-  
   return (
     <>
       <div className={`modal-result ${isShow ? 'show' : ''}`}>
@@ -126,19 +135,20 @@ const ModalResult = ({ closeModal, isShow, id}) => {
                     <p className="mb-0">{candidate.candidateDetail.university.university}</p>
                   </div>
                 </div>
+                {console.log(candidate.resultWorkValueByCandidate)}
                 <div className="social-media-info flex-4">
-                  <p>Tingkat Partisipasi Sosial Media : 80%</p>
-                  <span className="social-media-bar twitter" style={{ width: `${80}%` }}>
+                  <p>Tingkat Partisipasi Sosial Media : {`${candidate.resultParticipantByCandidate[0].socmedFreqAverage}%`}</p>
+                  <span className="social-media-bar twitter" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[2].socmedFreqPercent}%` }}>
                     <img alt="picture2" src={twitterBadge} />
-                    <p className="score">{80}%</p>
+                    <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[2].socmedFreqPercent}%`}</p>
                   </span>
-                  <span className="social-media-bar facebook" style={{ width: `${50}%` }}>
+                  <span className="social-media-bar facebook" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[1].socmedFreqPercent}%` }}>
                     <img alt="picture3" src={facebookBadge} />
-                    <p className="score">{50}%</p>
+                    <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[1].socmedFreqPercent}%`}</p>
                   </span>
-                  <span className="social-media-bar instagram" style={{ width: `${30}%` }}>
+                  <span className="social-media-bar instagram" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[0].socmedFreqPercent}%` }}>
                     <img alt="picture4" src={instagramBadge} />
-                    <p className="score">{30}%</p>
+                    <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[0].socmedFreqPercent}%`}</p>
                   </span>
                 </div>
               </div>
@@ -194,62 +204,65 @@ const ModalResult = ({ closeModal, isShow, id}) => {
                 <div className="footer-info d-flex">
                   <div className="grey-card flex-6">
                     Keterangan : <br />
-                    Personality dibagi menjadi dua kategori (kanan dan kiri), semakin besar angka yang diperoleh dan grafik menuju
+                    {/* Personality dibagi menjadi dua kategori (kanan dan kiri), semakin besar angka yang diperoleh dan grafik menuju
                     kearah tertentu maka menunjukkan bahwa individu semakin memiliki kecendrungan terhadap penjelasan personality
-                    pada kelompok kategori tersebut.
+                    pada kelompok kategori tersebut. */}
+                    {candidate.resultPersonalityByCandidate[0].personalityDesc}
                     </div>
                   <div className="grey-card flex-6">
                     Norm : <br />
                   </div>
                 </div>
               </div>
-              <div className="personality-info">
-                <div className="wrapper-title">
-                  <h4>Needs</h4>
-                </div>
-                <div>
-                  <Components.charts.needsChart isLoading={false} />
-
-
-                </div>
-                <div className="footer-info d-flex">
-                  <div className="grey-card flex-6">
-                    Keterangan : <br />
-                    Needs individu dibagi menjadi 15 kategori, semakin besar angka yang diperoleh maka menunjukkan bahwa individu
-                    semakin memiliki kecendrungan needs sesuai dengan penjelasan setiap kategori ditabel sebelah kanan.
+              { candidate.resultNeedsByCandidate[0].needsDetail.length > 0 &&
+                <div className="personality-info">
+                  <div className="wrapper-title">
+                    <h4>Needs</h4>
+                  </div>
+                  <div>
+                    <Components.charts.needsChart data={candidate.resultNeedsByCandidate[0].needsDetail} isLoading={false} />
+                  </div>
+                  <div className="footer-info d-flex">
+                    <div className="grey-card flex-6">
+                      Keterangan : <br />
+                      {/* Needs individu dibagi menjadi 15 kategori, semakin besar angka yang diperoleh maka menunjukkan bahwa individu
+                      semakin memiliki kecendrungan needs sesuai dengan penjelasan setiap kategori ditabel sebelah kanan. */}
+                      {candidate.resultNeedsByCandidate[0].needsDesc}
+                      </div>
+                    <div className="grey-card flex-6">
+                      Norm : <br />
+                      {candidate.resultNeedsByCandidate[0].needsNorm}
                     </div>
-                  <div className="grey-card flex-6">
-                    Norm : <br />
                   </div>
                 </div>
-              </div>
+              }
               <div className="personality-info">
                 <div className="wrapper-title">
                   <h4>Work Value</h4>
                 </div>
                 <div className="work-value-assessment">
                   <div>
-                    <img alt="picture5" className="assessment-image" src={benchUmbrela} />
-                    <p>4</p>
+                    <img className="assessment-image" src={benchUmbrela} />
+                    <p>{0}</p>
                   </div>
                   <div>
-                    <img alt="picture6" className="assessment-image" src={gift} />
-                    <p>3</p>
+                    <img className="assessment-image" src={gift} />
+                    <p>{0}</p>
                   </div>
                   <div>
-                    <img alt="picture" className="assessment-image" src={group} />
-                    <p>1</p>
+                    <img className="assessment-image" src={group} />
+                    <p>{0}</p>
                   </div>
                   <div>
-                    <img alt="picture7" className="assessment-image" src={handShake} />
-                    <p>6</p>
+                    <img className="assessment-image" src={handShake} />
+                    <p>{0}</p>
                   </div>
                   <div>
-                    <img alt="picture8" className="assessment-image" src={inspire} />
-                    <p>5</p>
+                    <img className="assessment-image" src={inspire} />
+                    <p>{0}</p>
                   </div>
                 </div>
-                <Components.charts.workValueChart isLoading={false} data={tempData} />
+                <Components.charts.workValueChart isLoading={false} data={getWorkValueData(candidate.resultWorkValueByCandidate[0].workValueDetail)} />
                 <div className="footer-info d-flex">
                   <div className="grey-card flex-6">
                     Keterangan : <br />

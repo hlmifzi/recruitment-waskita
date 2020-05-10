@@ -39,7 +39,7 @@ const WorkValueChart = props => {
         },
 
         xAxis: {
-            categories: props.data ? props.data.categories : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            categories: props.data ? props.data.categories : []
         },
 
 
@@ -47,14 +47,9 @@ const WorkValueChart = props => {
 
 
         series: [{
-            name: 's1',
-            color: '#CCCCCC',
-            id: 's1',
-            grouping: false
-        }, {
             linkedTo: 's1',
             color: '#39B54A',
-            data: props.data ? props.data.series : [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            data: props.data ? props.data.series : []
         }],
         credits: {
             enabled: false
