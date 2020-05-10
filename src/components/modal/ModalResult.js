@@ -47,7 +47,13 @@ const CANDIDATE = gql`
         personalityDesc
         personalityDetail {
           personalityLeftDesc
+          personalityLeftPercent
+          personalityLeftCount
+          personalityLeftColor
           personalityRightDesc
+          personalityRightPercent
+          personalityRightColor
+          personalityRightCount
         }
       }
       resultNeedsByCandidate(id:$id) {
@@ -93,6 +99,40 @@ const ModalResult = ({ closeModal, isShow, id}) => {
     return tableData
   }
 
+  const getPersonalityData = (data, index) => {
+    return (
+      <div className="container-personality-bar">
+        <p className="netral flex-3" style={{color: data.personalityLeftColor}}>{data.personalityLeftDesc}</p>
+        <div className="outer-bar flex-6">
+          <div className="inside-bar" style={{ width: `${data.personalityLeftCount}%` }}></div>
+          <p>{data.personalityLeftCount}%</p>
+        </div>
+        { index == 0 && <p className="title-bar"><span style={{ fontSize: "28px" }}>O</span>peness</p>}
+        { index == 1 && <p className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness</p>}
+        { index == 2 && <p className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion</p>}
+        { index == 3 && <p className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness</p>}
+        { index == 4 && <p className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism</p>}
+        <p className="strength flex-3" style={{color: data.personalityRightColor}}>{data.personalityRightDesc}</p>
+      </div>
+    )
+  }
+
+  const getWorkValueImage = (data, index) => {
+    const img = 
+      data.workValue == 'Leisure' ? benchUmbrela :
+      data.workValue == 'Extrinsic' ? gift :
+      data.workValue == 'Intrinsic' ? gift :
+      data.workValue == 'Altruistic' ? gift :
+      data.workValue == 'Social' ? gift :
+      null
+    return (
+      <div>
+        <img className="assessment-image" src={img} />
+        <p>{data.workValueValue}</p>
+      </div>
+    )
+  }
+
   const clickOutsideModal = event => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
       closeModal(false);
@@ -135,7 +175,6 @@ const ModalResult = ({ closeModal, isShow, id}) => {
                     <p className="mb-0">{candidate.candidateDetail.university.university}</p>
                   </div>
                 </div>
-                {console.log(candidate.resultWorkValueByCandidate)}
                 <div className="social-media-info flex-4">
                   <p>Tingkat Partisipasi Sosial Media : {`${candidate.resultParticipantByCandidate[0].socmedFreqAverage}%`}</p>
                   <span className="social-media-bar twitter" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[2].socmedFreqPercent}%` }}>
@@ -152,68 +191,27 @@ const ModalResult = ({ closeModal, isShow, id}) => {
                   </span>
                 </div>
               </div>
-              <div className="personality-info">
-                <div className="wrapper-title">
-                  <h4>Personality</h4>
-                </div>
-                <div className="container-personality-bar">
-                  <p className="netral flex-3">Konvensional, nyaman pada kebiasaan</p>
-                  <div className="outer-bar flex-6">
-                    <div className="inside-bar" style={{ width: "67%" }}></div>
-                    <p>67%</p>
+              { candidate.resultPersonalityByCandidate[0].personalityDetail.length > 0 &&
+                <div className="personality-info">
+                  <div className="wrapper-title">
+                    <h4>Personality</h4>
                   </div>
-                  <p className="title-bar"><span style={{ fontSize: "28px" }}>o</span>peness</p>
-                  <p className="strength flex-3">Kreatif, imaginatif, rasa ingin tahu</p>
-                </div>
-                <div className="container-personality-bar">
-                  <p className="weakness flex-3">Spontan, impulsif, cenderung lalai dan kurang teliti</p>
-                  <div className="outer-bar flex-6">
-                    <div className="inside-bar" style={{ width: "40%" }}></div>
-                    <p>40%</p>
-                  </div>
-                  <p className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness</p>
-                  <p className="netral flex-3">Teratur, disiplin, teliti, rapi, tekun</p>
-                </div>
-                <div className="container-personality-bar">
-                  <p className="netral flex-3">Pemalu, lebih senang menyendiri, task oriented</p>
-                  <div className="outer-bar flex-6">
-                    <div className="inside-bar" style={{ width: "85%" }}></div>
-                    <p>85%</p>
-                  </div>
-                  <p className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion</p>
-                  <p className="strength flex-3">Mudah bergaul, senang bicara, person oriented</p>
-                </div>
-                <div className="container-personality-bar">
-                  <p className="weakness flex-3">Kompetitif, mudah curiga, tidak ramah</p>
-                  <div className="outer-bar flex-6">
-                    <div className="inside-bar" style={{ width: "15%" }}></div>
-                    <p>15%</p>
-                  </div>
-                  <p className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness</p>
-                  <p className="netral flex-3">Kooperatif, mudah percaya, suka membantu</p>
-                </div>
-                <div className="container-personality-bar">
-                  <p className="netral flex-3">Tenang, stabil, percaya diri</p>
-                  <div className="outer-bar flex-6">
-                    <div className="inside-bar" style={{ width: "58%" }}></div>
-                    <p>58%</p>
-                  </div>
-                  <p className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism</p>
-                  <p className="strength flex-3">Emosional, mudah stress, tidak percaya diri</p>
-                </div>
-                <div className="footer-info d-flex">
-                  <div className="grey-card flex-6">
-                    Keterangan : <br />
-                    {/* Personality dibagi menjadi dua kategori (kanan dan kiri), semakin besar angka yang diperoleh dan grafik menuju
-                    kearah tertentu maka menunjukkan bahwa individu semakin memiliki kecendrungan terhadap penjelasan personality
-                    pada kelompok kategori tersebut. */}
-                    {candidate.resultPersonalityByCandidate[0].personalityDesc}
+                  { candidate.resultPersonalityByCandidate[0].personalityDetail.map((data, index) => 
+                      getPersonalityData(data, index)
+                    )
+                  }
+                  <div className="footer-info d-flex">
+                    <div className="grey-card flex-6">
+                      Keterangan : <br />
+                      {candidate.resultPersonalityByCandidate[0].personalityDesc}
+                      </div>
+                    <div className="grey-card flex-6">
+                      Norm : <br />
+                      {candidate.resultPersonalityByCandidate[0].personalityNorm}
                     </div>
-                  <div className="grey-card flex-6">
-                    Norm : <br />
                   </div>
                 </div>
-              </div>
+              }
               { candidate.resultNeedsByCandidate[0].needsDetail.length > 0 &&
                 <div className="personality-info">
                   <div className="wrapper-title">
@@ -225,8 +223,6 @@ const ModalResult = ({ closeModal, isShow, id}) => {
                   <div className="footer-info d-flex">
                     <div className="grey-card flex-6">
                       Keterangan : <br />
-                      {/* Needs individu dibagi menjadi 15 kategori, semakin besar angka yang diperoleh maka menunjukkan bahwa individu
-                      semakin memiliki kecendrungan needs sesuai dengan penjelasan setiap kategori ditabel sebelah kanan. */}
                       {candidate.resultNeedsByCandidate[0].needsDesc}
                       </div>
                     <div className="grey-card flex-6">
@@ -236,44 +232,30 @@ const ModalResult = ({ closeModal, isShow, id}) => {
                   </div>
                 </div>
               }
-              <div className="personality-info">
-                <div className="wrapper-title">
-                  <h4>Work Value</h4>
-                </div>
-                <div className="work-value-assessment">
-                  <div>
-                    <img className="assessment-image" src={benchUmbrela} />
-                    <p>{0}</p>
+              { candidate.resultWorkValueByCandidate[0].workValueDetail.length > 0 &&
+                <div className="personality-info">
+                  <div className="wrapper-title">
+                    <h4>Work Value</h4>
                   </div>
-                  <div>
-                    <img className="assessment-image" src={gift} />
-                    <p>{0}</p>
+                  <div className="work-value-assessment">
+                    { candidate.resultWorkValueByCandidate[0].workValueDetail.map((data, index) => 
+                        getWorkValueImage(data, index)
+                      )
+                    }
                   </div>
-                  <div>
-                    <img className="assessment-image" src={group} />
-                    <p>{0}</p>
-                  </div>
-                  <div>
-                    <img className="assessment-image" src={handShake} />
-                    <p>{0}</p>
-                  </div>
-                  <div>
-                    <img className="assessment-image" src={inspire} />
-                    <p>{0}</p>
-                  </div>
-                </div>
-                <Components.charts.workValueChart isLoading={false} data={getWorkValueData(candidate.resultWorkValueByCandidate[0].workValueDetail)} />
-                <div className="footer-info d-flex">
-                  <div className="grey-card flex-6">
-                    Keterangan : <br />
-                    Work value terbagi menjadi 5 kategori, nilai terbesar yang diperoleh individu menunjukkan bahwa nilai tersebut
-                    menjadi hal yang paling penting untuk mendorongnya dapat bekerja secara optimal.
+                  <Components.charts.workValueChart isLoading={false} data={getWorkValueData(candidate.resultWorkValueByCandidate[0].workValueDetail)} />
+                  <div className="footer-info d-flex">
+                    <div className="grey-card flex-6">
+                      Keterangan : <br />
+                      {candidate.resultWorkValueByCandidate[0].workValueDesc}
+                      </div>
+                    <div className="grey-card flex-6">
+                      Norm : <br />
+                      {candidate.resultWorkValueByCandidate[0].workValueNorm}
                     </div>
-                  <div className="grey-card flex-6">
-                    Norm : <br />
                   </div>
                 </div>
-              </div>
+              }
             </div>
           </>
         :

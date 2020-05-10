@@ -29,7 +29,7 @@ const WorkValueChart = props => {
     let config = {
 
         chart: {
-            type: 'column'
+            type: 'column',
         },
         title: {
             text: "WORK VALUE",
