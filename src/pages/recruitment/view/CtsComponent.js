@@ -38,10 +38,6 @@ const CtsComponent = ({ nextStep, hasUpload, finish, history }) => {
             <img alt="picture2" src={iconDone} />
             <p>Social Media Information</p>
           </span>
-          <span className="wrapper-done">
-            <img alt="picture3" src={iconDone} />
-            <p>CTS - Online Test 1 - 3</p>
-          </span>
           <button className="mt-30" onClick={() => finishRegister()}>Finish</button>
         </div>
       }

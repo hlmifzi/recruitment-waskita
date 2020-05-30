@@ -22,24 +22,6 @@ const RecruitmentProcces = props => {
   const [uploadFor, setUploadFor] = useState('')
   const wrapperRef = useRef()
 
-  const FILE = gql`
-    mutation statistic($input: CandidateSocmedFileMutationInput!) {
-      candidateSocmedUpload(input: $input) {
-        candidate {
-          id
-        }
-        socmed {
-          socialMedia
-        }
-        socmedFile
-        socmedFilename
-        ok
-      }
-    }
-  `;
-
-  const [uploadFiles] = useMutation(FILE);
-
 
   const nextStep = () => {
     if (hasDownload) {
@@ -77,26 +59,26 @@ const RecruitmentProcces = props => {
       let dataFile = new FormData();
       dataFile.append('social_media_file', file[0])
       dataFile.append('social_media_filename', file[0].name)
-      dataFile.append('candidate', localStorage.getItem('userId'))
+      dataFile.append('candidate', parseInt(localStorage.getItem('userId')))
       dataFile.append('social_media', socmedId)
 
       await Axios.post(`${process.env.NODE_ENV === "development" ? developmentHost : productionHost}/upload/socmed-data/`, dataFile)
-      .then((res) => { // SORRY GUA BIKIN GINI LAGI.. KARENA GUA COBA CARA LAIN  GABISA
-        if (res.status === 200) {
-          setUploadStatus(true)
+        .then((res) => { // SORRY GUA BIKIN GINI LAGI.. KARENA GUA COBA CARA LAIN  GABISA
+          if (res.status === 200) {
+            setUploadStatus(true)
+            setLoading(false)
+          }
+        })
+        .catch(() => {
+          swal.uploadFailed()
           setLoading(false)
-        }
-      })
-      .catch(() => {
-        swal.uploadFailed()
-        setLoading(false)
-      })
+        })
     }
   }
 
   const getButtonDisableStatus = () => {
     let disabled = false
-    if((currentStep === 2 || currentStep === 3 || currentStep === 4) && !uploadStatus){
+    if ((currentStep === 1 || currentStep === 2 || currentStep === 3) && !uploadStatus && hasDownload) {
       disabled = true
     }
     return disabled
@@ -120,34 +102,31 @@ const RecruitmentProcces = props => {
           </div>
         </div>
       }
-      <Components.progressNavbar currentStep={currentStep} />
+      <Components.progressNavbar currentStep={currentStep} hasDownload={hasDownload} />
       <Components.recruitmentCard nextStep={() => {
         setUploadStatus(false)
         nextStep()
       }} currentStep={currentStep}
         uploadStatus={uploadStatus}
+        hasDownload={hasDownload}
         disabled={getButtonDisableStatus()}>
         {
           <>
             {(!hasDownload && currentInstruction === 1) && <FacebookInfo />}
             {(!hasDownload && currentInstruction === 2) && <InstagramInfo />}
             {(!hasDownload && currentInstruction === 3) && <TwitterInfo />}
+
             {(hasDownload && currentStep === 1) &&
-              <CtsComponent nextStep={() => nextStep()} />
-            }
-            {(hasDownload && currentStep === 2) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="FACEBOOK" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
-            {(hasDownload && currentStep === 3) &&
+            {(hasDownload && currentStep === 2) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
-            {(hasDownload && currentStep === 4) &&
+            {(hasDownload && currentStep === 3) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
-            {(hasDownload && currentStep === 5) &&
-              <CtsComponent nextStep={() => nextStep()} hasUpload={true} />
-            }
-            {(hasDownload && currentStep === 6) &&
+
+            {(hasDownload && currentStep === 4) &&
               <CtsComponent finish={true} />
             }
           </>

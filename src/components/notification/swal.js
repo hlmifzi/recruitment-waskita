@@ -10,11 +10,11 @@ const Swal = {
             timer: 1800
         })
     ),
-    failed: () => (
+    failed: (text) => (
         swal.fire({
             type: 'error',
             title: 'Oops...',
-            text: 'Wrong Password !',
+            text: `${text} !`,
         })
     ),
     uploadFailed: () => (

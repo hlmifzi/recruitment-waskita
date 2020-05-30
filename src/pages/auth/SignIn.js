@@ -62,9 +62,9 @@ const SignIn = ({ navigate }) => {
       } else {
         swal.failed('Wrong username')
       }
+    } else {
+      swal.failed('Incorrect Account')
     }
-
-
   }
 
 

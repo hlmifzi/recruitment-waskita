@@ -14,55 +14,37 @@ const DefaultPropsParams = {
   isClick: false,
 }
 
-const ProgressNavbar = ({ currentStep }) => {
+const ProgressNavbar = ({ currentStep, hasDownload }) => {
   const [active, setActive] = useState(1);
   useEffect(() => {
     setActive(currentStep)
-
   }, [currentStep])
   return (
     <>
       <div className="wrapper-progress-tab d-flex">
         <div className="progress-tab">
-          <div className={`${active > 1 && 'color-1F9CD7'}`}>
+          <div className={`${hasDownload && 'color-1F9CD7'}`}>
             <img alt="picture" src={downloadIcon} />
           </div>
-          <span className={`progress-bar ${active > 1 && 'color-1F9CD7'}`}></span>
-          {active > 1 && <img alt="picture1" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
+          <span className={`progress-bar ${hasDownload && 'color-1F9CD7'}`}></span>
+          {hasDownload && <img alt="picture1" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
           <p className="text-center">How to download your Social Media</p>
         </div>
         <div className="progress-tab">
-          <div className={`${active >= 2 && 'color-1F9CD7'}`}>
-            <img alt="picture2" src={ctsIcon} />
-          </div>
-          <span className={`progress-bar ${active >= 2 && 'color-1F9CD7'}`}></span>
-          {active >= 2 && <img alt="picture3" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
-
-          <p className="text-center">CTS - Online Test <br /> 1 - 2</p>
-        </div>
-        <div className="progress-tab">
-          <div className={`${active >= 5 && 'color-1F9CD7'}`}>
+          <div className={`${active >= 4 && 'color-1F9CD7'}`}>
             <img alt="picture4" src={downloadIcon} />
           </div>
-          <span className={`progress-bar ${active >= 5 && 'color-1F9CD7'}`}></span>
-          {active >= 5 && <img alt="picture5" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
+          <span className={`progress-bar ${active >= 4 && 'color-1F9CD7'}`}></span>
+          {active >= 4 && <img alt="picture5" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
 
           <p className="text-center">Upload your <br /> Social Media Information</p>
         </div>
-        <div className="progress-tab">
-          <div className={`${active >= 6 && 'color-1F9CD7'}`}>
-            <img alt="picture6" src={ctsIcon} />
-          </div>
-          <span className={`progress-bar ${active >= 6 && 'color-1F9CD7'}`}></span>
-          {active >= 6 && <img alt="picture7" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
 
-          <p className="text-center">CTS - Online Test <br /> 3</p>
-        </div>
         <div className="progress-tab">
-          <div className={`${active >= 6 && 'color-1F9CD7'}`}>
+          <div className={`${active >= 4 && 'color-1F9CD7'}`}>
             <img alt="picture8" src={finish} />
           </div>
-          {active >= 6 && <img alt="picture9" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
+          {active >= 4 && <img alt="picture9" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
 
           <p className="text-center">Finish</p>
         </div>
