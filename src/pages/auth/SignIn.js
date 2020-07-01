@@ -63,7 +63,7 @@ const SignIn = ({ navigate }) => {
         swal.failed('Wrong username')
       }
     } else {
-      swal.failed('Incorrect Account')
+      swal.failed('Incorrect Password')
     }
   }
 

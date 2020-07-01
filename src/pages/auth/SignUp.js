@@ -11,7 +11,6 @@ import swal from '../../components/notification/swal'
 import Toast from '../../components/notification/toast'
 import { useQuery } from '@apollo/react-hooks';
 
-
 const SIGN_UP = gql`
   mutation signUp($newCandidate:CandidateInput!) {
     candidateCreate(newCandidate:$newCandidate) {
@@ -123,12 +122,14 @@ const SignUp = ({ navigate }) => {
   }
 
   const _handleSignUp = async () => {
-    const { data } = await candidateCreate(({
+    const { data, errors } = await candidateCreate(({
       variables: getQuerySignUp()
     }))
-
+    if (errors) return swal.failed("something when wrong")
     if (data.candidateCreate.ok) {
       _handleLogin(data.candidateCreate.candidate.id)
+    } else {
+      swal.failed(`something when wrong`)
     }
   }
 
@@ -156,7 +157,7 @@ const SignUp = ({ navigate }) => {
               </label>
               <label className="label">
                 Perempuan
-                <input name="gender" value="P" onClick={_handleOnChangeInput} type="checkbox" />
+                <input name="gender" value="PR" onClick={_handleOnChangeInput} type="checkbox" />
                 <span className="checkmark"></span>
               </label>
             </div>
@@ -164,7 +165,7 @@ const SignUp = ({ navigate }) => {
           <div>
             <p className="flex-4 h-text-right mr-26">Tanggal Lahir</p>
             <div className="flex-8 d-flex">
-              <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'dobDay')} >
+              <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'dobDay')} required>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
                   {state.dobDay || 'Day'}
                 </Dropdown.Toggle>
@@ -176,7 +177,7 @@ const SignUp = ({ navigate }) => {
                   }
                 </Dropdown.Menu>
               </Dropdown>
-              <Dropdown className={"mr-10"} onSelect={(e) => _handleOnChangeSelect(e, 'dobMonth')} >
+              <Dropdown className={"mr-10"} onSelect={(e) => _handleOnChangeSelect(e, 'dobMonth')} required>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
                   {state.dobMonth || 'Month'}
                 </Dropdown.Toggle>
@@ -188,7 +189,7 @@ const SignUp = ({ navigate }) => {
                   }
                 </Dropdown.Menu>
               </Dropdown>
-              <Dropdown className={"mr-10"} onSelect={(e) => _handleOnChangeSelect(e, 'dobYear')} >
+              <Dropdown className={"mr-10"} onSelect={(e) => _handleOnChangeSelect(e, 'dobYear')} required>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
                   {state.dobYear || 'Year'}
                 </Dropdown.Toggle>
@@ -205,7 +206,7 @@ const SignUp = ({ navigate }) => {
           <div>
             <p className="flex-4 h-text-right mr-26">Agama</p>
             <div className="flex-8">
-              <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'religion')}>
+              <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'religion')} required>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
                   {state.religion || 'Pilih Agama'}
                 </Dropdown.Toggle>
@@ -260,15 +261,15 @@ const SignUp = ({ navigate }) => {
             <input className="flex-8" type="text" name="noKtp" onChange={_handleOnChangeInput} />
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Mempunyai Socmed?</p>
+            <p className="flex-4 h-text-right mr-26">Mempunyai Social Media?</p>
             <div className="flex-8 minus-ml-8 d-flex mt-10">
               <label className="label mr-20">
-                Yes
+                Ya
                 <input type="radio" name="haveSocmed" value={true} onClick={_handleOnChangeInput} />
                 <span className="checkmark"></span>
               </label>
               <label className="label">
-                No
+                Tidak
                 <input type="radio" name="haveSocmed" value={false} onClick={_handleOnChangeInput} />
                 <span className="checkmark"></span>
               </label>

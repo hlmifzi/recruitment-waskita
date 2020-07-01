@@ -77,14 +77,14 @@ const CANDIDATE = gql`
     }
 `;
 
-const ModalResult = ({ closeModal, isShow, id}) => {
-  
+const ModalResult = ({ closeModal, isShow, id }) => {
+
   const { loading, error, data: candidate } = useQuery(CANDIDATE, {
     variables: { id: id },
   });
 
   const wrapperRef = useRef(null);
-  
+
   const getWorkValueData = (data) => {
     const tableData = {
       categories: [],
@@ -102,29 +102,29 @@ const ModalResult = ({ closeModal, isShow, id}) => {
   const getPersonalityData = (data, index) => {
     return (
       <div className="container-personality-bar">
-        <p className="netral flex-3" style={{color: data.personalityLeftColor}}>{data.personalityLeftDesc}</p>
+        <p className="netral flex-3" style={{ color: data.personalityLeftColor }}>{data.personalityLeftDesc}</p>
         <div className="outer-bar flex-6">
           <div className="inside-bar" style={{ width: `${data.personalityLeftCount}%` }}></div>
           <p>{data.personalityLeftCount}%</p>
         </div>
-        { index == 0 && <p className="title-bar"><span style={{ fontSize: "28px" }}>O</span>peness</p>}
-        { index == 1 && <p className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness</p>}
-        { index == 2 && <p className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion</p>}
-        { index == 3 && <p className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness</p>}
-        { index == 4 && <p className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism</p>}
-        <p className="strength flex-3" style={{color: data.personalityRightColor}}>{data.personalityRightDesc}</p>
+        {index == 0 && <p className="title-bar"><span style={{ fontSize: "28px" }}>O</span>peness</p>}
+        {index == 1 && <p className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness</p>}
+        {index == 2 && <p className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion</p>}
+        {index == 3 && <p className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness</p>}
+        {index == 4 && <p className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism</p>}
+        <p className="strength flex-3" style={{ color: data.personalityRightColor }}>{data.personalityRightDesc}</p>
       </div>
     )
   }
 
   const getWorkValueImage = (data, index) => {
-    const img = 
+    const img =
       data.workValue == 'Leisure' ? benchUmbrela :
-      data.workValue == 'Extrinsic' ? gift :
-      data.workValue == 'Intrinsic' ? gift :
-      data.workValue == 'Altruistic' ? gift :
-      data.workValue == 'Social' ? gift :
-      null
+        data.workValue == 'Extrinsic' ? gift :
+          data.workValue == 'Intrinsic' ? gift :
+            data.workValue == 'Altruistic' ? gift :
+              data.workValue == 'Social' ? gift :
+                null
     return (
       <div>
         <img className="assessment-image" src={img} />
@@ -151,116 +151,113 @@ const ModalResult = ({ closeModal, isShow, id}) => {
     <>
       <div className={`modal-result ${isShow ? 'show' : ''}`}>
         <div className="modal-result-card" ref={wrapperRef}>
-        { !loading ?
-          <>
-            <div className="modal-result-header">
-              <p>Result</p>
-              <ReactToPdf targetRef={wrapperRef} filename="div-blue.pdf">
-                {({ toPdf }) => (
-                  // <span className="icon-download img-rounded" onClick={toPdf}>
+          {!loading ?
+            <>
+              <div className="modal-result-header">
+                <p>Result</p>
+                <a target="+blank" href={`http://waskita-hiring.org:8000/result-pdf/${id}`}>
                   <span className="icon-download img-rounded">
                     <img alt="picture" src={iconDownload} />
                   </span>
-                )}
-              </ReactToPdf>
-            </div>
-            <div className="modal-result-body">
-              <div className="personal-info d-flex">
-                <div className="profile-info d-flex flex-8">
-                  <img className="profile-picture" src={candidate.candidateDetail.photo} />
-                  <div className="wrapper-user-info">
-                    <p>{candidate.candidateDetail.name}</p>
-                    <p className="mb-0">{`${moment(candidate.candidateDetail.dob).format('DD MMM YYYY')} (age ${candidate.candidateDetail.age})`}</p>
-                    <p>{candidate.candidateDetail.tribe}</p>
-                    <p className="mb-0">{candidate.candidateDetail.university.university}</p>
-                  </div>
-                </div>
-                <div className="social-media-info flex-4">
-                  <p>Tingkat Partisipasi Sosial Media : {`${candidate.resultParticipantByCandidate[0].socmedFreqAverage}%`}</p>
-                  <span className="social-media-bar twitter" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[2].socmedFreqPercent}%` }}>
-                    <img alt="picture2" src={twitterBadge} />
-                    <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[2].socmedFreqPercent}%`}</p>
-                  </span>
-                  <span className="social-media-bar facebook" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[1].socmedFreqPercent}%` }}>
-                    <img alt="picture3" src={facebookBadge} />
-                    <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[1].socmedFreqPercent}%`}</p>
-                  </span>
-                  <span className="social-media-bar instagram" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[0].socmedFreqPercent}%` }}>
-                    <img alt="picture4" src={instagramBadge} />
-                    <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[0].socmedFreqPercent}%`}</p>
-                  </span>
-                </div>
+                </a>
               </div>
-              { candidate.resultPersonalityByCandidate[0].personalityDetail.length > 0 &&
-                <div className="personality-info">
-                  <div className="wrapper-title">
-                    <h4>Personality</h4>
+              <div className="modal-result-body">
+                <div className="personal-info d-flex">
+                  <div className="profile-info d-flex flex-8">
+                    <img className="profile-picture" src={candidate.candidateDetail.photo} />
+                    <div className="wrapper-user-info">
+                      <p>{candidate.candidateDetail.name}</p>
+                      <p className="mb-0">{`${moment(candidate.candidateDetail.dob).format('DD MMM YYYY')} (age ${candidate.candidateDetail.age})`}</p>
+                      <p>{candidate.candidateDetail.tribe}</p>
+                      <p className="mb-0">{candidate.candidateDetail.university.university}</p>
+                    </div>
                   </div>
-                  { candidate.resultPersonalityByCandidate[0].personalityDetail.map((data, index) => 
+                  <div className="social-media-info flex-4">
+                    <p>Tingkat Partisipasi Sosial Media : {`${candidate.resultParticipantByCandidate[0].socmedFreqAverage}%`}</p>
+                    <span className="social-media-bar twitter" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[2].socmedFreqPercent}%` }}>
+                      <img alt="picture2" src={twitterBadge} />
+                      <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[2].socmedFreqPercent}%`}</p>
+                    </span>
+                    <span className="social-media-bar facebook" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[1].socmedFreqPercent}%` }}>
+                      <img alt="picture3" src={facebookBadge} />
+                      <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[1].socmedFreqPercent}%`}</p>
+                    </span>
+                    <span className="social-media-bar instagram" style={{ width: `${candidate.resultParticipantByCandidate[0].socmedDetail[0].socmedFreqPercent}%` }}>
+                      <img alt="picture4" src={instagramBadge} />
+                      <p className="score">{`${candidate.resultParticipantByCandidate[0].socmedDetail[0].socmedFreqPercent}%`}</p>
+                    </span>
+                  </div>
+                </div>
+                {candidate.resultPersonalityByCandidate[0].personalityDetail.length > 0 &&
+                  <div className="personality-info">
+                    <div className="wrapper-title">
+                      <h4>Personality</h4>
+                    </div>
+                    {candidate.resultPersonalityByCandidate[0].personalityDetail.map((data, index) =>
                       getPersonalityData(data, index)
                     )
-                  }
-                  <div className="footer-info d-flex">
-                    <div className="grey-card flex-6">
-                      Keterangan : <br />
-                      {candidate.resultPersonalityByCandidate[0].personalityDesc}
+                    }
+                    <div className="footer-info d-flex">
+                      <div className="grey-card flex-6">
+                        Keterangan : <br />
+                        {candidate.resultPersonalityByCandidate[0].personalityDesc}
                       </div>
-                    <div className="grey-card flex-6">
-                      Norm : <br />
-                      {candidate.resultPersonalityByCandidate[0].personalityNorm}
+                      <div className="grey-card flex-6">
+                        Norm : <br />
+                        {candidate.resultPersonalityByCandidate[0].personalityNorm}
+                      </div>
                     </div>
                   </div>
-                </div>
-              }
-              { candidate.resultNeedsByCandidate[0].needsDetail.length > 0 &&
-                <div className="personality-info">
-                  <div className="wrapper-title">
-                    <h4>Needs</h4>
-                  </div>
-                  <div>
-                    <Components.charts.needsChart data={candidate.resultNeedsByCandidate[0].needsDetail} isLoading={false} />
-                  </div>
-                  <div className="footer-info d-flex">
-                    <div className="grey-card flex-6">
-                      Keterangan : <br />
-                      {candidate.resultNeedsByCandidate[0].needsDesc}
+                }
+                {candidate.resultNeedsByCandidate[0].needsDetail.length > 0 &&
+                  <div className="personality-info">
+                    <div className="wrapper-title">
+                      <h4>Needs</h4>
+                    </div>
+                    <div>
+                      <Components.charts.needsChart data={candidate.resultNeedsByCandidate[0].needsDetail} isLoading={false} />
+                    </div>
+                    <div className="footer-info d-flex">
+                      <div className="grey-card flex-6">
+                        Keterangan : <br />
+                        {candidate.resultNeedsByCandidate[0].needsDesc}
                       </div>
-                    <div className="grey-card flex-6">
-                      Norm : <br />
-                      {candidate.resultNeedsByCandidate[0].needsNorm}
+                      <div className="grey-card flex-6">
+                        Norm : <br />
+                        {candidate.resultNeedsByCandidate[0].needsNorm}
+                      </div>
                     </div>
                   </div>
-                </div>
-              }
-              { candidate.resultWorkValueByCandidate[0].workValueDetail.length > 0 &&
-                <div className="personality-info">
-                  <div className="wrapper-title">
-                    <h4>Work Value</h4>
-                  </div>
-                  <div className="work-value-assessment">
-                    { candidate.resultWorkValueByCandidate[0].workValueDetail.map((data, index) => 
+                }
+                {candidate.resultWorkValueByCandidate[0].workValueDetail.length > 0 &&
+                  <div className="personality-info">
+                    <div className="wrapper-title">
+                      <h4>Work Value</h4>
+                    </div>
+                    <div className="work-value-assessment">
+                      {candidate.resultWorkValueByCandidate[0].workValueDetail.map((data, index) =>
                         getWorkValueImage(data, index)
                       )
-                    }
-                  </div>
-                  <Components.charts.workValueChart isLoading={false} data={getWorkValueData(candidate.resultWorkValueByCandidate[0].workValueDetail)} />
-                  <div className="footer-info d-flex">
-                    <div className="grey-card flex-6">
-                      Keterangan : <br />
-                      {candidate.resultWorkValueByCandidate[0].workValueDesc}
+                      }
+                    </div>
+                    <Components.charts.workValueChart isLoading={false} data={getWorkValueData(candidate.resultWorkValueByCandidate[0].workValueDetail)} />
+                    <div className="footer-info d-flex">
+                      <div className="grey-card flex-6">
+                        Keterangan : <br />
+                        {candidate.resultWorkValueByCandidate[0].workValueDesc}
                       </div>
-                    <div className="grey-card flex-6">
-                      Norm : <br />
-                      {candidate.resultWorkValueByCandidate[0].workValueNorm}
+                      <div className="grey-card flex-6">
+                        Norm : <br />
+                        {candidate.resultWorkValueByCandidate[0].workValueNorm}
+                      </div>
                     </div>
                   </div>
-                </div>
-              }
-            </div>
-          </>
-        :
-        <ClockLoader size={75} color={"#2980B9"}/>
-        }
+                }
+              </div>
+            </>
+            :
+            <ClockLoader size={75} color={"#2980B9"} />
+          }
         </div>
       </div >
     </>
