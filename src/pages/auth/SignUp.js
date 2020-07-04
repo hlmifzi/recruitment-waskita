@@ -133,6 +133,38 @@ const SignUp = ({ navigate }) => {
     }
   }
 
+  const getDisabled = () => {
+    let disabled = false
+    const candidateData = [
+      "dobDay",
+      "dobMonth",
+      "dobYear",
+      "email",
+      "freqSocmedFb",
+      "freqSocmedIg",
+      "freqSocmedTw",
+      "gender",
+      "haveSocmed",
+      "major",
+      "name",
+      "noHp",
+      "noKtp",
+      "password",
+      "religion",
+      "termSocmedPrivacy",
+      "termSocmedPsikotes",
+      "termSocmedUpload",
+      "tribe",
+      "university"
+    ]
+    candidateData.map(val => {
+      if(!state[val]){
+        disabled = true
+      }
+    })
+    return disabled
+  }
+
   const chooseUniversity = arrListUniversity.filter((v, i) => v.id === state.university)[0]?.university
 
   return (
@@ -152,12 +184,12 @@ const SignUp = ({ navigate }) => {
             <div className="flex-8 minus-ml-8 d-flex mt-10">
               <label className="label mr-20">
                 Laki-laki
-                <input name="gender" value="LK" onClick={_handleOnChangeInput} type="checkbox" />
+                <input name="gender" value="LK" onClick={_handleOnChangeInput} type="checkbox" checked={state.gender == "LK"} />
                 <span className="checkmark"></span>
               </label>
               <label className="label">
                 Perempuan
-                <input name="gender" value="PR" onClick={_handleOnChangeInput} type="checkbox" />
+                <input name="gender" value="PR" onClick={_handleOnChangeInput} type="checkbox" checked={state.gender == "PR"} />
                 <span className="checkmark"></span>
               </label>
             </div>
@@ -254,11 +286,11 @@ const SignUp = ({ navigate }) => {
           </div>
           <div>
             <p className="flex-4 h-text-right mr-26">No. Hp</p>
-            <input className="flex-8" type="text" name="noHp" onChange={_handleOnChangeInput} />
+            <input className="flex-8" type="number" name="noHp" onChange={_handleOnChangeInput} />
           </div>
           <div>
             <p className="flex-4 h-text-right mr-26">No. KTP</p>
-            <input className="flex-8" type="text" name="noKtp" onChange={_handleOnChangeInput} />
+            <input className="flex-8" type="number" name="noKtp" onChange={_handleOnChangeInput} />
           </div>
           <div>
             <p className="flex-4 h-text-right mr-26">Mempunyai Social Media?</p>
@@ -349,7 +381,7 @@ const SignUp = ({ navigate }) => {
           </div>
         </div>
         <div className="register-footer">
-          <button type="submit" className="btn-sign-up mt-0" onClick={_handleSignUp} >
+          <button type="submit" className="btn-sign-up mt-0" onClick={_handleSignUp} style={getDisabled() ? {opacity: 0.5} : {}} disabled={getDisabled()}>
             Sign Up
            </button>
           <p className="mb-0 mt-8">Already have an account? <em onClick={() => navigate("/")}>Sign In</em></p>

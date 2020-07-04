@@ -24,6 +24,13 @@ const Swal = {
             text: 'Upload File gagal !',
         })
     ),
+    wrongFileType: () => (
+        swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'Mohon unggah File dalam bentuk .zip',
+        })
+    ),
     finishAllStep: () => (
         swal.fire({
             type: 'success',
