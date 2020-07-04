@@ -3,6 +3,19 @@ import PropTypes from 'prop-types'
 import iconSetting from '../../../assets/recruitment/form-and-setting.svg'
 import iconDone from '../../../assets/recruitment/done-green.svg'
 import swal from '../../../components/notification/swal'
+import { useApolloClient, useMutation } from "@apollo/react-hooks";
+import gql from 'graphql-tag';
+
+const SIGN_UP = gql`
+  mutation signUp ($id: ID!){
+    candidateFormFinish(candidateId: $id){
+      ok
+      candidate {
+        name
+      }
+    }
+  }
+`;
 
 const Interfaces = {
   children: PropTypes.element.isRequired,
@@ -15,11 +28,20 @@ const DefaultValue = {
 }
 
 const CtsComponent = ({ nextStep, hasUpload, finish, history }) => {
-  const finishRegister = () => {
-    swal.finishAllStep()
-    setTimeout(() => {
-      window.location.replace(`my-profile`)
-    }, 2000)
+  const formFinish = [useMutation(SIGN_UP)]
+
+  const finishRegister = async () => {
+    const userId = localStorage.getItem("userId")
+    const { errors, data } = await formFinish(({
+      variables: userId
+    }))
+    
+    if(data){
+      swal.finishAllStep()
+      setTimeout(() => {
+        window.location.replace(`my-profile`)
+      }, 2000)
+    }
   }
 
   return (
