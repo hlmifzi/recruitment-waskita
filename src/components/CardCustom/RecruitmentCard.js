@@ -10,11 +10,7 @@ const DefaultValue = {
   disabled: false
 }
 
-const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDownload, disabled }) => {
-  const onClickNext = currentStep === 6 ? false : true
-  if (currentStep > 3) {
-    currentStep = 3
-  }
+const RecruitmentCard = ({ children, nextStep, backStep, currentStep, uploadStatus, hasDownload, disabled, currentInstruction }) => {
   return (
     <>
       <div className="wrapper-recruitment-card">
@@ -22,15 +18,18 @@ const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDow
           <h5>
             <strong>Download File</strong>
           </h5>
-          <p>Step {!hasDownload ? 1 : !uploadStatus ? 2 : 3} of 3</p>
+          <p>Step {!hasDownload ? 1 : currentStep < 4 ? 2 : 3} of 3</p>
         </div>
         <div className="body-recruitment-card">
           {children}
         </div>
-        {console.log("RecruitmentCard -> currentStep", currentStep)}
+        { currentInstruction > 1 &&
+          <button className={`btn-next ${currentInstruction < 2 ? 'disabled' : ''}`} style={{left: "12px"}} onClick={() => backStep()} disabled={currentInstruction < 2}>
+            {'Back'}
+          </button>
+        }
         {
-          (onClickNext && currentStep !== 4) &&
-
+          currentStep < 4 &&
           <button className={`btn-next ${disabled ? 'disabled' : ''}`} onClick={() => nextStep()} disabled={disabled}>
             {'Next'}
           </button>

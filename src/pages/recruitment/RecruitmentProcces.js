@@ -38,6 +38,19 @@ const RecruitmentProcces = props => {
     }
   }
 
+  const backStep = () => {
+    if (hasDownload && currentStep == 1) {
+      setStep(1)
+      setHasDownload(false)
+    }
+    else if (currentStep > 1) {
+      setStep(currentStep - 1)
+    }
+    else if(currentInstruction > 1) {
+      setInstruction(currentInstruction - 1)
+    }
+  }
+
   const clickOutsideModal = event => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
       document.body.classList.remove("scroll-locked")
@@ -107,7 +120,7 @@ const RecruitmentProcces = props => {
         </div>
       }
       <Components.progressNavbar currentStep={currentStep} hasDownload={hasDownload} />
-      <Components.recruitmentCard nextStep={() => {
+      <Components.recruitmentCard backStep={() => backStep()} currentInstruction={currentInstruction} nextStep={() => {
         setUploadStatus(false)
         nextStep()
       }} currentStep={currentStep}
@@ -124,10 +137,10 @@ const RecruitmentProcces = props => {
               <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="FACEBOOK" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
             {(hasDownload && currentStep === 2) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
             {(hasDownload && currentStep === 3) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
 
             {(hasDownload && currentStep === 4) &&
