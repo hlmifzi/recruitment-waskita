@@ -54,25 +54,29 @@ const RecruitmentProcces = props => {
   const uploadFile = async (file, uploadFileFor) => {
     let socmedId = uploadFileFor === 'INSTAGRAM' ? 1 : uploadFileFor === 'FACEBOOK' ? 3 : 2
     if (file) {
-      setUploadFor(uploadFileFor)
-      setLoading(true)
-      let dataFile = new FormData();
-      dataFile.append('social_media_file', file[0])
-      dataFile.append('social_media_filename', file[0].name)
-      dataFile.append('candidate', parseInt(localStorage.getItem('userId')))
-      dataFile.append('social_media', socmedId)
-
-      await Axios.post(`${process.env.NODE_ENV === "development" ? developmentHost : productionHost}/upload/socmed-data/`, dataFile)
-        .then((res) => { // SORRY GUA BIKIN GINI LAGI.. KARENA GUA COBA CARA LAIN  GABISA
-          if (res.status === 200) {
-            setUploadStatus(true)
+      if(file[0].type == "application/zip"){
+        setUploadFor(uploadFileFor)
+        setLoading(true)
+        let dataFile = new FormData();
+        dataFile.append('social_media_file', file[0])
+        dataFile.append('social_media_filename', file[0].name)
+        dataFile.append('candidate', parseInt(localStorage.getItem('userId')))
+        dataFile.append('social_media', socmedId)
+        await Axios.post(`${process.env.NODE_ENV === "development" ? developmentHost : productionHost}/upload/socmed-data/`, dataFile)
+          .then((res) => { // SORRY GUA BIKIN GINI LAGI.. KARENA GUA COBA CARA LAIN  GABISA
+            if (res.status === 200) {
+              setUploadStatus(true)
+              setLoading(false)
+            }
+          })
+          .catch(() => {
+            swal.uploadFailed()
             setLoading(false)
-          }
-        })
-        .catch(() => {
-          swal.uploadFailed()
-          setLoading(false)
-        })
+          })
+      }
+      else {
+        swal.wrongFileType()
+      }
     }
   }
 
