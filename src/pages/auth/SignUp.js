@@ -20,6 +20,7 @@ const SIGN_UP = gql`
       ok
       errors {
         field
+        messages
       }
     }
   }
@@ -75,7 +76,6 @@ const SignUp = ({ navigate }) => {
       freqSocmedFb: parseInt(state.freqSocmedFb),
       freqSocmedTw: parseInt(state.freqSocmedTw),
       freqSocmedIg: parseInt(state.freqSocmedIg),
-      useSocmed: state.useSocmed,
       termSocmedUpload: !!state.termSocmedUpload,
       termSocmedPsikotes: !!state.termSocmedPsikotes,
       termSocmedPrivacy: !!state.termSocmedPrivacy
@@ -108,7 +108,6 @@ const SignUp = ({ navigate }) => {
       if (isAdmin) {
         localStorage.setItem('token', true)
         localStorage.setItem('isAdmin', isAdmin)
-        localStorage.setItem('userId', userId)
         client.writeData({
           data: {
             isLoggedIn: localStorage.getItem('token'),
@@ -128,8 +127,9 @@ const SignUp = ({ navigate }) => {
     if (errors) return swal.failed("something when wrong")
     if (data.candidateCreate.ok) {
       _handleLogin(data.candidateCreate.candidate.id)
+      localStorage.setItem('userId', data.candidateCreate.candidate.id)
     } else {
-      swal.failed(`something when wrong`)
+      swal.failed(data.candidateCreate.errors[0].messages)
     }
   }
 
@@ -327,10 +327,6 @@ const SignUp = ({ navigate }) => {
                 </div>
               </div>
             </div>
-          </div>
-          <div>
-            <p className="flex-4 h-text-right mr-26">Seberapa sering / berapa kali anda mengupdate socmed Anda per minggu?</p>
-            <input className="flex-8" type="text" name="useSocmed" onChange={_handleOnChangeInput} />
           </div>
           <div className="flex-content-center mt-28 mb-28">
             <div className="pl-50 pr-50">

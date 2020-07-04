@@ -27,8 +27,10 @@ const RecruitmentCard = ({ children, nextStep, currentStep, uploadStatus, hasDow
         <div className="body-recruitment-card">
           {children}
         </div>
+        {console.log("RecruitmentCard -> currentStep", currentStep)}
         {
           (onClickNext && currentStep !== 4) &&
+
           <button className={`btn-next ${disabled ? 'disabled' : ''}`} onClick={() => nextStep()} disabled={disabled}>
             {'Next'}
           </button>
