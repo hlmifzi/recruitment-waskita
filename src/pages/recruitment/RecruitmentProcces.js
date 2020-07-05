@@ -18,6 +18,9 @@ const RecruitmentProcces = props => {
   const [currentInstruction, setInstruction] = useState(1)
   const [currentStep, setStep] = useState(1)
   const [uploadStatus, setUploadStatus] = useState(false)
+  const [uploadStatusInstagram, setUploadStatusInstagram] = useState(false)
+  const [uploadStatusTwitter, setUploadStatusTwitter] = useState(false)
+  const [uploadStatusFacebook, setUploadStatusFacebook] = useState(false)
   const [loading, setLoading] = useState(false)
   const [uploadFor, setUploadFor] = useState('')
   const wrapperRef = useRef()
@@ -76,8 +79,17 @@ const RecruitmentProcces = props => {
         dataFile.append('candidate', parseInt(localStorage.getItem('userId')))
         dataFile.append('social_media', socmedId)
         await Axios.post(`${process.env.NODE_ENV === "development" ? developmentHost : productionHost}/upload/socmed-data/`, dataFile)
-          .then((res) => { // SORRY GUA BIKIN GINI LAGI.. KARENA GUA COBA CARA LAIN  GABISA
+          .then((res) => {
             if (res.status === 200) {
+              if(uploadFileFor === 'INSTAGRAM'){
+                setUploadStatusInstagram(true)
+              }
+              else if(uploadFileFor === 'FACEBOOK'){
+                setUploadStatusFacebook(true)
+              }
+              else if(uploadFileFor === 'TWITTER'){
+                setUploadStatusTwitter(true)
+              }
               setUploadStatus(true)
               setLoading(false)
             }
@@ -95,7 +107,13 @@ const RecruitmentProcces = props => {
 
   const getButtonDisableStatus = () => {
     let disabled = false
-    if ((currentStep === 1 || currentStep === 2 || currentStep === 3) && !uploadStatus && hasDownload) {
+    if (currentStep === 1  && !uploadStatusFacebook && hasDownload) {
+      disabled = true
+    } 
+    else if(currentStep === 2  && !uploadStatusInstagram && hasDownload){
+      disabled = true
+    }
+    else if(currentStep === 3  && !uploadStatusTwitter && hasDownload){
       disabled = true
     }
     return disabled
@@ -124,7 +142,6 @@ const RecruitmentProcces = props => {
         setUploadStatus(false)
         nextStep()
       }} currentStep={currentStep}
-        uploadStatus={uploadStatus}
         hasDownload={hasDownload}
         disabled={getButtonDisableStatus()}>
         {
@@ -134,13 +151,13 @@ const RecruitmentProcces = props => {
             {(!hasDownload && currentInstruction === 3) && <TwitterInfo />}
 
             {(hasDownload && currentStep === 1) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="FACEBOOK" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatusFacebook} uploadFor="FACEBOOK" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
             {(hasDownload && currentStep === 2) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatusInstagram} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
             {(hasDownload && currentStep === 3) &&
-              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatus} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
+              <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatusTwitter} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
 
             {(hasDownload && currentStep === 4) &&
