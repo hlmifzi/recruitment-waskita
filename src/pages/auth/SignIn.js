@@ -12,6 +12,9 @@ const LOGIN = gql`
       user {
         role
         id
+        candidate {
+          id
+        }
       }
     }
   }
@@ -41,7 +44,7 @@ const SignIn = ({ navigate }) => {
     if (data.userLogin.ok) {
       let isAdmin = false
       const userRole = data.userLogin.user.role
-      const userId = data.userLogin.user.id
+      const userId = data.userLogin.user.candidate[0].id
       if (userRole === 'WASKITA') isAdmin = 1;
       if (userRole === 'CANDIDATE') isAdmin = 2;
 
@@ -60,11 +63,15 @@ const SignIn = ({ navigate }) => {
           }
         });
       } else {
-        swal.failed('Wrong username')
+        swal.failed('Invalid username / password')
       }
     } else {
-      swal.failed('Incorrect Password')
+      swal.failed('Invalid username / password')
     }
+  }
+
+  const _isAlreadyUpload = () => {
+
   }
 
 

@@ -51,7 +51,7 @@ const MyProfile = props => {
 				<div className="d-flex flex-direction-row body-container">
 					<div className="flex-4 text-center">
 						<img alt="profile" src={getProfilePicture()} /><br />
-						<a href="">Update</a>
+						{/* <a href="">Update</a> */}
 					</div>
 
 					<div className="flex-5 flex-direction-column">

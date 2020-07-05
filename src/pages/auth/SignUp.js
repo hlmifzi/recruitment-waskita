@@ -87,7 +87,7 @@ const SignUp = ({ navigate }) => {
     password: state.password
   })
 
-  const _handleLogin = async () => {
+  const _handleLogin = async (userId) => {
 
     const { data, errors } = await userLogin(({
       variables: getQueryVariableLogin()
@@ -98,20 +98,21 @@ const SignUp = ({ navigate }) => {
     if (data.userLogin.ok) {
       let isAdmin = false
       const userRole = data.userLogin.user.role
-      const userId = data.userLogin.user.id
       if (userRole === 'WASKITA') isAdmin = 1;
       if (userRole === 'CANDIDATE') isAdmin = 2;
 
       if (userRole === 'WASKITA') Toast.info(`Welcome to Hiring Apps ${state.email}`)
       if (userRole === 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${state.email}`)
 
+      localStorage.setItem('token', true)
+      localStorage.setItem('userId', userId)
+      localStorage.setItem('isAdmin', isAdmin)
+
       if (isAdmin) {
-        localStorage.setItem('token', true)
-        localStorage.setItem('isAdmin', isAdmin)
         client.writeData({
           data: {
             isLoggedIn: localStorage.getItem('token'),
-            isAdmin: localStorage.getItem('isAdmin')
+            isAdmin: localStorage.getItem('isAdmin'),
           }
         });
       } else {
@@ -127,7 +128,6 @@ const SignUp = ({ navigate }) => {
     if (errors) return swal.failed("something when wrong")
     if (data.candidateCreate.ok) {
       _handleLogin(data.candidateCreate.candidate.id)
-      localStorage.setItem('userId', data.candidateCreate.candidate.id)
     } else {
       swal.failed(data.candidateCreate.errors[0].messages)
     }
@@ -158,7 +158,7 @@ const SignUp = ({ navigate }) => {
       "university"
     ]
     candidateData.map(val => {
-      if(!state[val]){
+      if (!state[val]) {
         disabled = true
       }
     })
@@ -176,11 +176,11 @@ const SignUp = ({ navigate }) => {
 
         <div className="register-body">
           <div>
-            <p className="flex-4 h-text-right mr-26">Nama Lengkap</p>
+            <p className="flex-4 h-text-right mr-26">Nama Lengkap (*)</p>
             <input className="flex-8" name="name" onChange={_handleOnChangeInput} type="text" />
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Jenis Kelamin</p>
+            <p className="flex-4 h-text-right mr-26">Jenis Kelamin (*)</p>
             <div className="flex-8 minus-ml-8 d-flex mt-10">
               <label className="label mr-20">
                 Laki-laki
@@ -195,7 +195,7 @@ const SignUp = ({ navigate }) => {
             </div>
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Tanggal Lahir</p>
+            <p className="flex-4 h-text-right mr-26">Tanggal Lahir (*)</p>
             <div className="flex-8 d-flex">
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'dobDay')} required>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -236,7 +236,7 @@ const SignUp = ({ navigate }) => {
             </div>
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Agama</p>
+            <p className="flex-4 h-text-right mr-26">Agama (*)</p>
             <div className="flex-8">
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'religion')} required>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -244,21 +244,21 @@ const SignUp = ({ navigate }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item eventKey="ISLAM">ISLAM</Dropdown.Item>
-                  <Dropdown.Item eventKey="KRISTEN PROTESTAN">KRISTEN PROTESTAN</Dropdown.Item>
-                  <Dropdown.Item eventKey="KRISTEN KATOLIK">KRISTEN KATOLIK</Dropdown.Item>
+                  <Dropdown.Item eventKey="PROTESTAN">KRISTEN PROTESTAN</Dropdown.Item>
+                  <Dropdown.Item eventKey="KATOLIK">KRISTEN KATOLIK</Dropdown.Item>
                   <Dropdown.Item eventKey="HINDU">HINDU</Dropdown.Item>
                   <Dropdown.Item eventKey="BUDDHA">BUDDHA</Dropdown.Item>
-                  <Dropdown.Item eventKey="KONG HU CU">KONG HU CU</Dropdown.Item>
+                  <Dropdown.Item eventKey="KONG_HU_CU">KONG HU CU</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </div>
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Suku</p>
+            <p className="flex-4 h-text-right mr-26">Suku (*)</p>
             <input className="flex-8" type="text" name="tribe" onChange={_handleOnChangeInput} />
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Universitas</p>
+            <p className="flex-4 h-text-right mr-26">Universitas (*)</p>
             <div className="flex-8" type="text" name="university" onChange={_handleOnChangeInput} >
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'university')}>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -273,27 +273,27 @@ const SignUp = ({ navigate }) => {
             </div>
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Jurusan</p>
+            <p className="flex-4 h-text-right mr-26">Jurusan (*)</p>
             <input className="flex-8" type="text" name="major" onChange={_handleOnChangeInput} />
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Email</p>
+            <p className="flex-4 h-text-right mr-26">Email (*)</p>
             <input className="flex-8" type="text" name="email" onChange={_handleOnChangeInput} />
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Password</p>
+            <p className="flex-4 h-text-right mr-26">Password (*)</p>
             <input className="flex-8" type="password" name="password" onChange={_handleOnChangeInput} />
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">No. Hp</p>
+            <p className="flex-4 h-text-right mr-26">No. Hp (*)</p>
             <input className="flex-8" type="number" name="noHp" onChange={_handleOnChangeInput} />
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">No. KTP</p>
+            <p className="flex-4 h-text-right mr-26">No. KTP (*)</p>
             <input className="flex-8" type="number" name="noKtp" onChange={_handleOnChangeInput} />
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Mempunyai Social Media?</p>
+            <p className="flex-4 h-text-right mr-26">Mempunyai Social Media? (*)</p>
             <div className="flex-8 minus-ml-8 d-flex mt-10">
               <label className="label mr-20">
                 Ya
@@ -308,7 +308,7 @@ const SignUp = ({ navigate }) => {
             </div>
           </div>
           <div>
-            <p className="flex-4 h-text-right mr-26">Social Media yang sering Anda pakai?</p>
+            <p className="flex-4 h-text-right mr-26">Social Media yang sering Anda pakai? (*)</p>
             <div className="flex-8">
               <div className="container-social-media">
                 <div className="flex-3"></div>
@@ -381,7 +381,7 @@ const SignUp = ({ navigate }) => {
           </div>
         </div>
         <div className="register-footer">
-          <button type="submit" className="btn-sign-up mt-0" onClick={_handleSignUp} style={getDisabled() ? {opacity: 0.5} : {}} disabled={getDisabled()}>
+          <button type="submit" className="btn-sign-up mt-0" onClick={_handleSignUp} style={getDisabled() ? { opacity: 0.5 } : {}} disabled={getDisabled()}>
             Sign Up
            </button>
           <p className="mb-0 mt-8">Already have an account? <em onClick={() => navigate("/")}>Sign In</em></p>
