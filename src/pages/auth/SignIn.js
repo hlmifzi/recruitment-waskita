@@ -4,6 +4,8 @@ import { useApolloClient, useMutation } from "@apollo/react-hooks";
 import swal from '../../components/notification/swal'
 import Toast from '../../components/notification/toast'
 import gql from 'graphql-tag';
+import { redirectTo } from "@reach/router"
+
 
 const LOGIN = gql`
   mutation login($email:String!, $password:String!) {
@@ -21,12 +23,26 @@ const LOGIN = gql`
 `;
 
 
+const IS_FINISH_UPLOAD = gql`
+mutation signUp ($id: String!){
+  candidateFormFinish(candidateId: $id){
+    ok
+    candidate {
+      name
+    }
+  }
+}
+`;
+
+
 const SignIn = ({ navigate }) => {
   const [userName, setUserName] = useState("")
   const [password, setPassword] = useState("")
 
   const client = useApolloClient();
   const [userLogin] = useMutation(LOGIN)
+  const [candidateFormFinish] = useMutation(IS_FINISH_UPLOAD)
+
 
   const getQueryVariable = () => ({
     "email": userName,
@@ -50,16 +66,20 @@ const SignIn = ({ navigate }) => {
 
       if (userRole === 'WASKITA') Toast.info(`Welcome to Hiring Apps ${userName}`)
       if (userRole === 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${userName}`)
+      const isAlreadyUpload = await _isAlreadyUpload(userId)
 
       if (isAdmin) {
         localStorage.setItem('token', true)
         localStorage.setItem('isAdmin', isAdmin)
+        localStorage.setItem('isAlreadyUpload', isAlreadyUpload)
         localStorage.setItem('userId', userId)
+
         client.writeData({
           data: {
             isLoggedIn: localStorage.getItem('token'),
             isAdmin: localStorage.getItem('isAdmin'),
-            userId: localStorage.getItem('userId')
+            userId: localStorage.getItem('userId'),
+            isAlreadyUpload: localStorage.getItem('isAlreadyUpload')
           }
         });
       } else {
@@ -70,8 +90,11 @@ const SignIn = ({ navigate }) => {
     }
   }
 
-  const _isAlreadyUpload = () => {
-
+  const _isAlreadyUpload = async (userId) => {
+    const { errors, data } = await candidateFormFinish(({
+      variables: { id: userId }
+    }))
+    return data.candidateFormFinish.ok
   }
 
 

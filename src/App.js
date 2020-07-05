@@ -8,6 +8,7 @@ import AuthenticatedRoutesRecruitment from './routes/AuthenticatedRoutesRecruitm
 import UnAuthenticatedRoutes from './routes/UnAuthenticatedRoutes'
 import gql from "graphql-tag";
 import 'react-toastify/dist/ReactToastify.css';
+import MyProfile from './pages/recruitment/view/MyProfile'
 
 const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
@@ -17,14 +18,19 @@ const IS_LOGGED_IN = gql`
 
 function IsLoggedIn() {
   const { data } = useQuery(IS_LOGGED_IN)
+
   return (
     <>
-      {data.isLoggedIn ? (
-        data.isAdmin === '1' ?
-          <AuthenticatedRoutes /> :
-          <AuthenticatedRoutesRecruitment />
-      ) :
-        <UnAuthenticatedRoutes />}
+      {
+        data.isLoggedIn ? (
+          data.isAdmin === '1' ?
+            <AuthenticatedRoutes /> :
+            data.isLoggedIn && data.isAlreadyUpload ?
+              <MyProfile path="/my-profile" /> :
+              <AuthenticatedRoutesRecruitment />
+        ) :
+          <UnAuthenticatedRoutes />
+      }
     </>
   )
 }
