@@ -77,8 +77,7 @@ const SignUp = ({ navigate }) => {
       freqSocmedTw: parseInt(state.freqSocmedTw),
       freqSocmedIg: parseInt(state.freqSocmedIg),
       termSocmedUpload: !!state.termSocmedUpload,
-      termSocmedPsikotes: !!state.termSocmedPsikotes,
-      termSocmedPrivacy: !!state.termSocmedPrivacy
+      termSocmedPsikotes: !!state.termSocmedPsikotes
     }
   })
 
@@ -151,7 +150,6 @@ const SignUp = ({ navigate }) => {
       "noKtp",
       "password",
       "religion",
-      "termSocmedPrivacy",
       "termSocmedPsikotes",
       "termSocmedUpload",
       "tribe",
@@ -312,9 +310,9 @@ const SignUp = ({ navigate }) => {
             <div className="flex-8">
               <div className="container-social-media">
                 <div className="flex-3"></div>
-                <div className="flex-3">1</div>
-                <div className="flex-3">2</div>
-                <div className="flex-3">3</div>
+                <div className="flex-3">Paling jarang</div>
+                <div className="flex-3">Biasa saja</div>
+                <div className="flex-3">Paling sering</div>
               </div>
               <div className="container-social-media">
                 <div className="flex-3">
@@ -363,18 +361,13 @@ const SignUp = ({ navigate }) => {
           <div className="flex-content-center mt-28 mb-28">
             <div className="pl-50 pr-50">
               <label className="label mr-20">
-                Bersedia mengunduh dan mengupload data 3 social media kedalam platform yang disediakan
+                Bersedia unduh dan upload minimal 2 data akun sosial media ke dalam platform yang disediakan
                 <input type="checkbox" name="termSocmedUpload" value={true} onClick={_handleOnChangeInput} />
                 <span className="checkmark"></span>
               </label>
               <label className="label">
                 Mengerjakan 3 psikotes untuk kemudian hasilnya dapat diperoleh secara langsung
                 <input type="checkbox" name="termSocmedPsikotes" value={true} onClick={_handleOnChangeInput} />
-                <span className="checkmark"></span>
-              </label>
-              <label className="label mr-20">
-                Data pribadi akan dijamin kerahasiaannya dan hanya digunakan untuk kepentingan penelitian, dimana segala unsur nama akan dihilangkan saat ditayangkan/ditampilkan
-                <input type="checkbox" name="termSocmedPrivacy" value={true} onClick={_handleOnChangeInput} />
                 <span className="checkmark"></span>
               </label>
             </div>

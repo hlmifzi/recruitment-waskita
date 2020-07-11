@@ -49,11 +49,6 @@ const MyProfile = props => {
 					</div>
 				</div>
 				<div className="d-flex flex-direction-row body-container">
-					<div className="flex-4 text-center">
-						<img alt="profile" src={getProfilePicture()} /><br />
-						{/* <a href="">Update</a> */}
-					</div>
-
 					<div className="flex-5 flex-direction-column">
 						<div >
 							<label>Nama Lengkap</label>
@@ -74,9 +69,6 @@ const MyProfile = props => {
 						<div>
 							<label>No.Hp</label>
 							<input className="ml-90 width-350 mt-20" value={candidate ? candidate.candidateDetail.noHp : null} type="text" />
-						</div>
-						<div style={{ float: 'right', marginRight: '130px' }}>
-							<button className="btn-save-profile">Simpan</button>
 						</div>
 					</div>
 				</div>

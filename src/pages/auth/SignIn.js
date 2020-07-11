@@ -60,31 +60,32 @@ const SignIn = ({ navigate }) => {
     if (data.userLogin.ok) {
       let isAdmin = false
       const userRole = data.userLogin.user.role
-      const userId = data.userLogin.user.candidate[0].id
-      if (userRole === 'WASKITA') isAdmin = 1;
-      if (userRole === 'CANDIDATE') isAdmin = 2;
+      const userId = userRole === 'WASKITA' ? data.userLogin.user.id : data.userLogin.user.candidate[0].id
 
-      if (userRole === 'WASKITA') Toast.info(`Welcome to Hiring Apps ${userName}`)
-      if (userRole === 'CANDIDATE') Toast.info(`Welcome to Hiring Apps ${userName}`)
-      const isAlreadyUpload = await _isAlreadyUpload(userId)
-
-      if (isAdmin) {
-        localStorage.setItem('token', true)
+      if (userRole === 'WASKITA') {
+        isAdmin = 1;
+        Toast.info(`Welcome to Hiring Apps ${userName}`)
         localStorage.setItem('isAdmin', isAdmin)
-        localStorage.setItem('isAlreadyUpload', isAlreadyUpload)
-        localStorage.setItem('userId', userId)
 
-        client.writeData({
-          data: {
-            isLoggedIn: localStorage.getItem('token'),
-            isAdmin: localStorage.getItem('isAdmin'),
-            userId: localStorage.getItem('userId'),
-            isAlreadyUpload: localStorage.getItem('isAlreadyUpload')
-          }
-        });
-      } else {
-        swal.failed('Invalid username / password')
       }
+
+      if (userRole === 'CANDIDATE') {
+        isAdmin = 2;
+        Toast.info(`Welcome to Hiring Apps ${userName}`)
+        const isAlreadyUpload = await _isAlreadyUpload(userId)
+        localStorage.setItem('isAlreadyUpload', isAlreadyUpload)
+      }
+
+      localStorage.setItem('token', true)
+      localStorage.setItem('userId', userId)
+      client.writeData({
+        data: {
+          isLoggedIn: localStorage.getItem('token'),
+          isAdmin: localStorage.getItem('isAdmin'),
+          userId: localStorage.getItem('userId'),
+          isAlreadyUpload: localStorage.getItem('isAlreadyUpload')
+        }
+      });
     } else {
       swal.failed('Invalid username / password')
     }
