@@ -108,7 +108,7 @@
         padding: 0 24px;
     }
     .container-step {
-        @include centerFlex();
+        @include alignFlex(center);
         flex-direction: column;
         margin: 0px 32px;
         position: relative;
@@ -116,6 +116,7 @@
     .label-step {
         @include alignFlex(center);
         font-size: 14px;
+        white-space: nowrap;
         span {
             border-radius: 50%;
             width: 16px;
@@ -143,8 +144,9 @@
         background-color: $white-smoke;
         padding: 12px;
         border-radius: 4px;
-        min-width: 200px;
-        @include absolute(134px, null, null, -24px)
+        min-width: 230px;
+        z-index: 2;
+        @include absolute(134px, null, null, -62px)
     }
     .dummy-border-dashed {
         border: 1px dashed $border-grey;
