@@ -7,7 +7,7 @@ import hamburgerIcon from '../../../assets/recruitment/hamburger.svg'
 import chainIcon from '../../../assets/recruitment/chain.svg'
 import instagramIcon from '../../../assets/recruitment/instagram-color.svg'
 import instagramTransparentIcon from '../../../assets/recruitment/instagram-transparent.svg'
-import logoUser from '../../../assets/recruitment/user-profile.svg';
+import userIcon from '../../../assets/recruitment/user-icon.svg'
 
 const Interfaces = {
   children: PropTypes.element.isRequired,
@@ -40,7 +40,7 @@ const InstagramInfo = () => {
             <div className="label-step"><span className="mr-6">2</span>Click</div>
             <p className="text-center"><strong>Account</strong></p>
             <div className="wrapper-image-circle">
-              <img alt="picture2" src={logoUser} />
+              <img alt="picture3" src={userIcon} />
             </div>
           </div>
           <div className="container-step">
