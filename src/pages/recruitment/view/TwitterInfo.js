@@ -40,14 +40,14 @@ const TwitterInfo = () => {
             <div className="label-step"><span className="mr-5">2</span>Click</div>
             <p className="text-center"><strong>More</strong></p>
             <div className="wrapper-image-circle">
-              <img alt="picture2" src={settingIcon} />
+              <img alt="picture3" src={hamburgerIcon} />
             </div>
           </div>
           <div className="container-step">
             <div className="label-step"><span className="mr-5">3</span>Click</div>
             <p className="text-center"><strong>Setting and Privacy</strong></p>
             <div className="wrapper-image-circle">
-              <img alt="picture3" src={hamburgerIcon} />
+              <img alt="picture2" src={settingIcon} />
             </div>
           </div>
           <div className="container-step">
