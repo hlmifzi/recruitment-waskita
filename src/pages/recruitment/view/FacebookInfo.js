@@ -69,6 +69,8 @@ const FacebookInfo = () => {
               <p className="mb-1">5. Groups</p>
               <p className="mb-1">6. Events</p>
               <p className="mb-1">7. Profile Information</p>
+              <p className="mb-1">8. Choose Format > JSON</p>
+              <p className="mb-1">9. Choose Media Quality > Low</p>
             </div>
           </div>
           <div className="container-step">
