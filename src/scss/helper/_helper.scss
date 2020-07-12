@@ -410,7 +410,10 @@
   justify-content: center;
 }  
 .position-absolute{
-  position:absolute;
+  position: absolute;
+}
+.position-relative{
+  position: relative;
 }
 
 
@@ -420,5 +423,10 @@
   }
 }
 
-  
+
+@for $i from 0 to 1000 {
+  .max-width-#{$i} {
+    max-width: $i + px !important;
+  }
+}
   

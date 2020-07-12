@@ -132,7 +132,7 @@ const SignUp = ({ navigate }) => {
     }
   }
 
-  const getDisabled = () => {
+  const getDisabled = (currentInput) => {
     let disabled = false
     const candidateData = [
       "dobDay",
@@ -155,12 +155,22 @@ const SignUp = ({ navigate }) => {
       "tribe",
       "university"
     ]
-    candidateData.map(val => {
-      if (!state[val]) {
-        disabled = true
-      }
-    })
-    return disabled
+    if(currentInput){
+      candidateData.map(val => {
+        if (!state[val] && val == currentInput) {
+          disabled = true
+        }
+      })
+      return disabled
+    }
+    else {
+      candidateData.map(val => {
+        if (!state[val]) {
+          disabled = true
+        }
+      })
+      return disabled
+    }
   }
 
   const chooseUniversity = arrListUniversity.filter((v, i) => v.id === state.university)[0]?.university
@@ -173,11 +183,12 @@ const SignUp = ({ navigate }) => {
         </div>
 
         <div className="register-body">
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Nama Lengkap (*)</p>
-            <input className="flex-8" name="name" onChange={_handleOnChangeInput} type="text" />
+            <input className={`flex-8 ${getDisabled("name") ? 'show-error' : ''}`} name="name" onChange={_handleOnChangeInput} type="text" />
+            { getDisabled("name") && <p className="error-text">wajib diisi</p>}
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Jenis Kelamin (*)</p>
             <div className="flex-8 minus-ml-8 d-flex mt-10">
               <label className="label mr-20">
@@ -192,7 +203,7 @@ const SignUp = ({ navigate }) => {
               </label>
             </div>
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Tanggal Lahir (*)</p>
             <div className="flex-8 d-flex">
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'dobDay')} required>
@@ -233,7 +244,7 @@ const SignUp = ({ navigate }) => {
               </Dropdown>
             </div>
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Agama (*)</p>
             <div className="flex-8">
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'religion')} required>
@@ -251,11 +262,12 @@ const SignUp = ({ navigate }) => {
               </Dropdown>
             </div>
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Suku (*)</p>
-            <input className="flex-8" type="text" name="tribe" onChange={_handleOnChangeInput} />
+            <input className={`flex-8 ${getDisabled("tribe") ? 'show-error' : ''}`} type="text" name="tribe" onChange={_handleOnChangeInput} />
+            { getDisabled("tribe") && <p className="error-text">wajib diisi</p>}
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Universitas (*)</p>
             <div className="flex-8" type="text" name="university" onChange={_handleOnChangeInput} >
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'university')}>
@@ -270,27 +282,32 @@ const SignUp = ({ navigate }) => {
               </Dropdown>
             </div>
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Jurusan (*)</p>
-            <input className="flex-8" type="text" name="major" onChange={_handleOnChangeInput} />
+            <input className={`flex-8 ${getDisabled("major") ? 'show-error' : ''}`} type="text" name="major" onChange={_handleOnChangeInput} />
+            { getDisabled("major") && <p className="error-text">wajib diisi</p>}
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Email (*)</p>
-            <input className="flex-8" type="text" name="email" onChange={_handleOnChangeInput} />
+            <input className={`flex-8 ${getDisabled("email") ? 'show-error' : ''}`} type="text" name="email" onChange={_handleOnChangeInput} />
+            { getDisabled("email") && <p className="error-text">wajib diisi</p>}
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Password (*)</p>
-            <input className="flex-8" type="password" name="password" onChange={_handleOnChangeInput} />
+            <input className={`flex-8 ${getDisabled("password") ? 'show-error' : ''}`} type="password" name="password" onChange={_handleOnChangeInput} />
+            { getDisabled("password") && <p className="error-text">wajib diisi</p>}
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">No. Hp (*)</p>
-            <input className="flex-8" type="number" name="noHp" onChange={_handleOnChangeInput} />
+            <input className={`flex-8 ${getDisabled("noHp") ? 'show-error' : ''}`} type="number" name="noHp" onChange={_handleOnChangeInput} />
+            { getDisabled("noHp") && <p className="error-text">wajib diisi</p>}
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">No. KTP (*)</p>
-            <input className="flex-8" type="number" name="noKtp" onChange={_handleOnChangeInput} />
+            <input className={`flex-8 ${getDisabled("noKtp") ? 'show-error' : ''}`} type="number" name="noKtp" onChange={_handleOnChangeInput} />
+            { getDisabled("noKtp") && <p className="error-text">wajib diisi</p>}
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Mempunyai Social Media? (*)</p>
             <div className="flex-8 minus-ml-8 d-flex mt-10">
               <label className="label mr-20">
@@ -305,54 +322,54 @@ const SignUp = ({ navigate }) => {
               </label>
             </div>
           </div>
-          <div>
+          <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Social Media yang sering Anda pakai? (*)</p>
             <div className="flex-8">
               <div className="container-social-media">
-                <div className="flex-3"></div>
-                <div className="flex-3">Paling jarang</div>
-                <div className="flex-3">Biasa saja</div>
-                <div className="flex-3">Paling sering</div>
+                <div className="flex-3 max-width-30"></div>
+                <div className="flex-3 social-media-rate">Paling jarang</div>
+                <div className="flex-3 social-media-rate">Biasa saja</div>
+                <div className="flex-3 social-media-rate">Paling sering</div>
               </div>
               <div className="container-social-media">
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <img alt="picture1" src={facebookBadge} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedFb" value={1} onClick={_handleOnChangeInput} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedFb" value={2} onClick={_handleOnChangeInput} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedFb" value={3} onClick={_handleOnChangeInput} />
                 </div>
               </div>
               <div className="container-social-media">
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <img alt="picture2" src={twitterBadge} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedTw" value={1} onClick={_handleOnChangeInput} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedTw" value={2} onClick={_handleOnChangeInput} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedTw" value={3} onClick={_handleOnChangeInput} />
                 </div>
               </div>
               <div className="container-social-media">
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <img alt="picture3" src={instagramBadge} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedIg" value={1} onClick={_handleOnChangeInput} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedIg" value={2} onClick={_handleOnChangeInput} />
                 </div>
-                <div className="flex-3">
+                <div className="flex-3 ">
                   <input type="radio" name="freqSocmedIg" value={3} onClick={_handleOnChangeInput} />
                 </div>
               </div>
