@@ -152,6 +152,7 @@
       transform: rotate(45deg);
     }
     .container-social-media {
+      position: relative;
       max-width: 250px;
       @include alignFlex(left);
       img {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import logo from '../../logo-waskita.png'
 import facebookBadge from '../../assets/recruitment/facebook-badge.svg'
 import instagramBadge from '../../assets/recruitment/instagram-badge.svg'
@@ -50,6 +50,7 @@ const LOGIN = gql`
 
 const SignUp = ({ navigate }) => {
   let arrListUniversity = []
+  const [showError, setShowError] = useState(false)
   const { state, _handleOnChangeInput, _handleOnChangeSelect } = useFormHelper()
   const client = useApolloClient();
   const [candidateCreate] = useMutation(SIGN_UP);
@@ -58,6 +59,29 @@ const SignUp = ({ navigate }) => {
   const Months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
   const Years = [1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003]
   const { loading, error: err1, data: universityList = {} } = useQuery(QUERY_GET_UNIVERSITY)
+
+  const candidateData = [
+    "dobDay",
+    "dobMonth",
+    "dobYear",
+    "email",
+    "freqSocmedFb",
+    "freqSocmedIg",
+    "freqSocmedTw",
+    "gender",
+    "haveSocmed",
+    "major",
+    "name",
+    "noHp",
+    "noKtp",
+    "password",
+    "religion",
+    "termSocmedPsikotes",
+    "termSocmedUpload",
+    "tribe",
+    "university"
+  ]
+
   if (!loading) arrListUniversity = universityList?.universityList.results
   const getQuerySignUp = () => ({
     newCandidate: {
@@ -121,51 +145,34 @@ const SignUp = ({ navigate }) => {
   }
 
   const _handleSignUp = async () => {
-    const { data, errors } = await candidateCreate(({
-      variables: getQuerySignUp()
-    }))
-    if (errors) return swal.failed("something when wrong")
-    if (data.candidateCreate.ok) {
-      _handleLogin(data.candidateCreate.candidate.id)
-    } else {
-      swal.failed(data.candidateCreate.errors[0].messages)
+    let disabled = false
+    candidateData.map(val => {
+      if (!state[val]) {
+        disabled = true
+      }
+    })
+    if(disabled){
+      setShowError(true)
+      swal.fillAllForm()
+    }
+    else {
+      const { data, errors } = await candidateCreate(({
+        variables: getQuerySignUp()
+      }))
+      if (errors) return swal.failed("something when wrong")
+      if (data.candidateCreate.ok) {
+        _handleLogin(data.candidateCreate.candidate.id)
+      } else {
+        swal.failed(data.candidateCreate.errors[0].messages)
+      }
     }
   }
 
   const getDisabled = (currentInput) => {
     let disabled = false
-    const candidateData = [
-      "dobDay",
-      "dobMonth",
-      "dobYear",
-      "email",
-      "freqSocmedFb",
-      "freqSocmedIg",
-      "freqSocmedTw",
-      "gender",
-      "haveSocmed",
-      "major",
-      "name",
-      "noHp",
-      "noKtp",
-      "password",
-      "religion",
-      "termSocmedPsikotes",
-      "termSocmedUpload",
-      "tribe",
-      "university"
-    ]
-    if(currentInput){
+    if(showError){
       candidateData.map(val => {
         if (!state[val] && val == currentInput) {
-          disabled = true
-        }
-      })
-      return disabled
-    }
-    else {
-      candidateData.map(val => {
-        if (!state[val]) {
           disabled = true
         }
       })
@@ -186,7 +193,7 @@ const SignUp = ({ navigate }) => {
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Nama Lengkap (*)</p>
             <input className={`flex-8 ${getDisabled("name") ? 'show-error' : ''}`} name="name" onChange={_handleOnChangeInput} type="text" />
-            { getDisabled("name") && <p className="error-text">wajib diisi</p>}
+            { getDisabled("name") && <p className="error-text">*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Jenis Kelamin (*)</p>
@@ -202,6 +209,7 @@ const SignUp = ({ navigate }) => {
                 <span className="checkmark"></span>
               </label>
             </div>
+            { getDisabled("gender") && <p className="error-text" style={{right: "200px"}}>*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Tanggal Lahir (*)</p>
@@ -243,6 +251,7 @@ const SignUp = ({ navigate }) => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
+            { getDisabled("dobYear") && <p className="error-text" style={{right: "150px"}}>*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Agama (*)</p>
@@ -261,11 +270,12 @@ const SignUp = ({ navigate }) => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
+            { getDisabled("name") && <p className="error-text" style={{right: "272px"}}>*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Suku (*)</p>
             <input className={`flex-8 ${getDisabled("tribe") ? 'show-error' : ''}`} type="text" name="tribe" onChange={_handleOnChangeInput} />
-            { getDisabled("tribe") && <p className="error-text">wajib diisi</p>}
+            { getDisabled("tribe") && <p className="error-text">*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Universitas (*)</p>
@@ -281,31 +291,32 @@ const SignUp = ({ navigate }) => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
+            { getDisabled("university") && <p className="error-text" style={{right: "232px"}}>*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Jurusan (*)</p>
             <input className={`flex-8 ${getDisabled("major") ? 'show-error' : ''}`} type="text" name="major" onChange={_handleOnChangeInput} />
-            { getDisabled("major") && <p className="error-text">wajib diisi</p>}
+            { getDisabled("major") && <p className="error-text">*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Email (*)</p>
             <input className={`flex-8 ${getDisabled("email") ? 'show-error' : ''}`} type="text" name="email" onChange={_handleOnChangeInput} />
-            { getDisabled("email") && <p className="error-text">wajib diisi</p>}
+            { getDisabled("email") && <p className="error-text">*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Password (*)</p>
             <input className={`flex-8 ${getDisabled("password") ? 'show-error' : ''}`} type="password" name="password" onChange={_handleOnChangeInput} />
-            { getDisabled("password") && <p className="error-text">wajib diisi</p>}
+            { getDisabled("password") && <p className="error-text">*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">No. Hp (*)</p>
             <input className={`flex-8 ${getDisabled("noHp") ? 'show-error' : ''}`} type="number" name="noHp" onChange={_handleOnChangeInput} />
-            { getDisabled("noHp") && <p className="error-text">wajib diisi</p>}
+            { getDisabled("noHp") && <p className="error-text">*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">No. KTP (*)</p>
             <input className={`flex-8 ${getDisabled("noKtp") ? 'show-error' : ''}`} type="number" name="noKtp" onChange={_handleOnChangeInput} />
-            { getDisabled("noKtp") && <p className="error-text">wajib diisi</p>}
+            { getDisabled("noKtp") && <p className="error-text">*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Mempunyai Social Media? (*)</p>
@@ -321,6 +332,7 @@ const SignUp = ({ navigate }) => {
                 <span className="checkmark"></span>
               </label>
             </div>
+            { getDisabled("haveSocmed") && <p className="error-text" style={{right: "278px"}}>*wajib diisi</p>}
           </div>
           <div className="position-relative">
             <p className="flex-4 h-text-right mr-26">Social Media yang sering Anda pakai? (*)</p>
@@ -344,6 +356,7 @@ const SignUp = ({ navigate }) => {
                 <div className="flex-3 ">
                   <input type="radio" name="freqSocmedFb" value={3} onClick={_handleOnChangeInput} />
                 </div>
+                { getDisabled("freqSocmedFb") && <p className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</p>}
               </div>
               <div className="container-social-media">
                 <div className="flex-3 ">
@@ -358,6 +371,7 @@ const SignUp = ({ navigate }) => {
                 <div className="flex-3 ">
                   <input type="radio" name="freqSocmedTw" value={3} onClick={_handleOnChangeInput} />
                 </div>
+                { getDisabled("freqSocmedTw") && <p className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</p>}
               </div>
               <div className="container-social-media">
                 <div className="flex-3 ">
@@ -372,26 +386,29 @@ const SignUp = ({ navigate }) => {
                 <div className="flex-3 ">
                   <input type="radio" name="freqSocmedIg" value={3} onClick={_handleOnChangeInput} />
                 </div>
+                { getDisabled("freqSocmedIg") && <p className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</p>}
               </div>
             </div>
           </div>
           <div className="flex-content-center mt-28 mb-28">
             <div className="pl-50 pr-50">
-              <label className="label mr-20">
+              <label className="label position-relative mr-20">
                 Bersedia unduh dan upload minimal 2 data akun sosial media ke dalam platform yang disediakan
                 <input type="checkbox" name="termSocmedUpload" value={true} onClick={_handleOnChangeInput} />
                 <span className="checkmark"></span>
+                { getDisabled("termSocmedUpload") && <p className="error-text" style={{right: "-44px", top: "2px"}}>*wajib diisi</p>}
               </label>
-              <label className="label">
+              <label className="label position-relative">
                 Mengerjakan 3 psikotes untuk kemudian hasilnya dapat diperoleh secara langsung
                 <input type="checkbox" name="termSocmedPsikotes" value={true} onClick={_handleOnChangeInput} />
                 <span className="checkmark"></span>
+                { getDisabled("termSocmedPsikotes") && <p className="error-text" style={{right: "-62px", top: "2px"}}>*wajib diisi</p>}
               </label>
             </div>
           </div>
         </div>
         <div className="register-footer">
-          <button type="submit" className="btn-sign-up mt-0" onClick={_handleSignUp} style={getDisabled() ? { opacity: 0.5 } : {}} disabled={getDisabled()}>
+          <button type="submit" className="btn-sign-up mt-0" onClick={_handleSignUp}>
             Sign Up
            </button>
           <p className="mb-0 mt-8">Already have an account? <em onClick={() => navigate("/")}>Sign In</em></p>
