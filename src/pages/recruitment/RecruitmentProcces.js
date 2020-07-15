@@ -21,14 +21,24 @@ const RecruitmentProcces = props => {
   const [uploadStatusInstagram, setUploadStatusInstagram] = useState(false)
   const [uploadStatusTwitter, setUploadStatusTwitter] = useState(false)
   const [uploadStatusFacebook, setUploadStatusFacebook] = useState(false)
+  const [isFinish, setIsFinish] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [skippedStep, setSkippedStep] = useState(null)
   const [uploadFor, setUploadFor] = useState('')
   const wrapperRef = useRef()
 
 
-  const nextStep = () => {
+  const nextStep = (stepParam) => {
     if (hasDownload) {
-      setStep(currentStep + 1)
+      stepParam = stepParam + 1
+      if(getSkip(stepParam)){
+        stepParam = stepParam + 1
+        console.log(stepParam)
+        setStep(stepParam)
+      }
+      else {
+        setStep(stepParam)
+      }
     }
     else if (currentInstruction === 3) {
       setTimeout(() => {
@@ -41,13 +51,24 @@ const RecruitmentProcces = props => {
     }
   }
 
-  const backStep = () => {
+  const backStep = (stepParam) => {
     if (hasDownload && currentStep == 1) {
       setStep(1)
       setHasDownload(false)
     }
     else if (currentStep > 1) {
-      setStep(currentStep - 1)
+      stepParam = stepParam - 1
+      if(getSkip(stepParam)){
+        stepParam = stepParam - 1
+        setStep(stepParam)
+        if(stepParam == 0){
+          setHasDownload(false)
+          setStep(2)
+        }
+      }
+      else {
+        setStep(stepParam)
+      }
     }
     else if(currentInstruction > 1) {
       setInstruction(currentInstruction - 1)
@@ -107,17 +128,43 @@ const RecruitmentProcces = props => {
 
   const getButtonDisableStatus = () => {
     let disabled = false
-    if (currentStep === 1  && !uploadStatusFacebook && hasDownload) {
-      disabled = true
-    } 
-    else if(currentStep === 2  && !uploadStatusInstagram && hasDownload){
+    if(hasDownload && currentStep >= 3 && (!uploadStatusFacebook || !uploadStatusInstagram || !uploadStatusTwitter)){
       disabled = true
     }
-    else if(currentStep === 3  && !uploadStatusTwitter && hasDownload){
-      disabled = true
+    if(hasDownload && currentStep == 3 && (uploadStatusFacebook && uploadStatusTwitter)){
+      disabled = false
+    }
+    if(hasDownload && currentStep == 3 && (uploadStatusInstagram && uploadStatusTwitter)){
+      disabled = false
     }
     return disabled
   }
+
+  const getSkip = (stepParam) => {
+    let skip = 0
+    if(uploadStatusFacebook && uploadStatusInstagram){
+      skip = 3
+    }
+    else if(uploadStatusFacebook && uploadStatusTwitter){
+      skip = 2
+    }
+    else if(uploadStatusInstagram && uploadStatusTwitter){
+      skip = 1
+    }
+    return skip == stepParam
+  }
+
+  useEffect(() => {
+    if(uploadStatusFacebook && uploadStatusInstagram){
+      setSkippedStep(3)
+    }
+    else if(uploadStatusFacebook && uploadStatusTwitter){
+      setSkippedStep(2)
+    }
+    else if(uploadStatusInstagram && uploadStatusTwitter){
+      setSkippedStep(1)
+    }
+  }, [currentStep, currentInstruction])
 
   useEffect(() => {
     document.addEventListener("click", clickOutsideModal, false);
@@ -138,9 +185,9 @@ const RecruitmentProcces = props => {
         </div>
       }
       <Components.progressNavbar currentStep={currentStep} hasDownload={hasDownload} />
-      <Components.recruitmentCard backStep={() => backStep()} currentInstruction={currentInstruction} nextStep={() => {
+      <Components.recruitmentCard backStep={() => backStep(currentStep)} currentInstruction={currentInstruction} nextStep={() => {
         setUploadStatus(false)
-        nextStep()
+        nextStep(currentStep)
       }} currentStep={currentStep}
         hasDownload={hasDownload}
         disabled={getButtonDisableStatus()}>
@@ -150,13 +197,13 @@ const RecruitmentProcces = props => {
             {(!hasDownload && currentInstruction === 2) && <InstagramInfo />}
             {(!hasDownload && currentInstruction === 3) && <TwitterInfo />}
 
-            {(hasDownload && currentStep === 1) &&
+            {(hasDownload && currentStep === 1 && skippedStep !== 1) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatusFacebook} uploadFor="FACEBOOK" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
-            {(hasDownload && currentStep === 2) &&
+            {(hasDownload && currentStep === 2 && skippedStep !== 2) && 
               <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatusInstagram} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
-            {(hasDownload && currentStep === 3) &&
+            {(hasDownload && currentStep === 3 && skippedStep !== 3) &&
               <UploadDocument reUpload={() => setUploadStatus(false)} isLoading={loading} uploadStatus={uploadStatusTwitter} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
             }
 
