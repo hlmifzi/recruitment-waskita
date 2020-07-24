@@ -18,23 +18,25 @@ const RecruitmentCard = ({ children, nextStep, backStep, currentStep, uploadStat
           <h5>
             <strong>Download File</strong>
           </h5>
-          <p>Step {!hasDownload ? 1 : currentStep < 4 ? 2 : 3} of 3</p>
+          <p>Step {currentStep < 4 ? 1 : 2} of 2</p>
         </div>
         <div className="body-recruitment-card">
           {children}
         </div>
-        { currentInstruction > 1 &&
-          <button className={`btn-next ${currentInstruction < 2 ? 'disabled' : ''}`} style={{left: "12px"}} onClick={() => backStep()} disabled={currentInstruction < 2}>
-            {'Back'}
-          </button>
-        }
-        {showWarningBeforeFinish && <div className={`warning-before-finish`}>Please upload at least 2 social media files</div>}
-        {
-          currentStep < 4 &&
-          <button className={`btn-next ${disabled ? 'disabled' : ''}`} onClick={() => nextStep()} disabled={disabled}>
-            {'Next'}
-          </button>
-        }
+        <div className="footer-recruitment-card">
+          { currentStep > 1 &&
+            <button className={`btn-next`} style={{left: "12px"}} onClick={() => backStep()}>
+              {'Back'}
+            </button>
+          }
+          {showWarningBeforeFinish && <div className={`warning-before-finish`}>Please upload at least 2 social media files</div>}
+          {
+            currentStep < 4 &&
+            <button className={`btn-next ${disabled ? 'disabled' : ''}`} onClick={() => nextStep()} disabled={disabled}>
+              {'Next'}
+            </button>
+          }
+        </div>
       </div>
     </>
   )

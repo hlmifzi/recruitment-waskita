@@ -22,14 +22,14 @@ const ProgressNavbar = ({ currentStep, hasDownload }) => {
   return (
     <>
       <div className="wrapper-progress-tab d-flex">
-        <div className="progress-tab">
+        {/* <div className="progress-tab">
           <div className={`${hasDownload && 'color-1F9CD7'}`}>
             <img alt="picture" src={downloadIcon} />
           </div>
           <span className={`progress-bar ${hasDownload && 'color-1F9CD7'}`}></span>
           {hasDownload && <img alt="picture1" src={iconDone} className="width-24 position-absolute" style={{ marginTop: '-25px' }} />}
           <p className="text-center">How to download your Social Media</p>
-        </div>
+        </div> */}
         <div className="progress-tab">
           <div className={`${active >= 4 && 'color-1F9CD7'}`}>
             <img alt="picture4" src={downloadIcon} />

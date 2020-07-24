@@ -54,7 +54,7 @@
 }
 .wrapper-recruitment-card {
     width: 100%;
-    height: 600px;
+    height: auto;
     border: 1px solid $light-blue;
     position: relative;
     .header-recruitment-card {
@@ -79,8 +79,8 @@
         font-weight: 600;
         text-align: center;
         border-radius: 4px;
-        margin-top: 60px;
-        @include absolute(null, 12px, 12px, null);
+        // margin-top: 60px;
+        @include absolute(null, 12px, null, null);
         &.disabled {
             opacity: 0.5;
         }
@@ -143,6 +143,7 @@
     .container-instruction-box {
         position: relative;
         width: 160px;
+        margin-bottom: 378px;
     }
     .instruction-box {
         background-color: $white-smoke;
@@ -157,7 +158,7 @@
         border-top: 0px;
         width: 90px;
         height: 90px;
-        @include absolute(null, null, -100px, null)
+        @include absolute(null, null, 134px, null)
     }
     .dummy-border-left {
         border-right: 0px;;
@@ -312,8 +313,15 @@
         @include absolute(12px, 12px, null, null);
     }
 }
-
-
+// .file-drop {
+//     margin-top: 260px;
+// }
+.footer-recruitment-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 68px;
+}
 .my-profile-container{
     top: 94px;
     left: 33px;

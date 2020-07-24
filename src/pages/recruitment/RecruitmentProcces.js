@@ -13,7 +13,7 @@ import Axios from 'axios'
 import { developmentHost, productionHost } from '../../services/main/MainServices'
 const RecruitmentProcces = props => {
 
-  const [hasDownload, setHasDownload] = useState(false)
+  const [hasDownload, setHasDownload] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [currentInstruction, setInstruction] = useState(1)
   const [currentStep, setStep] = useState(1)
@@ -39,9 +39,9 @@ const RecruitmentProcces = props => {
         document.body.classList.add("scroll-locked")
       }, 100)
     }
-    else {
-      setInstruction(currentInstruction + 1)
-    }
+    // else {
+    //   setInstruction(currentInstruction + 1)
+    // }
   }
 
   const backStep = (stepParam) => {
@@ -51,7 +51,6 @@ const RecruitmentProcces = props => {
     }
     else if (currentStep > 1) {
       stepParam = stepParam - 1
-      
       if(stepParam == 0){
         setHasDownload(false)
         setStep(2)
@@ -60,9 +59,9 @@ const RecruitmentProcces = props => {
         setStep(stepParam)
       }
     }
-    else if(currentInstruction > 1) {
-      setInstruction(currentInstruction - 1)
-    }
+    // else if(currentInstruction > 1) {
+    //   setInstruction(currentInstruction - 1)
+    // }
   }
 
   const clickOutsideModal = event => {
@@ -192,21 +191,32 @@ const RecruitmentProcces = props => {
       >
         {
           <>
-            {(!hasDownload && currentInstruction === 1) && <FacebookInfo />}
-            {(!hasDownload && currentInstruction === 2) && <InstagramInfo />}
-            {(!hasDownload && currentInstruction === 3) && <TwitterInfo />}
+            {/* {(!hasDownload && currentInstruction === 1) && 
+              <FacebookInfo />
+            }
+            {(!hasDownload && currentInstruction === 2) && }
+            {(!hasDownload && currentInstruction === 3) && } */}
 
-            {(hasDownload && currentStep === 1) &&
+            {(currentStep === 1) &&
+            <>
+              <FacebookInfo />
               <UploadDocument reUpload={() => setUploadStatusFacebook(false)} isLoading={loading} uploadStatus={uploadStatusFacebook} uploadFor="FACEBOOK" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
+            </>
             }
-            {(hasDownload && currentStep === 2) && 
+            {(currentStep === 2) && 
+            <>
+              <InstagramInfo />
               <UploadDocument reUpload={() => setUploadStatusInstagram(false)} isLoading={loading} uploadStatus={uploadStatusInstagram} uploadFor="INSTAGRAM" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
+            </>
             }
-            {(hasDownload && currentStep === 3) &&
+            {(currentStep === 3) &&
+            <>
+              <TwitterInfo />
               <UploadDocument reUpload={() => setUploadStatusTwitter(false)} isLoading={loading} uploadStatus={uploadStatusTwitter} uploadFor="TWITTER" uploadFile={(file, socmed) => uploadFile(file, socmed)} />
+            </>
             }
 
-            {(hasDownload && currentStep === 4) &&
+            {(currentStep === 4) &&
               <CtsComponent finish={true} numOfUploaded={numOfUploaded} />
             }
           </>
