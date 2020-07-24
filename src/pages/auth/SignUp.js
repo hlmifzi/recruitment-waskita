@@ -51,7 +51,7 @@ const LOGIN = gql`
 const SignUp = ({ navigate }) => {
   let arrListUniversity = []
   const [showError, setShowError] = useState(false)
-  const { state, _handleOnChangeInput, _handleOnChangeSelect } = useFormHelper()
+  const { state, _handleOnChangeInput, _handleOnChangeSelect, _handleOnFreqSocmedChange } = useFormHelper()
   const client = useApolloClient();
   const [candidateCreate] = useMutation(SIGN_UP);
   const [userLogin] = useMutation(LOGIN);
@@ -82,7 +82,19 @@ const SignUp = ({ navigate }) => {
     "university"
   ]
 
-  if (!loading) arrListUniversity = universityList?.universityList.results
+  const freqSocmedGroup = [
+    "freqSocmedFb",
+    "freqSocmedIg",
+    "freqSocmedTw"
+  ]
+
+  if (!loading) arrListUniversity = universityList?.results
+
+  const isRadioBoxFreqDisabled = (name, value) => {
+    const hasAlreadySelected = freqSocmedGroup.filter(n => n != name).find(n => state[n] == value)
+    return hasAlreadySelected
+  }
+
   const getQuerySignUp = () => ({
     newCandidate: {
       name: state.name,
@@ -180,7 +192,7 @@ const SignUp = ({ navigate }) => {
     }
   }
 
-  const chooseUniversity = arrListUniversity.filter((v, i) => v.id === state.university)[0]?.university
+  const chooseUniversity = arrListUniversity?.filter((v, i) => v.id === state.university)[0]?.university
 
   return (
     <div className="body-login">
@@ -191,12 +203,12 @@ const SignUp = ({ navigate }) => {
 
         <div className="register-body">
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Nama Lengkap (*)</p>
+            <label className="flex-4 h-text-right mr-26">Nama Lengkap (*)</label>
             <input className={`flex-8 ${getDisabled("name") ? 'show-error' : ''}`} name="name" onChange={_handleOnChangeInput} type="text" />
-            { getDisabled("name") && <p className="error-text">*wajib diisi</p>}
+            { getDisabled("name") && <label className="error-text">*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Jenis Kelamin (*)</p>
+            <label className="flex-4 h-text-right mr-26">Jenis Kelamin (*)</label>
             <div className="flex-8 minus-ml-8 d-flex mt-10">
               <label className="label mr-20">
                 Laki-laki
@@ -209,10 +221,10 @@ const SignUp = ({ navigate }) => {
                 <span className="checkmark"></span>
               </label>
             </div>
-            { getDisabled("gender") && <p className="error-text" style={{right: "200px"}}>*wajib diisi</p>}
+            { getDisabled("gender") && <label className="error-text" style={{right: "200px"}}>*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Tanggal Lahir (*)</p>
+            <label className="flex-4 h-text-right mr-26">Tanggal Lahir (*)</label>
             <div className="flex-8 d-flex">
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'dobDay')} required>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -251,10 +263,10 @@ const SignUp = ({ navigate }) => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            { getDisabled("dobYear") && <p className="error-text" style={{right: "150px"}}>*wajib diisi</p>}
+            { getDisabled("dobYear") && <label className="error-text" style={{right: "150px"}}>*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Agama (*)</p>
+            <label className="flex-4 h-text-right mr-26">Agama (*)</label>
             <div className="flex-8">
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'religion')} required>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -270,15 +282,15 @@ const SignUp = ({ navigate }) => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            { getDisabled("name") && <p className="error-text" style={{right: "272px"}}>*wajib diisi</p>}
+            { getDisabled("name") && <label className="error-text" style={{right: "272px"}}>*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Suku (*)</p>
+            <label className="flex-4 h-text-right mr-26">Suku (*)</label>
             <input className={`flex-8 ${getDisabled("tribe") ? 'show-error' : ''}`} type="text" name="tribe" onChange={_handleOnChangeInput} />
-            { getDisabled("tribe") && <p className="error-text">*wajib diisi</p>}
+            { getDisabled("tribe") && <label className="error-text">*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Universitas (*)</p>
+            <label className="flex-4 h-text-right mr-26">Universitas (*)</label>
             <div className="flex-8" type="text" name="university" onChange={_handleOnChangeInput} >
               <Dropdown className={"mr-10 minus-ml-8"} onSelect={(e) => _handleOnChangeSelect(e, 'university')}>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
@@ -286,40 +298,40 @@ const SignUp = ({ navigate }) => {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {
-                    arrListUniversity.map((v, i) => <Dropdown.Item key={i} eventKey={v.id}>{v.university}</Dropdown.Item>)
+                    arrListUniversity?.map((v, i) => <Dropdown.Item key={i} eventKey={v.id}>{v.university}</Dropdown.Item>)
                   }
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            { getDisabled("university") && <p className="error-text" style={{right: "232px"}}>*wajib diisi</p>}
+            { getDisabled("university") && <label className="error-text" style={{right: "232px"}}>*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Jurusan (*)</p>
+            <label className="flex-4 h-text-right mr-26">Jurusan (*)</label>
             <input className={`flex-8 ${getDisabled("major") ? 'show-error' : ''}`} type="text" name="major" onChange={_handleOnChangeInput} />
-            { getDisabled("major") && <p className="error-text">*wajib diisi</p>}
+            { getDisabled("major") && <label className="error-text">*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Email (*)</p>
+            <label className="flex-4 h-text-right mr-26">Email (*)</label>
             <input className={`flex-8 ${getDisabled("email") ? 'show-error' : ''}`} type="text" name="email" onChange={_handleOnChangeInput} />
-            { getDisabled("email") && <p className="error-text">*wajib diisi</p>}
+            { getDisabled("email") && <label className="error-text">*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Password (*)</p>
+            <label className="flex-4 h-text-right mr-26">Password (*)</label>
             <input className={`flex-8 ${getDisabled("password") ? 'show-error' : ''}`} type="password" name="password" onChange={_handleOnChangeInput} />
-            { getDisabled("password") && <p className="error-text">*wajib diisi</p>}
+            { getDisabled("password") && <label className="error-text">*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">No. Hp (*)</p>
+            <label className="flex-4 h-text-right mr-26">No. Hp (*)</label>
             <input className={`flex-8 ${getDisabled("noHp") ? 'show-error' : ''}`} type="number" name="noHp" onChange={_handleOnChangeInput} />
-            { getDisabled("noHp") && <p className="error-text">*wajib diisi</p>}
+            { getDisabled("noHp") && <label className="error-text">*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">No. KTP (*)</p>
+            <label className="flex-4 h-text-right mr-26">No. KTP (*)</label>
             <input className={`flex-8 ${getDisabled("noKtp") ? 'show-error' : ''}`} type="number" name="noKtp" onChange={_handleOnChangeInput} />
-            { getDisabled("noKtp") && <p className="error-text">*wajib diisi</p>}
+            { getDisabled("noKtp") && <label className="error-text">*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Mempunyai Social Media? (*)</p>
+            <label className="flex-4 h-text-right mr-26">Mempunyai Social Media? (*)</label>
             <div className="flex-8 minus-ml-8 d-flex mt-10">
               <label className="label mr-20">
                 Ya
@@ -332,61 +344,125 @@ const SignUp = ({ navigate }) => {
                 <span className="checkmark"></span>
               </label>
             </div>
-            { getDisabled("haveSocmed") && <p className="error-text" style={{right: "278px"}}>*wajib diisi</p>}
+            { getDisabled("haveSocmed") && <label className="error-text" style={{right: "278px"}}>*wajib diisi</label>}
           </div>
           <div className="position-relative">
-            <p className="flex-4 h-text-right mr-26">Social Media yang sering Anda pakai? (*)</p>
+            <label className="flex-4 h-text-right mr-26">Social Media yang sering Anda pakai? (*)</label>
             <div className="flex-8">
               <div className="container-social-media">
                 <div className="flex-3 max-width-30"></div>
-                <div className="flex-3 social-media-rate">Paling jarang</div>
-                <div className="flex-3 social-media-rate">Biasa saja</div>
-                <div className="flex-3 social-media-rate">Paling sering</div>
+                <div className="flex-3 social-media-rate">Jarang</div>
+                <div className="flex-3 social-media-rate">Kadang</div>
+                <div className="flex-3 social-media-rate">Sering</div>
+                
               </div>
               <div className="container-social-media">
                 <div className="flex-3 ">
                   <img alt="picture1" src={facebookBadge} />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedFb" value={1} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedFb" 
+                    value={1} 
+                    onClick={_handleOnFreqSocmedChange} 
+                    disabled={isRadioBoxFreqDisabled("freqSocmedFb", "1")}
+                    checked={state.freqSocmedFb == "1"}
+                  />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedFb" value={2} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedFb" 
+                    value={2} 
+                    onClick={_handleOnFreqSocmedChange}
+                    disabled={isRadioBoxFreqDisabled("freqSocmedFb", "2")}
+                    checked={state.freqSocmedFb == "2"}
+                  />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedFb" value={3} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedFb" 
+                    value={3} 
+                    onClick={_handleOnFreqSocmedChange}
+                    disabled={isRadioBoxFreqDisabled("freqSocmedFb", "3")}
+                    checked={state.freqSocmedFb == "3"}
+                  />
                 </div>
-                { getDisabled("freqSocmedFb") && <p className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</p>}
+                { getDisabled("freqSocmedFb") && <label className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</label>}
               </div>
               <div className="container-social-media">
                 <div className="flex-3 ">
                   <img alt="picture2" src={twitterBadge} />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedTw" value={1} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedTw" 
+                    value={1} 
+                    onClick={_handleOnFreqSocmedChange}
+                    disabled={isRadioBoxFreqDisabled("freqSocmedTw", "1")}
+                    checked={state.freqSocmedTw == "1"}
+                  />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedTw" value={2} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedTw" 
+                    value={2} 
+                    onClick={_handleOnFreqSocmedChange}
+                    disabled={isRadioBoxFreqDisabled("freqSocmedTw", "2")}
+                    checked={state.freqSocmedTw == "2"}
+                  />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedTw" value={3} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedTw" 
+                    value={3} 
+                    onClick={_handleOnFreqSocmedChange}
+                    disabled={isRadioBoxFreqDisabled("freqSocmedTw", "3")}
+                    checked={state.freqSocmedTw == "3"}
+                  />
                 </div>
-                { getDisabled("freqSocmedTw") && <p className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</p>}
+                { getDisabled("freqSocmedTw") && <label className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</label>}
               </div>
               <div className="container-social-media">
                 <div className="flex-3 ">
                   <img alt="picture3" src={instagramBadge} />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedIg" value={1} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedIg" 
+                    value={1} 
+                    onClick={_handleOnFreqSocmedChange}
+                    disabled={isRadioBoxFreqDisabled("freqSocmedIg", "1")}
+                    checked={state.freqSocmedIg == "1"}
+                  />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedIg" value={2} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedIg" 
+                    value={2} 
+                    onClick={_handleOnFreqSocmedChange}
+                    disabled={isRadioBoxFreqDisabled("freqSocmedIg", "2")}
+                    checked={state.freqSocmedIg == "2"}
+                  />
                 </div>
                 <div className="flex-3 ">
-                  <input type="radio" name="freqSocmedIg" value={3} onClick={_handleOnChangeInput} />
+                  <input 
+                    type="radio" 
+                    name="freqSocmedIg" 
+                    value={3} 
+                    onClick={_handleOnFreqSocmedChange}
+                    disabled={isRadioBoxFreqDisabled("freqSocmedIg", "3")}
+                    checked={state.freqSocmedIg == "3"}
+                  />
                 </div>
-                { getDisabled("freqSocmedIg") && <p className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</p>}
+                { getDisabled("freqSocmedIg") && <label className="error-text" style={{right: "-15px", top: "9px"}}>*wajib diisi</label>}
               </div>
             </div>
           </div>
@@ -396,13 +472,16 @@ const SignUp = ({ navigate }) => {
                 Bersedia unduh dan upload minimal 2 data akun sosial media ke dalam platform yang disediakan
                 <input type="checkbox" name="termSocmedUpload" value={true} onClick={_handleOnChangeInput} />
                 <span className="checkmark"></span>
-                { getDisabled("termSocmedUpload") && <p className="error-text" style={{right: "-44px", top: "2px"}}>*wajib diisi</p>}
+                { getDisabled("termSocmedUpload") && <label className="error-text" style={{right: "-44px", top: "2px"}}>*wajib diisi</label>}
               </label>
               <label className="label position-relative">
                 Mengerjakan 3 psikotes untuk kemudian hasilnya dapat diperoleh secara langsung
                 <input type="checkbox" name="termSocmedPsikotes" value={true} onClick={_handleOnChangeInput} />
                 <span className="checkmark"></span>
-                { getDisabled("termSocmedPsikotes") && <p className="error-text" style={{right: "-62px", top: "2px"}}>*wajib diisi</p>}
+                { getDisabled("termSocmedPsikotes") && <label className="error-text" style={{right: "-62px", top: "2px"}}>*wajib diisi</label>}
+              </label>
+              <label className="label mr-20">
+                Data pribadi akan dijamin kerahasiaannya dan hanya digunakan untuk kepentingan penelitian, dimana segala unsur nama akan dihilangkan saat ditayangkan/ditampilkan
               </label>
             </div>
           </div>
@@ -411,7 +490,7 @@ const SignUp = ({ navigate }) => {
           <button type="submit" className="btn-sign-up mt-0" onClick={_handleSignUp}>
             Sign Up
            </button>
-          <p className="mb-0 mt-8">Already have an account? <em onClick={() => navigate("/")}>Sign In</em></p>
+          <label className="mb-0 mt-8">Already have an account? <em onClick={() => navigate("/")}>Sign In</em></label>
         </div>
       </div>
     </div >

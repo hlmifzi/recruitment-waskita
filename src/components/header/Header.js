@@ -22,7 +22,7 @@ const MainNavbar = ({ history }) => {
 
     const _handleSignout = () => {
         localStorage.clear()
-        client.writeData({ data: { isLoggedIn: false } });
+        client.writeData({ data: { isLoggedIn: false, isAdmin: false, isAlreadyUpload: false } });
     }
 
     const clickOutsideModal = event => {
@@ -49,9 +49,7 @@ const MainNavbar = ({ history }) => {
                     {openToggleBox &&
                         <div className="user-toggle-box">
                             <div className="triangle"></div>
-                            {data.isAdmin === '1' || <Link to="/my-profile">
-                                <p>Profile</p>
-                            </Link>}
+                            
                             <p onClick={_handleSignout}>Logout</p>
                         </div>}
                 </div>

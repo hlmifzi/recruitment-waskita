@@ -10,7 +10,7 @@ const DefaultValue = {
   disabled: false
 }
 
-const RecruitmentCard = ({ children, nextStep, backStep, currentStep, uploadStatus, hasDownload, disabled, currentInstruction }) => {
+const RecruitmentCard = ({ children, nextStep, backStep, currentStep, uploadStatus, hasDownload, disabled, currentInstruction, showWarningBeforeFinish }) => {
   return (
     <>
       <div className="wrapper-recruitment-card">
@@ -28,6 +28,7 @@ const RecruitmentCard = ({ children, nextStep, backStep, currentStep, uploadStat
             {'Back'}
           </button>
         }
+        {showWarningBeforeFinish && <div className={`warning-before-finish`}>Please upload at least 2 social media files</div>}
         {
           currentStep < 4 &&
           <button className={`btn-next ${disabled ? 'disabled' : ''}`} onClick={() => nextStep()} disabled={disabled}>

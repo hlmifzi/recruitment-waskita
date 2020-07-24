@@ -17,6 +17,7 @@ cache.writeData({
     isLoggedIn: localStorage.getItem("token") || false,
     isAdmin: localStorage.getItem("isAdmin"),
     userId: localStorage.getItem("id"),
+    isAlreadyUpload: localStorage.getItem("isAlreadyUpload") === "true"
   }
 });
 

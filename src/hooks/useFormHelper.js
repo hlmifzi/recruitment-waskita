@@ -19,11 +19,21 @@ function useFormHelper() {
     })
   }
 
+  const _handleOnFreqSocmedChange = e => {
+    const { name, value } = e.target
+    immerSetState(draft => {
+      if(draft[name] != value) {
+        draft[name] = value
+      } else draft[name] = null      
+    })
+  }
+
   return {
     state,
     immerSetState,
     _handleOnChangeInput,
     _handleOnChangeSelect,
+    _handleOnFreqSocmedChange
   }
 }
 

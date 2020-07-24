@@ -85,6 +85,10 @@
             opacity: 0.5;
         }
     }
+    .warning-before-finish {
+        @include absolute(null, 150px, 12px, null);   
+        margin: 0 auto;     
+    }
 }
 
 // ================ FACEBOOK COMPONENT ==================

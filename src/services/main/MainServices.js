@@ -2,8 +2,8 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import cookie from 'react-cookies'
 
-export const developmentHost = 'http://178.128.103.128:8000'
-export const productionHost = 'http://178.128.103.128:8000'
+export const developmentHost = 'https://waskita-hiring.org/api'
+export const productionHost = 'https://waskita-hiring.org/api'
 
 const ROOT_API = axios.create({
     baseURL: `${process.env.NODE_ENV === "development" ? developmentHost : productionHost}`,

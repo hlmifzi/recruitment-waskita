@@ -16,6 +16,7 @@ const LOGIN = gql`
         id
         candidate {
           id
+          isFinished
         }
       }
     }
@@ -41,8 +42,6 @@ const SignIn = ({ navigate }) => {
 
   const client = useApolloClient();
   const [userLogin] = useMutation(LOGIN)
-  const [candidateFormFinish] = useMutation(IS_FINISH_UPLOAD)
-
 
   const getQueryVariable = () => ({
     "email": userName,
@@ -60,8 +59,8 @@ const SignIn = ({ navigate }) => {
     if (data.userLogin.ok) {
       let isAdmin = false
       const userRole = data.userLogin.user.role
-      const userId = userRole === 'WASKITA' ? data.userLogin.user.id : data.userLogin.user.candidate[0].id
-
+      const userId = userRole === 'WASKITA' ? data.userLogin.user.id : data.userLogin.user.candidate.id
+        
       if (userRole === 'WASKITA') {
         isAdmin = 1;
         Toast.info(`Welcome to Hiring Apps ${userName}`)
@@ -71,8 +70,8 @@ const SignIn = ({ navigate }) => {
 
       if (userRole === 'CANDIDATE') {
         isAdmin = 2;
+        const isAlreadyUpload = data.userLogin.user.candidate.isFinished
         Toast.info(`Welcome to Hiring Apps ${userName}`)
-        const isAlreadyUpload = await _isAlreadyUpload(userId)
         localStorage.setItem('isAlreadyUpload', isAlreadyUpload)
       }
 
@@ -83,21 +82,13 @@ const SignIn = ({ navigate }) => {
           isLoggedIn: localStorage.getItem('token'),
           isAdmin: localStorage.getItem('isAdmin'),
           userId: localStorage.getItem('userId'),
-          isAlreadyUpload: localStorage.getItem('isAlreadyUpload')
+          isAlreadyUpload: localStorage.getItem('isAlreadyUpload') === "true"
         }
       });
     } else {
       swal.failed('Invalid username / password')
     }
   }
-
-  const _isAlreadyUpload = async (userId) => {
-    const { errors, data } = await candidateFormFinish(({
-      variables: { id: userId }
-    }))
-    return data.candidateFormFinish.ok
-  }
-
 
   return (
     <form onSubmit={_handleSignIn}>

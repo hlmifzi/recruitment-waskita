@@ -27,7 +27,7 @@ const DefaultValue = {
   finish: false
 }
 
-const CtsComponent = ({ nextStep, hasUpload, finish, history }) => {
+const CtsComponent = ({ nextStep, hasUpload, finish, history, numOfUploaded }) => {
   const [candidateFormFinish] = useMutation(FINISH_UPLOAD)
 
   const finishRegister = async () => {
@@ -39,8 +39,9 @@ const CtsComponent = ({ nextStep, hasUpload, finish, history }) => {
 
     if (data) {
       swal.finishAllStep()
+      localStorage.setItem("isAlreadyUpload", true)
       setTimeout(() => {
-        window.location.replace(`my-profile`)
+        window.location = "http://waskita.catalystblinc.com/"
       }, 2000)
     }
   }
@@ -56,12 +57,12 @@ const CtsComponent = ({ nextStep, hasUpload, finish, history }) => {
         </div>
         :
         <div className="cts-online-container">
-          <h3>Congratulation !!</h3>
+          <h3>Congratulation !</h3>
           <span className="wrapper-done">
             <img alt="picture2" src={iconDone} />
-            <p>Social Media Information</p>
+            <p>You have uploaded {numOfUploaded} of 3 social media files. Click button below to continue to Online CTS Test</p>
           </span>
-          <button className="mt-30" onClick={() => finishRegister()}>Finish</button>
+          <button className="mt-30" onClick={() => finishRegister()}>Go to Online CTS Test</button>
         </div>
       }
     </>

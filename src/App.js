@@ -14,10 +14,14 @@ const IS_LOGGED_IN = gql`
   query IsUserLoggedIn {
     isLoggedIn @client
     isAdmin @client
+    isAlreadyUpload @client
   }`
 
 function IsLoggedIn() {
-  const { data } = useQuery(IS_LOGGED_IN)
+  const output = useQuery(IS_LOGGED_IN)
+
+  console.log(output)
+  const { data } = output
   return (
     <>
       {
