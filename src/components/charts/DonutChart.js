@@ -48,7 +48,7 @@ const DonutChart = props => {
                 },
                 startAngle: 30,
                 size: '100%',
-                showInLegend: true,
+                showInLegend: false,
                 colors: [
                     '#012C40',
                     '#AE3356',

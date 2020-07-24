@@ -107,23 +107,24 @@ const ModalResult = ({ closeModal, isShow, id }) => {
           <div className="inside-bar" style={{ width: `${data.personalityLeftCount}%` }}></div>
           <p>{data.personalityLeftCount}%</p>
         </div>
-        {index == 0 && <p className="title-bar"><span style={{ fontSize: "28px" }}>O</span>peness</p>}
-        {index == 1 && <p className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness</p>}
-        {index == 2 && <p className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion</p>}
-        {index == 3 && <p className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness</p>}
-        {index == 4 && <p className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism</p>}
+        {index == 0 && <><p className="title-bar"><span style={{ fontSize: "28px" }}>O</span>peness:<span style={{ fontSize: "8px" }}>Ketertarikan individu terhadap hal-hal baru dan keinginan untuk mengetahui serta mempelajari sesuatu yang baru</span></p></>}
+        {index == 1 && <p className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness: <span style={{ fontSize: "8px" }}>Kecenderungan individu untuk lebih berhati-hati ataupun penuh pertimbangan dalam melakukan suatu tindakan dan mengambil sebuah keputusan.</span></p>}
+        {index == 2 && <p className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion: <span style={{ fontSize: "8px" }}>Tingkat kenyamanan individu untuk berinteraksi dengan orang lain.</span></p>}
+        {index == 3 && <p className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness:   <span style={{ fontSize: "8px" }}>Kecenderungan individu untuk lebih patuh dengan orang lain dan berupaya untuk menghindari konflik.</span></p>}
+        {index == 4 && <p className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism:  <span style={{ fontSize: "8px" }}>Tingkat kemampuan individu dalam menahan tekanan atau stress.</span></p>}
         <p className="strength flex-3" style={{ color: data.personalityRightColor }}>{data.personalityRightDesc}</p>
       </div>
     )
   }
 
   const getWorkValueImage = (data, index) => {
+    console.log("getWorkValueImage -> data", data)
     const img =
       data.workValue == 'Leisure' ? benchUmbrela :
-        data.workValue == 'Extrinsic' ? gift :
-          data.workValue == 'Intrinsic' ? gift :
-            data.workValue == 'Altruistic' ? gift :
-              data.workValue == 'Social' ? gift :
+        data.workValue == 'Extrinsic Reward' ? gift :
+          data.workValue == 'Intrinsic Reward' ? group :
+            data.workValue == 'Altruistic Reward' ? handShake :
+              data.workValue == 'Social Reward' ? inspire :
                 null
     return (
       <div>
@@ -164,7 +165,6 @@ const ModalResult = ({ closeModal, isShow, id }) => {
               <div className="modal-result-body">
                 <div className="personal-info d-flex">
                   <div className="profile-info d-flex flex-8">
-                    <img className="profile-picture" src={candidate.candidateDetail.photo} />
                     <div className="wrapper-user-info">
                       <p>{candidate.candidateDetail.name}</p>
                       <p className="mb-0">{`${moment(candidate.candidateDetail.dob).format('DD MMM YYYY')} (age ${candidate.candidateDetail.age})`}</p>
@@ -198,9 +198,10 @@ const ModalResult = ({ closeModal, isShow, id }) => {
                     )
                     }
                     <div className="footer-info d-flex">
-                      <div className="grey-card flex-6">
+                      <div className="grey-card flex-6" style={{overflowY:'auto'}}>
                         Keterangan : <br />
-                        {candidate.resultPersonalityByCandidate[0].personalityDesc}
+                        Personality individu dibagi menjadi 5 aspek dimana masing-masing terdiri dari 2 kategori. Semakin besar angka yang diperoleh dan grafik menuju ke arah tertentu maka menunjukkan bahwa individu semakin memiliki kecenderungan terhadap penjelasan personality pada kelompok kategori tersebut
+                        {/* {candidate.resultPersonalityByCandidate[0].personalityDesc} */}
                       </div>
                       <div className="grey-card flex-6">
                         Norm : <br />
@@ -218,9 +219,10 @@ const ModalResult = ({ closeModal, isShow, id }) => {
                       <Components.charts.needsChart data={candidate.resultNeedsByCandidate[0].needsDetail} isLoading={false} />
                     </div>
                     <div className="footer-info d-flex">
-                      <div className="grey-card flex-6">
+                      <div className="grey-card flex-6" style={{overflowY:'auto'}}>
                         Keterangan : <br />
-                        {candidate.resultNeedsByCandidate[0].needsDesc}
+                        Needs individu dibagi menjadi 15 aspek. Semakin besar angka yang diperoleh maka menunjukkan bahwa individu semakin memiliki kecenderungan needs sesuai dengan penjelasan setiap aspek.
+                        {/* {candidate.resultNeedsByCandidate[0].needsDesc} */}
                       </div>
                       <div className="grey-card flex-6">
                         Norm : <br />
@@ -242,9 +244,10 @@ const ModalResult = ({ closeModal, isShow, id }) => {
                     </div>
                     <Components.charts.workValueChart isLoading={false} data={getWorkValueData(candidate.resultWorkValueByCandidate[0].workValueDetail)} />
                     <div className="footer-info d-flex">
-                      <div className="grey-card flex-6">
+                      <div className="grey-card flex-6" style={{overflowY:'auto'}}>
                         Keterangan : <br />
-                        {candidate.resultWorkValueByCandidate[0].workValueDesc}
+                        Work value individu dibagi menjadi 5 aspek. Nilai terbesar yang diperoleh individu menunjukkan bahwa nilai tersebut menjadi hal yang paling penting untuk mendorongnya dapat bekerja secara optimal.
+                        {/* {candidate.resultWorkValueByCandidate[0].workValueDesc} */}
                       </div>
                       <div className="grey-card flex-6">
                         Norm : <br />

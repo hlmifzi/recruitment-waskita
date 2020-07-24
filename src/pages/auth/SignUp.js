@@ -88,7 +88,7 @@ const SignUp = ({ navigate }) => {
     "freqSocmedTw"
   ]
 
-  if (!loading) arrListUniversity = universityList?.results
+  if (!loading) arrListUniversity = universityList?.universityList.results
 
   const isRadioBoxFreqDisabled = (name, value) => {
     const hasAlreadySelected = freqSocmedGroup.filter(n => n != name).find(n => state[n] == value)
