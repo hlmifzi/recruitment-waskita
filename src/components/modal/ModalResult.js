@@ -107,11 +107,11 @@ const ModalResult = ({ closeModal, isShow, id }) => {
           <div className="inside-bar" style={{ width: `${data.personalityLeftCount > 100 ? 100 : data.personalityLeftCount}%` }}></div>
           <p>{data.personalityLeftCount}%</p>
         </div>
-        {index == 0 && <><div className="title-bar"><span style={{ fontSize: "28px" }}>O</span>peness:<p style={{ fontSize: "10px", margin: "4px 0 0 4px" }}>Ketertarikan individu terhadap hal-hal baru dan keinginan untuk mengetahui serta mempelajari sesuatu yang baru</p></div></>}
-        {index == 1 && <div className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness: <p style={{ fontSize: "10px", margin: "4px 0 0 4px" }}>Kecenderungan individu untuk lebih berhati-hati ataupun penuh pertimbangan dalam melakukan suatu tindakan dan mengambil sebuah keputusan.</p></div>}
-        {index == 2 && <div className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion: <p style={{ fontSize: "10px", margin: "4px 0 0 4px" }}>Tingkat kenyamanan individu untuk berinteraksi dengan orang lain.</p></div>}
-        {index == 3 && <div className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness:   <p style={{ fontSize: "10px", margin: "4px 0 0 4px" }}>Kecenderungan individu untuk lebih patuh dengan orang lain dan berupaya untuk menghindari konflik.</p></div>}
-        {index == 4 && <div className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism:  <p style={{ fontSize: "10px", margin: "4px 0 0 4px" }}>Tingkat kemampuan individu dalam menahan tekanan atau stress.</p></div>}
+        {index == 0 && <><div className="title-bar"><span style={{ fontSize: "28px" }}>O</span>peness:<p style={{ fontSize: "9px", margin: "4px 0 0 4px" }}>Ketertarikan individu terhadap hal-hal baru dan keinginan untuk mengetahui serta mempelajari sesuatu yang baru</p></div></>}
+        {index == 1 && <div className="title-bar"><span style={{ fontSize: "28px" }}>C</span>onscientousness: <p style={{ fontSize: "9px", margin: "4px 0 0 4px" }}>Kecenderungan individu untuk lebih berhati-hati ataupun penuh pertimbangan dalam melakukan suatu tindakan dan mengambil sebuah keputusan.</p></div>}
+        {index == 2 && <div className="title-bar"><span style={{ fontSize: "28px" }}>E</span>xtraversion: <p style={{ fontSize: "9px", margin: "4px 0 0 4px" }}>Tingkat kenyamanan individu untuk berinteraksi dengan orang lain.</p></div>}
+        {index == 3 && <div className="title-bar"><span style={{ fontSize: "28px" }}>A</span>greebleness:   <p style={{ fontSize: "9px", margin: "4px 0 0 4px" }}>Kecenderungan individu untuk lebih patuh dengan orang lain dan berupaya untuk menghindari konflik.</p></div>}
+        {index == 4 && <div className="title-bar"><span style={{ fontSize: "28px" }}>N</span>euroticism:  <p style={{ fontSize: "9px", margin: "4px 0 0 4px" }}>Tingkat kemampuan individu dalam menahan tekanan atau stress.</p></div>}
         <p className="strength flex-3" style={{ color: data.personalityRightColor }}>{data.personalityRightDesc}</p>
       </div>
     )
