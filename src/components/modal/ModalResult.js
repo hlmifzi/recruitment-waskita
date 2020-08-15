@@ -104,7 +104,7 @@ const ModalResult = ({ closeModal, isShow, id }) => {
       <div className="container-personality-bar">
         <p className="netral flex-3" style={{ color: data.personalityLeftColor }}>{data.personalityLeftDesc}</p>
         <div className="outer-bar flex-6">
-          <div className="inside-bar" style={{ width: `${data.personalityLeftCount}%` }}></div>
+          <div className="inside-bar" style={{ width: `${data.personalityLeftCount > 100 ? 100 : data.personalityLeftCount}%` }}></div>
           <p>{data.personalityLeftCount}%</p>
         </div>
         {index == 0 && <><p className="title-bar"><span style={{ fontSize: "28px" }}>O</span>peness:<span style={{ fontSize: "8px" }}>Ketertarikan individu terhadap hal-hal baru dan keinginan untuk mengetahui serta mempelajari sesuatu yang baru</span></p></>}

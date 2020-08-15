@@ -206,9 +206,11 @@
       }
       .title-bar {
         position: absolute;
-        bottom: -28px;
         font-size: 14px;
+        top: 36px;
         font-weight: bold;
+        height: 0px;
+        margin: 0;
       }
       .grey-card {
         height: 90px;
